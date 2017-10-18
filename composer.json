@@ -1,0 +1,24 @@
+{
+    "name": "bahadircyildiz/phpfuzzy",
+    "description": "Fuzzy Logic library.",
+    "keywords": ["fuzzy", "logic", "library"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Bahadir Can Yildiz",
+            "email": "mail@bahadircyildiz.com"
+        }
+    ],
+    "type": "project",
+    "require": {
+		"php": ">=5.4"
+    },
+	"require-dev": {
+		"phpunit/phpunit": "5.2.*"
+    },
+	"autoload": {
+        "psr-4": {
+            "Bahadircyildiz\\PHPFuzzy\\": "src/"
+        }
+    }
+}
