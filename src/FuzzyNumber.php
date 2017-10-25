@@ -13,7 +13,7 @@ namespace Bahadircyildiz\PHPFuzzy;
 class FuzzyNumber {
 
     /**  @var string $m_SampleProperty define here what this variable is for, do this for every instance variable */
-    private $m_SampleProperty = '';
+    // private $m_SampleProperty = '';
     
     /**
     * Sample method 
@@ -28,10 +28,26 @@ class FuzzyNumber {
     public $value;
     public $length;
 
-    public function __constructor($arr){
+    public function __construct($arr){
         $this->value = $arr;
-        $this->length = count($arr);        
+        $this->length = count($arr);     
     }
+
+    /**
+    * In following workarounds, Number has 3 main attributes 
+    *
+    * Core:         x | Ma(x) = 1
+    * Support:      x | Ma(x) <= 0
+    * Boundary:     x | 0 < Ma(x) < 1
+    *
+    * @param string $param1 A string containing the parameter, do this for each parameter to the function, make sure to make it descriptive
+    *
+    * @return string
+    */
+
+    // public function defuzzificate(){
+        
+    // }
 
 
 }
