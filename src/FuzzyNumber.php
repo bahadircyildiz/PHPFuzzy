@@ -29,8 +29,48 @@ class FuzzyNumber {
     public $length;
 
     public function __construct($arr){
+        $this->fixToStandart($arr);
         $this->value = $arr;
         $this->length = count($arr);     
+    }
+
+    public function isTriangular(){
+        if($this->length == 3) {
+            foreach ($this->value as $key => $value) {
+                if($value->ux != $key%2) return false;
+            }
+        }
+        return true;
+    }
+    public function isTrapezoid(){
+        if($this->length == 4){
+            foreach ($this->value as $key => $value) {
+                if($key == 0 || $key == 3){
+                    if($value->ux != 0) return false;
+                }
+                else if($key == 1 || $key == 2){
+                    if($value->ux != 1) return false;
+                }  
+            }
+        } else return false;
+        return true;
+    }
+    private function fixToStandart(array &$arr){
+        foreach ($arr as $key => &$value) {
+            if(is_integer($value)){
+                if(count($arr) == 3){
+                    $value = $key%2 . ";" . $value; 
+                } else if (count($arr) == 4){
+                    if($key == 0 || $key == 3) $value = "0;" . $value;
+                    else $value = "1;" . $value; 
+                }
+            }
+            if(is_string($value)){
+                $temp = explode(";", $value);
+                if(count($temp) > 1)
+                    $value = (object) array("ux" => $value[0], "x" => $value[1]);
+            }
+        }
     }
 
     /**
@@ -48,6 +88,4 @@ class FuzzyNumber {
     // public function defuzzificate(){
         
     // }
-
-
 }

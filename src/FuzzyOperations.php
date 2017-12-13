@@ -30,34 +30,30 @@ class FuzzyOperations {
     }
 
     public function sum(FuzzyNumber $a, FuzzyNumber $b){
-        $this->lengthCheck($a, $b);
+        FuzzyOperations::lengthCheck($a, $b);
         $result = array();
         foreach ($a->value as $i => $v) {
-            $result[] = $a->value[$i] + $b->value[$i];    
+            $result[] = $a->value[$i]->x + $b->value[$i]->x;    
         }
         return new FuzzyNumber($result);
     }
 
     public function subtract(FuzzyNumber $a, FuzzyNumber $b){
         $b_reverse = new FuzzyNumber(array_reverse($b->value));
-        return $this->sum($a, $b_reverse);
+        return FuzzyOperations::sum($a, $b_reverse);
     }
 
     public function multiply(FuzzyNumber $a, FuzzyNumber $b){
-        $this->lengthCheck($a, $b);
+        FuzzyOperations::lengthCheck($a, $b);
         $result = array();
         foreach ($a->value as $i => $v) {
-            $result[] = $a->value[$i] * $b->value[$i];    
+            $result[] = $a->value[$i]->x * $b->value[$i]->x;    
         }
         return new FuzzyNumber($result);
     }
 
     public function divide(FuzzyNumber $a, FuzzyNumber $b){
         $b_reverse = new FuzzyNumber(array_reverse($b->value));
-        return $this->multiply($a, $b_reverse);
+        return FuzzyOperations::multiply($a, $b_reverse);
     }
-
-    
-
-
 }

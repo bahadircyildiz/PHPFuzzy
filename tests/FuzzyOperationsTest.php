@@ -8,45 +8,56 @@
 *
 *  @author yourname
 */
+use Bahadircyildiz\PHPFuzzy\FuzzyNumber as §;
+use Bahadircyildiz\PHPFuzzy\FuzzyOperations as §§;
+
 class FuzzyOperationsTest extends PHPUnit_Framework_TestCase{
 
+  public function testPrintFuzzyNumberInt(){
+    $a = new §(array(30,40,50));
+    $expected = new §(array("0;30","1;40","0;50"));
+    $this->assertEquals($expected, $a);
+  }
+
+  public function testPrintIfTriangular(){
+    $a = new §(array(30,40,50));
+    $this->assertEquals(true, $a->isTriangular());
+    $this->assertEquals(false, $a->isTrapezoid());
+  }
+
   public function testFuzzySumCheck() {
-    $a = new \Bahadircyildiz\PHPFuzzy\FuzzyNumber(array(30,40,50));
-    $b = new \Bahadircyildiz\PHPFuzzy\FuzzyNumber(array(20,40,60));
-    $fo = new \Bahadircyildiz\PHPFuzzy\FuzzyOperations();
-    $expected = new \Bahadircyildiz\PHPFuzzy\FuzzyNumber(array(50,80,110));
-    $this->assertEquals($expected, $fo->sum($a,$b));
+    $a = new §(array(30,40,50));
+    $b = new §(array(20,40,60));
+    $expected = new §(array(50,80,110));
+    $this->assertEquals($expected, §§::sum($a,$b));
   }
 
   public function testFuzzySubtractCheck() {
-    $a = new \Bahadircyildiz\PHPFuzzy\FuzzyNumber(array(40,60,100));
-    $b = new \Bahadircyildiz\PHPFuzzy\FuzzyNumber(array(30,20,60));
-    $fo = new \Bahadircyildiz\PHPFuzzy\FuzzyOperations();
-    $expected = new \Bahadircyildiz\PHPFuzzy\FuzzyNumber(array(100,80,130));
-    $this->assertEquals($expected, $fo->subtract($a,$b));
+    $a = new §(array(40,60,100));
+    $b = new §(array(30,20,60));
+    $expected = new §(array(100,80,130));
+    $this->assertEquals($expected, §§::subtract($a,$b));
   }
-
+  
   public function testFuzzyMultiplyCheck() {
-    $a = new \Bahadircyildiz\PHPFuzzy\FuzzyNumber(array(30,40,50));
-    $b = new \Bahadircyildiz\PHPFuzzy\FuzzyNumber(array(20,40,60));
-    $fo = new \Bahadircyildiz\PHPFuzzy\FuzzyOperations();
-    $expected = new \Bahadircyildiz\PHPFuzzy\FuzzyNumber(array(600,1600,3000));
-    $this->assertEquals($expected, $fo->multiply($a,$b));
+    $a = new §(array(30,40,50));
+    $b = new §(array(20,40,60));
+    $expected = new §(array(600,1600,3000));
+    $this->assertEquals($expected, §§::multiply($a,$b));
   }
 
   public function testFuzzyDivideCheck() {
-    $a = new \Bahadircyildiz\PHPFuzzy\FuzzyNumber(array(30,40,50));
-    $b = new \Bahadircyildiz\PHPFuzzy\FuzzyNumber(array(20,40,60));
-    $fo = new \Bahadircyildiz\PHPFuzzy\FuzzyOperations();
-    $expected = new \Bahadircyildiz\PHPFuzzy\FuzzyNumber(array(1800,1600,1000));
-    $this->assertEquals($expected, $fo->divide($a,$b));
+    $a = new §(array(30,40,50));
+    $b = new §(array(20,40,60));
+    $expected = new §(array(1800,1600,1000));
+    $this->assertEquals($expected, §§::divide($a,$b));
   }
   /**
   * Just check if the YourClass has no syntax error 
   *
   * This is just a simple check to make sure your library has no syntax error. This helps you troubleshoot
   * any typo before you even use this library in a real project.
-  *
+  * 
   */
   // public function testIsThereAnySyntaxError(){
 	// $var = new Buonzz\Template\YourClass;
