@@ -25,10 +25,20 @@ class FuzzyOperations {
     * @return string
     */
 
-    public function lengthCheck(FuzzyNumber $a, FuzzyNumber $b){
-        if($a->length != $b->length) die("Length of the fuzzy numbers are not equal");
+    private function lengthCheck(FuzzyNumber &$a, FuzzyNumber &$b){
+        $ca = $a->length(); $cb = $b->length(); 
+        if( $ca != $cb ) {
+            $maxLength = max($ca, $cb);
+            if($maxLength == $ca){
+                $b->value[] = $b->value[2];
+                $b->value[2] = $b->value[1];
+            } else if($maxLength == $cb){
+                $a->value[] = $a->value[2];
+                $a->value[2] = $a->value[1];
+            }
+        }
     }
-
+ 
     public function sum(FuzzyNumber $a, FuzzyNumber $b){
         FuzzyOperations::lengthCheck($a, $b);
         $result = array();

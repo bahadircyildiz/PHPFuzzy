@@ -32,6 +32,13 @@ class FuzzyOperationsTest extends PHPUnit_Framework_TestCase{
     $this->assertEquals($expected, §§::sum($a,$b));
   }
 
+  public function testFuzzySumWithDifferentLengthCheck() {
+    $a = new §(array(30,40,50));
+    $b = new §(array(20,40,60, 80));
+    $expected = new §(array(50,80,100, 130));
+    $this->assertEquals($expected, §§::sum($a,$b));
+  }
+
   public function testFuzzySubtractCheck() {
     $a = new §(array(40,60,100));
     $b = new §(array(30,20,60));
@@ -51,6 +58,12 @@ class FuzzyOperationsTest extends PHPUnit_Framework_TestCase{
     $b = new §(array(20,40,60));
     $expected = new §(array(1800,1600,1000));
     $this->assertEquals($expected, §§::divide($a,$b));
+  }
+
+  public function testFuzzyDefuzzificate(){
+    $a = new §(array(30,40,50,60));
+    $expected = 45;
+    $this->assertEquals($expected, $a->defuzzificate());
   }
   /**
   * Just check if the YourClass has no syntax error 

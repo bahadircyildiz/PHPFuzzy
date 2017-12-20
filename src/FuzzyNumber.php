@@ -26,35 +26,16 @@ class FuzzyNumber {
     * @return string
     */
     public $value;
-    public $length;
 
     public function __construct($arr){
         $this->fixToStandart($arr);
-        $this->value = $arr;
-        $this->length = count($arr);     
+        $this->value = $arr;    
     }
 
-    public function isTriangular(){
-        if($this->length == 3) {
-            foreach ($this->value as $key => $value) {
-                if($value->ux != $key%2) return false;
-            }
-        }
-        return true;
+    public function __toString(){
+        return (string) $this->value;
     }
-    public function isTrapezoid(){
-        if($this->length == 4){
-            foreach ($this->value as $key => $value) {
-                if($key == 0 || $key == 3){
-                    if($value->ux != 0) return false;
-                }
-                else if($key == 1 || $key == 2){
-                    if($value->ux != 1) return false;
-                }  
-            }
-        } else return false;
-        return true;
-    }
+
     private function fixToStandart(array &$arr){
         foreach ($arr as $key => &$value) {
             if(is_integer($value)){
@@ -68,9 +49,35 @@ class FuzzyNumber {
             if(is_string($value)){
                 $temp = explode(";", $value);
                 if(count($temp) > 1)
-                    $value = (object) array("ux" => $value[0], "x" => $value[1]);
+                    $value = (object) array("ux" => (int) $temp[0], "x" => (int) $temp[1]);
             }
         }
+    }
+
+    public function length(){
+        return count($this->value);
+    }
+
+    public function isTriangular(){
+        if($this->length() == 3) {
+            foreach ($this->value as $key => $value) {
+                if($value->ux != $key%2) return false;
+            }
+        }
+        return true;
+    }
+    public function isTrapezoid(){
+        if($this->length() == 4){
+            foreach ($this->value as $key => $value) {
+                if($key == 0 || $key == 3){
+                    if($value->ux != 0) return false;
+                }
+                else if($key == 1 || $key == 2){
+                    if($value->ux != 1) return false;
+                }  
+            }
+        } else return false;
+        return true;
     }
 
     /**
@@ -84,8 +91,19 @@ class FuzzyNumber {
     *
     * @return string
     */
+    public function defuzzificate($type = 'CoA'){
+        switch($type){
+            case 'CoA':
+                return $this->defuzzificate_coa();
+        }
+    }
 
-    // public function defuzzificate(){
-        
-    // }
+    private function defuzzificate_coa(){
+        $membershipSub = $distanceSub = 0;
+        foreach ($this->value as $index => $value) {
+            $distanceSub += $value->ux * $value->x;
+            $membershipSub += $value->ux;
+        }
+        return $distanceSub/$membershipSub;
+    }
 }
