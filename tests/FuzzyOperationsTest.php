@@ -61,8 +61,8 @@ class FuzzyOperationsTest extends PHPUnit_Framework_TestCase{
   }
 
   public function testFuzzyDefuzzificate(){
-    $a = new §(array(30,40,50,60));
-    $expected = 45;
+    $a = new §(array(30,40,100));
+    $expected = 58.52;
     $this->assertEquals($expected, $a->defuzzificate());
   }
   /**

@@ -1,6 +1,7 @@
 <?php 
 
 namespace Bahadircyildiz\PHPFuzzy;
+use MathPHP\NumericalAnalysis\NumericalIntegration\SimpsonsRule;
 
     /**
     *  A sample class
@@ -26,6 +27,7 @@ class FuzzyNumber {
     * @return string
     */
     public $value;
+    public $µ;
 
     public function __construct($arr){
         $this->fixToStandart($arr);
@@ -91,19 +93,44 @@ class FuzzyNumber {
     *
     * @return string
     */
-    public function defuzzificate($type = 'CoA'){
+    public function defuzzificate($type = 'CoA', $options = array()){
+        $this->createMembershipFunction();
+        echo $this->µ(30);
         switch($type){
             case 'CoA':
-                return $this->defuzzificate_coa();
+                return $this->defuzzificate_coa($options);
         }
     }
 
-    private function defuzzificate_coa(){
-        $membershipSub = $distanceSub = 0;
-        foreach ($this->value as $index => $value) {
-            $distanceSub += $value->ux * $value->x;
-            $membershipSub += $value->ux;
+    private function createMembershipFunction(){
+        if($this->isTriangular()){
+            $this->µ = function($x){
+                $v = $this->value;
+                if($x >= $v[0]->x && $x < $v[1]->x)
+                    return ($x - $v[0]->x) / ($v[1]->x - $v[0]->x);
+                else if($x >= $v[1]->x && $x < $v[2]->x)
+                    return ($v[2]->x - $x) / ($v[2]->x - $v[1]->x);
+                else return null;
+            };
         }
-        return $distanceSub/$membershipSub;
+        else if($this->isTrapezoid()){
+            $this->µ = function($x){
+                $v = $this->value;
+                if($x >= $v[0]->x && $x < $v[1]->x)
+                    return ($x - $v[0]->x) / ($v[1]->x - $v[0]->x);
+                else if($x >= $v[1]->x && $x < $v[2]->x) 
+                    return 1;
+                else if($x >= $v[2]->x && $x < $v[3]->x)
+                    return ($v[3]->x - $x) / $v[3]->x - $v[2]->x;
+                else return null;
+            };
+        }
+    }
+
+    private function defuzzificate_coa($o){
+        $v = $this->value; 
+        list($start, $end, $n) = [$v[0]->x, $v[$this->length()-1]->x, $v[$this->length()-1]->x - $v[0]->x + 1]; 
+        if(array_key_exists('n', $o)) $n = $o['n'];
+        return SimpsonsRule::approximate(function($x){ return $x*$this->µ($x); }, $start, $end, $n) / SimpsonsRule::approximate($this->µ, $start, $end, $n);
     }
 }
