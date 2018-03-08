@@ -31,6 +31,7 @@ class FuzzyNumber {
 
     public function __construct($arr){
         $this->fixToStandart($arr);
+        $this->µ = $this->createMembershipFunction();
         $this->value = $arr;    
     }
 
@@ -94,8 +95,6 @@ class FuzzyNumber {
     * @return string
     */
     public function defuzzificate($type = 'CoA', $options = array()){
-        $this->createMembershipFunction();
-        echo $this->µ(30);
         switch($type){
             case 'CoA':
                 return $this->defuzzificate_coa($options);
@@ -104,7 +103,7 @@ class FuzzyNumber {
 
     private function createMembershipFunction(){
         if($this->isTriangular()){
-            $this->µ = function($x){
+            return function($x){
                 $v = $this->value;
                 if($x >= $v[0]->x && $x < $v[1]->x)
                     return ($x - $v[0]->x) / ($v[1]->x - $v[0]->x);
@@ -114,7 +113,7 @@ class FuzzyNumber {
             };
         }
         else if($this->isTrapezoid()){
-            $this->µ = function($x){
+            return function($x){
                 $v = $this->value;
                 if($x >= $v[0]->x && $x < $v[1]->x)
                     return ($x - $v[0]->x) / ($v[1]->x - $v[0]->x);
