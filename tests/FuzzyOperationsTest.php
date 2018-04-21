@@ -60,10 +60,16 @@ class FuzzyOperationsTest extends PHPUnit_Framework_TestCase{
     $this->assertEquals($expected, §§::divide($a,$b));
   }
 
-  public function testFuzzyDefuzzificate(){
+  public function testFuzzyMembershipFunction(){
     $a = new §(array(30,40,100));
-    $expected = 58.52;
-    $this->assertEquals($expected, $a->defuzzificate());
+    $expected = 0.5;
+    $this->assertEquals($expected, $a->µ(70));
+  }
+
+  public function testFuzzyDefuzzificate(){
+    $a = new §([30,40,100]);
+    $expected = 56.666666666655303;
+    $this->assertEquals($expected, $a->defuzzificate('CoA'));
   }
   /**
   * Just check if the YourClass has no syntax error 
