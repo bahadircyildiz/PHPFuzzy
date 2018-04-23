@@ -8,8 +8,7 @@
 *
 *  @author yourname
 */
-use Bahadircyildiz\PHPFuzzy\FuzzyNumber as §;
-use Bahadircyildiz\PHPFuzzy\FuzzyOperations as §§;
+use Bahadircyildiz\PHPFuzzy\{FuzzyNumber as §, FuzzyOperations as §§, FuzzyMDM};
 
 class FuzzyOperationsTest extends PHPUnit_Framework_TestCase{
 

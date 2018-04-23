@@ -19,8 +19,23 @@ class Criterion {
     public function __construct($name, $weight, $subcriteria = null){
         $this->name = $name;
         $this->weight = $weight;
-        $this->subcriteria = $subcriteria; 
+        $this->checkSubcriteriaConsistency($subcriteria);
         return $this;
+    }
+
+    public function __toString(){
+        return $this->name;
+    }
+
+    private function checkSubcriteriaConsistency($subcriteria){
+        $totalWeight = 0;
+        foreach ($subcriteria as $index => $sc) {
+            $totalWeight += $sc->weight;
+        }
+        if($totalWeight != 1){
+            die("Error adding the total weights of Criterion {$this->name}, expected 1, result {$totalWeight}");
+        }
+        $this->subcriteria = $subcriteria;
     }
 }
 

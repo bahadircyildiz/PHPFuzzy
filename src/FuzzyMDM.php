@@ -14,7 +14,7 @@ class FuzzyMDM{
     /**
     *   Fuzzy AHP Method 
     *
-    *   Returns Fuzzy Analytical Hierarchy Process Result. 
+    *   Returns Fuzzy Analytical Hierarchy Process Result by using Chang's Extent Analysis. 
     *
     *   @param array $Criteria A matrix to gives weights related to the criterias and subcriterias.
     * 
@@ -22,8 +22,8 @@ class FuzzyMDM{
     *
     * @return
     */
-    public function AHP(array $criteria, array $alternatives){
-
+    public function AHP(DecisionMaker $dm, array $alternatives){
+        
     }
 }
 
