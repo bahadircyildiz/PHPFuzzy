@@ -28,12 +28,12 @@ class FuzzyNumber {
     */
     public $value;
 
-    public function __construct($arr){
+    function __construct($arr){
         $this->fixToStandart($arr);
         $this->value = $arr;   
     }
 
-    public function __toString(){
+    function __toString(){
         return $this->value;
     }
 
@@ -123,6 +123,9 @@ class FuzzyNumber {
         $v = $this->value; 
         list($start, $end, $n) = [$v[0]->x, $v[$this->length()-1]->x, $v[$this->length()-1]->x - $v[0]->x]; 
         if(array_key_exists('n', $o)) $n = $o['n'];
-        return SimpsonsRule::approximate(function($x){ return $x*$this->µ($x); }, $start, $end, $n+1) / SimpsonsRule::approximate(function($x){return $this->µ($x);}, $start, $end, $n+1);
+        return
+            SimpsonsRule::approximate(function($x){ return $x*$this->µ($x); }, $start, $end, $n+1) 
+            / 
+            SimpsonsRule::approximate(function($x){return $this->µ($x);}, $start, $end, $n+1);
     }
 }

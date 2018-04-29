@@ -19,7 +19,8 @@
     },
 	"autoload": {
         "psr-4": {
-            "Bahadircyildiz\\PHPFuzzy\\": "src/"
+            "Bahadircyildiz\\PHPFuzzy\\": "src/",
+            "Bahadircyildiz\\PHPFuzzy\\MCDM\\": "src/MCDM"
         }
     },
     "conflict": {

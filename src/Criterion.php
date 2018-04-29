@@ -9,6 +9,7 @@
      *  new Criterion("Durability", 0.75)
      * ]
      */
+namespace Bahadircyildiz\PHPFuzzy;
 
 class Criterion {
 
@@ -16,24 +17,30 @@ class Criterion {
     public $weight;
     public $subcriteria = [];
 
-    public function __construct($name, $weight, $subcriteria = null){
+    function __construct(string $name, float $weight, $subcriteria = []){
         $this->name = $name;
         $this->weight = $weight;
         $this->checkSubcriteriaConsistency($subcriteria);
         return $this;
     }
 
-    public function __toString(){
+    function __toString(){
         return $this->name;
+    }
+
+    public function addCriterion(Criterion $criterion){
+        $this->subcriteria[] = $criterion;
     }
 
     private function checkSubcriteriaConsistency($subcriteria){
         $totalWeight = 0;
         foreach ($subcriteria as $index => $sc) {
+            if(get_class($sc) != "Bahadircyildiz\PHPFuzzy\Criterion")
+                die("Error: In Criterion {$this->name}, criterion type not valid in index {$index}.\n");
             $totalWeight += $sc->weight;
         }
-        if($totalWeight != 1){
-            die("Error adding the total weights of Criterion {$this->name}, expected 1, result {$totalWeight}");
+        if(count($subcriteria) != 0 && $totalWeight != 1){
+            die("Error: Total weights of Criterion {$this->name}; expected 1, result {$totalWeight}.\n");
         }
         $this->subcriteria = $subcriteria;
     }
