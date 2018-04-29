@@ -1,6 +1,7 @@
 <?php
 
 namespace Bahadircyildiz\PHPFuzzy;
+use Bahadircyildiz\PHPFuzzy\MCDM\{FuzzyAHP};
 
     /**
     *   Fuzzy Multicriteria Decision Making Class
@@ -10,7 +11,7 @@ namespace Bahadircyildiz\PHPFuzzy;
     *   @author Bahadir Can Yildiz
     */
 
-class FuzzyMDM{
+class FuzzyMCDM{
     /**
     *   Fuzzy AHP Method 
     *
@@ -22,9 +23,10 @@ class FuzzyMDM{
     *
     * @return
     */
-    public function AHP(DecisionMaker $dm, array $alternatives){
-        
+    public static function AHP(DecisionMaker $dm, array $alternatives){
+        return new FuzzyAHP($dm, $alternatives);
     }
+    
 }
 
 ?>
