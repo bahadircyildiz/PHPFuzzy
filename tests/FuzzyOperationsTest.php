@@ -9,8 +9,10 @@
 *  @author yourname
 */
 use Bahadircyildiz\PHPFuzzy\{FuzzyNumber as §, FuzzyOperations as §§, FuzzyMDM};
+use PHPUnit\Framework\TestCase;
 
-class FuzzyOperationsTest extends PHPUnit_Framework_TestCase{
+
+class FuzzyOperationsTest extends TestCase{
 
   public function testPrintFuzzyNumberInt(){
     $a = new §(array(30,40,50));

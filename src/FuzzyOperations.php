@@ -25,7 +25,7 @@ class FuzzyOperations {
     * @return string
     */
 
-    private function lengthCheck(FuzzyNumber &$a, FuzzyNumber &$b){
+    private static function lengthCheck(FuzzyNumber &$a, FuzzyNumber &$b){
         $ca = $a->length(); $cb = $b->length(); 
         if( $ca != $cb ) {
             $maxLength = max($ca, $cb);
@@ -39,8 +39,8 @@ class FuzzyOperations {
         }
     }
  
-    public function sum(FuzzyNumber $a, FuzzyNumber $b){
-        FuzzyOperations::lengthCheck($a, $b);
+    public static function sum(FuzzyNumber $a, FuzzyNumber $b){
+        self::lengthCheck($a, $b);
         $result = array();
         foreach ($a->value as $i => $v) {
             $result[] = $a->value[$i]->x + $b->value[$i]->x;    
@@ -48,13 +48,13 @@ class FuzzyOperations {
         return new FuzzyNumber($result);
     }
 
-    public function subtract(FuzzyNumber $a, FuzzyNumber $b){
+    public static function subtract(FuzzyNumber $a, FuzzyNumber $b){
         $b_reverse = new FuzzyNumber(array_reverse($b->value));
-        return FuzzyOperations::sum($a, $b_reverse);
+        return self::sum($a, $b_reverse);
     }
 
-    public function multiply(FuzzyNumber $a, FuzzyNumber $b){
-        FuzzyOperations::lengthCheck($a, $b);
+    public static function multiply(FuzzyNumber $a, FuzzyNumber $b){
+        self::lengthCheck($a, $b);
         $result = array();
         foreach ($a->value as $i => $v) {
             $result[] = $a->value[$i]->x * $b->value[$i]->x;    
@@ -62,8 +62,8 @@ class FuzzyOperations {
         return new FuzzyNumber($result);
     }
 
-    public function divide(FuzzyNumber $a, FuzzyNumber $b){
+    public static function divide(FuzzyNumber $a, FuzzyNumber $b){
         $b_reverse = new FuzzyNumber(array_reverse($b->value));
-        return FuzzyOperations::multiply($a, $b_reverse);
+        return self::multiply($a, $b_reverse);
     }
 }
