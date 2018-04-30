@@ -24,7 +24,24 @@ class FuzzyMCDM{
     * @return
     */
     public function AHP(DecisionMaker $dm, array $alternatives){
+        var_dump(self::checkParameterConsistency($dm, $alternatives));
         return new FuzzyAHP($dm, $alternatives);
+    }
+
+    private function checkParameterConsistency(DecisionMaker $dm, array $alternatives){
+        $nameArray = array_merge( [ $dm->name ],
+            Utils::objectCollectAttrRecursive($dm->criteria, "name", "subcriteria")
+            );
+        $nameArray = array_merge($nameArray,
+            Utils::objectCollectAttrRecursive($alternatives, "name")
+        );
+        $sortedNameArray = array_unique($nameArray);
+        if(count($sortedNameArray) != count($nameArray)){
+            $implodedNameArray = implode(',', $nameArray); 
+            die("Duplicate names found in given DecisionMaker and Alternatives {$implodedNameArray}.\n");
+        }
+        return $nameArray;
+
     }
     
 }

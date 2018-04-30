@@ -84,7 +84,7 @@ class FuzzyOperationsTest extends TestCase{
                 "Kriter 1"=> 6,
                 "Kriter 2"=> 7
             ] ),
-            new Alternative("KIA", [
+            new Alternative("Honda", [
                 "Kriter 1"=> 8,
                 "Kriter 2"=> 9
             ] )

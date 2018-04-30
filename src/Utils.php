@@ -27,6 +27,17 @@ class Utils{
             return count($elem) == $elemCount; 
         });
     }
+
+    public function objectCollectAttrRecursive($array, $attrName, $recursiveArrayName = null){
+        $return = [];
+        $method = __METHOD__;
+        foreach ($array as $a_index => $a_) {
+            $return[] = $a_->{$attrName};
+            if ($recursiveArrayName != null) if(count($a_->{$recursiveArrayName}) > 0)
+                $return += $method($a_->{$recursiveArray}, $attrName, $recursiveArrayName);
+        }
+        return $return;
+    }
 }
 
 ?>
