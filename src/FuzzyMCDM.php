@@ -23,7 +23,7 @@ class FuzzyMCDM{
     *
     * @return
     */
-    public static function AHP(DecisionMaker $dm, array $alternatives){
+    public function AHP(DecisionMaker $dm, array $alternatives){
         return new FuzzyAHP($dm, $alternatives);
     }
     

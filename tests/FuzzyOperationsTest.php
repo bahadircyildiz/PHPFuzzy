@@ -8,7 +8,8 @@
 *
 *  @author yourname
 */
-use Bahadircyildiz\PHPFuzzy\{FuzzyNumber as §, FuzzyOperations as §§, FuzzyMDM, DecisionMaker, Criterion, Alternative};
+use Bahadircyildiz\PHPFuzzy\{FuzzyNumber as §, 
+    FuzzyOperations as §§, FuzzyMCDM, DecisionMaker, Criterion, Alternative};
 use PHPUnit\Framework\TestCase;
 
 class FuzzyOperationsTest extends TestCase{
@@ -75,7 +76,8 @@ class FuzzyOperationsTest extends TestCase{
     public function testFuzzySubsetCriterias(){
         $sampleDM = new DecisionMaker("Deneme Karar Verici", [
             new Criterion("Kriter 1", 0.75),
-            new Criterion("Kriter 2", 0.25)
+            new Criterion("Kriter 2", 0.15),
+            new Criterion("Kriter 3", 0.10)
         ]);
         $sampleAlts = [ 
             new Alternative("Honda", [
@@ -88,7 +90,6 @@ class FuzzyOperationsTest extends TestCase{
             ] )
         ];
         $AHPSess = FuzzyMCDM::AHP($sampleDM, $sampleAlts);
-        var_dump($AHPSess);
         $AHPSess->createPairwiseMatrices();
 
     }

@@ -10,7 +10,6 @@ class DecisionMaker {
     function __construct(string $name, array $criteria){
         $this->name = $name;
         $this->checkCriteriaConsistency($criteria);
-        return $this;
     }
 
     function __toString(){

@@ -1,23 +1,26 @@
 <?php
 namespace Bahadircyildiz\PHPFuzzy\MCDM;
 
-use Bahadircyildiz\PHPFuzzy\Utils;
+use Bahadircyildiz\PHPFuzzy\{ DecisionMaker, Utils };
 
 
 class FuzzyAHP{
     public $dm;
     public $alternatives;
-    public $pairwiseMatrices;
+    public $pairwiseMatrices = [];
 
-    function __constructor(DecisionMaker $dm, array $alternatives){
+    function __construct(DecisionMaker $dm, array $alternatives){
         $this->dm = $dm;
         $this->alternatives = $alternatives;
     }
 
     public function createPairwiseMatrices(){
         $criteria = $this->dm->criteria;
-        $criteriaSubset = Utils::sampling($criteria, 2);
-        var_dump($criteriaSubset);
+        $criteriaCombinations = Utils::getSubsets($criteria, 2);
+        foreach ($criteriaCombinations as $cc_index => $cc) {
+            
+        }
+        
     }
 }
 

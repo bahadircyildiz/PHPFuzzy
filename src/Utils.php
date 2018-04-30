@@ -4,35 +4,28 @@ namespace Bahadircyildiz\PHPFuzzy;
 
 class Utils{
 
-    public static function sampling($arrayset, $size, $combinations = array()) {
+    private static function powerSet($in,$minLength = 1) { 
+        $count = count($in); 
+        $members = pow(2,$count); 
+        $return = array(); 
+        for ($i = 0; $i < $members; $i++) { 
+           $b = sprintf("%0".$count."b",$i); 
+           $out = array(); 
+           for ($j = 0; $j < $count; $j++) { 
+              if ($b{$j} == '1') $out[] = $in[$j]; 
+           } 
+           if (count($out) >= $minLength) { 
+              $return[] = $out; 
+           } 
+        } 
+        return $return; 
+    }
 
-        # if it's the first iteration, the first set 
-        # of combinations is the same as the set of characters
-        if (empty($combinations)) {
-            $combinations = $arrayset;
-        }
-    
-        # we're done if we're at size 1
-        if ($size == 1) {
-            return $combinations;
-        }
-    
-        # initialise array to put new values in
-        $new_combinations = array();
-    
-        # loop through existing combinations and character set to create strings
-        foreach ($combinations as $combination) {
-            foreach ($arrayset as $elem) {
-                if(gettype($combination) == "array")
-                    $new_combinations[] = array_merge($combination, [ $elem ]);
-                else
-                    $new_combinations[] = [ $combination, $elem ];
-            }
-        }
-    
-        # call same function again for the next iteration
-        return sampling($chars, $size - 1, $new_combinations);
-    
+    public function getSubsets($arrayset, $elemCount){
+        $return = self::powerSet($arrayset,$elemCount);
+        return array_filter($return, function($elem) use ($elemCount){ 
+            return count($elem) == $elemCount; 
+        });
     }
 }
 
