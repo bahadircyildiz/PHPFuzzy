@@ -1,6 +1,6 @@
 <?php
 
-namespace Bahadircyildiz\PHPFuzzy;
+namespace Bahadircyildiz\PHPFuzzy\Models;
 class Alternative {
 
     public $name;

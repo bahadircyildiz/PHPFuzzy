@@ -15,11 +15,6 @@ class FuzzyAHP{
     }
 
     public function createPairwiseMatrices(){
-        $criteria = $this->dm->criteria;
-        $criteriaCombinations = Utils::getSubsets($criteria, 2);
-        foreach ($criteriaCombinations as $cc_index => $cc) {
-            
-        }
         
     }
 }

@@ -20,7 +20,8 @@
 	"autoload": {
         "psr-4": {
             "Bahadircyildiz\\PHPFuzzy\\": "src/",
-            "Bahadircyildiz\\PHPFuzzy\\MCDM\\": "src/MCDM"
+            "Bahadircyildiz\\PHPFuzzy\\MCDM\\": "src/MCDM",
+            "Bahadircyildiz\\PHPFuzzy\\Models\\": "src/Models"
         }
     },
     "conflict": {

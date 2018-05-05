@@ -9,7 +9,7 @@
      *  new Criterion("Durability", 0.75)
      * ]
      */
-namespace Bahadircyildiz\PHPFuzzy;
+namespace Bahadircyildiz\PHPFuzzy\Models;
 
 class Criterion {
 
@@ -35,7 +35,7 @@ class Criterion {
     private function checkSubcriteriaConsistency($subcriteria){
         $totalWeight = 0;
         foreach ($subcriteria as $index => $sc) {
-            if(get_class($sc) != "Bahadircyildiz\PHPFuzzy\Criterion")
+            if(!($sc instanceof Criterion))
                 die("Error: In Criterion {$this->name}, criterion type not valid in index {$index}.\n");
             $totalWeight += $sc->weight;
         }

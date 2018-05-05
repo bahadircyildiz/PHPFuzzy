@@ -1,6 +1,6 @@
 <?php
 
-namespace Bahadircyildiz\PHPFuzzy;
+namespace Bahadircyildiz\PHPFuzzy\Models;
 
 class DecisionMaker {
 
@@ -23,7 +23,7 @@ class DecisionMaker {
     private function checkCriteriaConsistency($criteria){
         $totalWeight = 0;
         foreach ($criteria as $index => $c) {
-            if(get_class($c) != "Bahadircyildiz\PHPFuzzy\Criterion")
+            if(!($c instanceof Criterion))
                 die("Error: In DecisionMaker {$this->name}, criterion type not valid in index {$index}.\n");
             $totalWeight += $c->weight;
         }

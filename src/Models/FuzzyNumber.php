@@ -1,6 +1,6 @@
 <?php 
 
-namespace Bahadircyildiz\PHPFuzzy;
+namespace Bahadircyildiz\PHPFuzzy\Models;
 use MathPHP\NumericalAnalysis\NumericalIntegration\SimpsonsRule;
 
     /**
@@ -124,7 +124,7 @@ class FuzzyNumber {
         list($start, $end, $n) = [$v[0]->x, $v[$this->length()-1]->x, $v[$this->length()-1]->x - $v[0]->x]; 
         if(array_key_exists('n', $o)) $n = $o['n'];
         return
-            SimpsonsRule::approximate(function($x){ return $x*$this->µ($x); }, $start, $end, $n+1) 
+            SimpsonsRule::approximate(function($x){return $x*$this->µ($x); }, $start, $end, $n+1) 
             / 
             SimpsonsRule::approximate(function($x){return $this->µ($x);}, $start, $end, $n+1);
     }

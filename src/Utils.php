@@ -28,15 +28,30 @@ class Utils{
         });
     }
 
-    public function objectCollectAttrRecursive($array, $attrName, $recursiveArrayName = null){
+    public function objectCollectAttrRecursive($array, $attrName, $recursiveArrayAttr = null){
         $return = [];
         $method = __METHOD__;
         foreach ($array as $a_index => $a_) {
             $return[] = $a_->{$attrName};
-            if ($recursiveArrayName != null) if(count($a_->{$recursiveArrayName}) > 0)
-                $return += $method($a_->{$recursiveArray}, $attrName, $recursiveArrayName);
+            if ($recursiveArrayAttr != null) if(count($a_->{$recursiveArrayAttr}) > 0)
+                $return += $method($a_->{$recursiveArrayAttr}, $attrName, $recursiveArrayAttr);
         }
         return $return;
+    }
+
+    public function objectCheckSameAttrRecursive($objArr, $attrName, $recursiveArrayName = null, &$valArray = []){
+        $return = false;
+        $method = __METHOD__;
+        foreach ($array as $a_index => $a_) {
+            if(in_array($valArray, $a_->{$attrName}))
+                return true;
+            else
+                $valArray[] = $a_->{$attrName};
+            if ($recursiveArrayAttr != null) if(count($a_->{$recursiveArrayAttr}) > 0)
+                $return = $return || $method($a_->{$recursiveArrayAttr}, $attrName, $valArray);
+        }
+        return $return; 
+
     }
 }
 
