@@ -11,7 +11,7 @@ use MathPHP\NumericalAnalysis\NumericalIntegration\SimpsonsRule;
     *
     *  @author Bahadir Can Yildiz
     */
-class FuzzyNumber {
+class FuzzyNumber implements \Countable, \IteratorAggregate{
 
     /**  @var string $m_SampleProperty define here what this variable is for, do this for every instance variable */
     // private $m_SampleProperty = '';
@@ -33,8 +33,21 @@ class FuzzyNumber {
         $this->value = $arr;   
     }
 
+    function count(){
+        return count($this->value);
+    }
+
+    function getIterator(){
+        return new \ArrayIterator($this->value);
+    }
+
     function __toString(){
-        return $this->value;
+        $seperator = function($e){
+            return "$e->ux;$e->x";
+        };
+        $fnStr = implode(',', array_map($seperator, $this->value));
+        $return = "($fnStr)";
+        return $return;
     }
 
     private function fixToStandart(array &$arr){

@@ -72,15 +72,6 @@ class FuzzyOperationsTest extends TestCase{
         $expected = 56.666666666655303;
         $this->assertEquals($expected, $a->defuzzificate('CoA'));
     }
-
-    public function testCreateFuzzyMatrix(){
-        $a = new FuzzyMatrix([
-                                [ new §([1, 2, 3]), new §([1, 2, 3]), new §([1, 2, 3])],
-                                [ new §([1, 2, 3]), new §([1, 2, 3]), new §([1, 2, 3])],
-                                [ new §([1, 2, 3]), new §([1, 2, 3]), new §([1, 2, 3])]
-                            ]);
-        var_dump($a);
-    }
   /**
   * Just check if the YourClass has no syntax error 
   *
