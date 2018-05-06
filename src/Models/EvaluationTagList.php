@@ -1,12 +1,14 @@
 <?php
 
 namespace Bahadircyildiz\PHPFuzzy\Models;
+use Bahadircyildiz\PHPFuzzy\Utils;
 
-class EvaluationTagCollection extends Collection{
+class EvaluationTagList extends Collection{
     
     private $items = [];
 
-    function __construct(array $items){
+    function __construct(array $items = []){
+        Utils::validateArrayAsCollection($items, EvaluationTag);
         $this->items = $items;
     }
 

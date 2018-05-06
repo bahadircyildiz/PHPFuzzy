@@ -4,7 +4,7 @@ namespace Bahadircyildiz\PHPFuzzy\Models;
 use Bahadircyildiz\PHPFuzzy\Utils;
 
 
-class AlternativeCollection extends Collection{
+class AlternativeList extends Collection{
     
     private $items = [];
 

@@ -1,7 +1,7 @@
 <?php
 namespace Bahadircyildiz\PHPFuzzy\MCDM;
 
-use Bahadircyildiz\PHPFuzzy\{ DecisionMaker, Utils };
+use Bahadircyildiz\PHPFuzzy\Models\{ DecisionMaker, AlternativeList };
 
 
 class FuzzyAHP{
@@ -9,14 +9,12 @@ class FuzzyAHP{
     public $alternatives;
     public $pairwiseMatrices = [];
 
-    function __construct(DecisionMaker $dm, array $alternatives){
+    function __construct(DecisionMaker $dm, AlternativeList $alternatives){
         $this->dm = $dm;
         $this->alternatives = $alternatives;
     }
 
-    public function createPairwiseMatrices(){
-        
-    }
+
 }
 
 ?>

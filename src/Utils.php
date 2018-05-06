@@ -51,7 +51,14 @@ class Utils{
                 $return = $return || $method($a_->{$recursiveArrayAttr}, $attrName, $valArray);
         }
         return $return; 
+    }
 
+    public function validateArrayAsCollection(array $arr, $class){
+        foreach ($arr as $a_) {
+            if(!($a_ instanceof $class))
+                die("Error: in validating member of {$class}");
+        }
+        return true;
     }
 }
 

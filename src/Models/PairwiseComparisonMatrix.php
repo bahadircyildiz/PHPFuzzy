@@ -3,21 +3,25 @@
 namespace Bahadircyildiz\PHPFuzzy\Models;
 use MathPHP\LinearAlgebra\SquareMatrix;
 
-class PairwiseComparisonMatrix extends SquareMatrix {
+class PairwiseComparisonMatrix {
+
+    public $rowLabels;
+    public $columnLabels;
+    public $value;
+    private $etc;
 
     
-    function __construct($rowLabels, $columnLabels, $content, $predefinedTags){
+    function __construct(array $rowLabels, array $columnLabels, array $matrix, EvalutionTagList $etc = null){
         $this->rowLabels = $rowLabels;
-        $this->columnLabels = $columnLabels;
-        $this->tags = [];
-        return $this;
+        $this->columnLabels = $columnLabels; 
+        $this->value = new SquareMatrix($matrix);
+        $this->etc =  $etc ?? new EvaluationTagList();
+        return $this;   
     }
 
-    function __toString(){
-        return $this->name;
-    }
 
-    public function addCriterion(Criterion $criterion){
-        $this->subcriteria[] = $criterion;
-    }
+
+
+
+}
 ?>
