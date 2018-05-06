@@ -21,14 +21,14 @@ class Utils{
         return $return; 
     }
 
-    public function getSubsets($arrayset, $elemCount){
+    public static function getSubsets($arrayset, $elemCount){
         $return = self::powerSet($arrayset,$elemCount);
         return array_filter($return, function($elem) use ($elemCount){ 
             return count($elem) == $elemCount; 
         });
     }
 
-    public function objectCollectAttrRecursive($array, $attrName, $recursiveArrayAttr = null){
+    public static function objectCollectAttrRecursive($array, $attrName, $recursiveArrayAttr = null){
         $return = [];
         $method = __METHOD__;
         foreach ($array as $a_index => $a_) {
@@ -39,7 +39,7 @@ class Utils{
         return $return;
     }
 
-    public function objectCheckSameAttrRecursive($objArr, $attrName, $recursiveArrayName = null, &$valArray = []){
+    public static function objectCheckSameAttrRecursive($objArr, $attrName, $recursiveArrayName = null, &$valArray = []){
         $return = false;
         $method = __METHOD__;
         foreach ($array as $a_index => $a_) {
@@ -53,7 +53,7 @@ class Utils{
         return $return; 
     }
 
-    public function validateArrayAsCollection(array $arr, $class){
+    public static function validateArrayAsCollection(array $arr, $class){
         foreach ($arr as $a_) {
             if(!($a_ instanceof $class))
                 die("Error: in validating member of {$class}");

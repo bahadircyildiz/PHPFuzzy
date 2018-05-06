@@ -8,8 +8,8 @@
 *
 *  @author yourname
 */
-use Bahadircyildiz\PHPFuzzy\{FuzzyNumber as §, 
-    FuzzyOperations as §§, FuzzyMCDM, DecisionMaker, Criterion, Alternative};
+use Bahadircyildiz\PHPFuzzy\Models\{FuzzyNumber as §, DecisionMaker, Criterion, Alternative, FuzzyMatrix};
+use Bahadircyildiz\PHPFuzzy\{ FuzzyMCDM, FuzzyOperations as §§ };
 use PHPUnit\Framework\TestCase;
 
 class FuzzyOperationsTest extends TestCase{
@@ -73,25 +73,13 @@ class FuzzyOperationsTest extends TestCase{
         $this->assertEquals($expected, $a->defuzzificate('CoA'));
     }
 
-    public function testFuzzySubsetCriterias(){
-        $sampleDM = new DecisionMaker("Deneme Karar Verici", [
-            new Criterion("Kriter 1", 0.75),
-            new Criterion("Kriter 2", 0.15),
-            new Criterion("Kriter 3", 0.10)
-        ]);
-        $sampleAlts = [ 
-            new Alternative("Honda", [
-                "Kriter 1"=> 6,
-                "Kriter 2"=> 7
-            ] ),
-            new Alternative("KIA", [
-                "Kriter 1"=> 8,
-                "Kriter 2"=> 9
-            ] )
-        ];
-        $AHPSess = FuzzyMCDM::AHP($sampleDM, $sampleAlts);
-        $AHPSess->createPairwiseMatrices();
-
+    public function testCreateFuzzyMatrix(){
+        $a = new FuzzyMatrix([
+                                [ new §([1, 2, 3]), new §([1, 2, 3]), new §([1, 2, 3])],
+                                [ new §([1, 2, 3]), new §([1, 2, 3]), new §([1, 2, 3])],
+                                [ new §([1, 2, 3]), new §([1, 2, 3]), new §([1, 2, 3])]
+                            ]);
+        var_dump($a);
     }
   /**
   * Just check if the YourClass has no syntax error 

@@ -1,7 +1,6 @@
 <?php
 
 namespace Bahadircyildiz\PHPFuzzy\Models;
-use MathPHP\LinearAlgebra\SquareMatrix;
 
 class PairwiseComparisonMatrix {
 
@@ -11,13 +10,15 @@ class PairwiseComparisonMatrix {
     private $etc;
 
     
-    function __construct(array $rowLabels, array $columnLabels, array $matrix, EvalutionTagList $etc = null){
+    function __construct(array $rowLabels, array $columnLabels, FuzzyMatrix $matrix, EvalutionTagList $etc = null){
         $this->rowLabels = $rowLabels;
         $this->columnLabels = $columnLabels; 
-        $this->value = new SquareMatrix($matrix);
+        $this->value = $matrix;
         $this->etc =  $etc ?? new EvaluationTagList();
         return $this;   
     }
+
+
 
 
 

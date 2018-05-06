@@ -2,7 +2,7 @@
 
 namespace Bahadircyildiz\PHPFuzzy\Models;
 
-class Collection implements Countable, Extendable, IteratorAggregate{
+class Collection implements \Countable, \IteratorAggregate{
 
     private $items = [];
 
