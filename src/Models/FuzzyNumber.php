@@ -46,7 +46,7 @@ class FuzzyNumber implements \Countable, \IteratorAggregate{
             return "$e->ux;$e->x";
         };
         $fnStr = implode(',', array_map($seperator, $this->value));
-        $return = "($fnStr)";
+        $return = "({$fnStr})";
         return $return;
     }
 

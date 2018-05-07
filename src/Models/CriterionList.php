@@ -8,7 +8,7 @@ class CriterionList extends Collection{
     private $items = [];
 
     function __construct(array $items = []){
-        Utils::validateArrayAsCollection($items, Criterion);
+        Utils::validateArrayAsCollection($items, Criterion::class);
         $this->checkCriteriaWeightSum($items);
         $this->items = $items;
     }
