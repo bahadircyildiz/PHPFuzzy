@@ -27,4 +27,6 @@ class FuzzyMatrixTest extends TestCase{
                                         [ [12,43,3] , [3,4,5]   , [1,2,3]   ] ]);
         $this->assertEquals($expected->getMatrix(), $a->getMatrix());
     }
+
+    
 }
