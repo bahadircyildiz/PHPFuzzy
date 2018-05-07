@@ -8,16 +8,20 @@
 *
 *  @author yourname
 */
-use Bahadircyildiz\PHPFuzzy\Models\{FuzzyNumber as §, DecisionMaker, Criterion, Alternative, FuzzyMatrix};
+use Bahadircyildiz\PHPFuzzy\Models\{FuzzyNumber, DecisionMaker, Criterion, Alternative, FuzzyMatrix};
 use Bahadircyildiz\PHPFuzzy\{ FuzzyMCDM, Utils };
 use PHPUnit\Framework\TestCase;
 
-class FuzzyOperationsTest extends TestCase{
+class UtilsTest extends TestCase{
 
     public function testValidateArrayAsCollection(){
-        $sample = new FuzzyNumber([2,3,5]);
-        $expected = true; 
-        $result = Utils::validateArrayAsCollection($sample, FuzzyNumber);
+        $sample = [
+            new FuzzyNumber([2,3,5]),
+            new FuzzyNumber([2,3,5]),
+            new FuzzyNumber([2,3,5])
+        ];
+        $expected = true;
+        $result = Utils::validateArrayAsCollection($sample, FuzzyNumber::class);
         $this->assertEquals($expected, $result);
     }
   

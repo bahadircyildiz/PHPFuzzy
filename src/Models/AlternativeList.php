@@ -9,11 +9,14 @@ class AlternativeList extends Collection{
     private $items = [];
 
     function __construct(array $items){
+        Utils::validateArrayAsCollection($items, Alternative::class);
         $this->validateAlternativeArray($items);
+        $this->items = $items;
     }
 
     function  add(Alternative $alternative){
         $this->validateAlternativeName($alternative);
+        $this->items[] = $alternative;
     }
 
     function validateAlternativeName(Alternative $alternative){

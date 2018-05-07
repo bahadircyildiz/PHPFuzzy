@@ -10,7 +10,7 @@ class EvaluationTag {
     
     function __construct(string $tag, FuzzyNumber $value, $definition = null){
         $this->tag = $tag;
-        $this->$value = $value;
+        $this->value = $value;
         $this->definition = $definition;
     }
 }

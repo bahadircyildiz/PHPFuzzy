@@ -8,12 +8,20 @@ class EvaluationTagList extends Collection{
     private $items = [];
 
     function __construct(array $items = []){
-        Utils::validateArrayAsCollection($items, EvaluationTag);
+        Utils::validateArrayAsCollection($items, EvaluationTag::class);
         $this->items = $items;
     }
 
     function add(EvaluationTag $tag){
         $this->items[] = $tag;
+    }
+
+    function getValueByTag(string $tag){
+        $returnTag = function($e) use ($tag){
+            return $e->tag == $tag; 
+        };
+        $result = array_values(array_filter($this->items, $returnTag));
+        return $result[0]->value ?? null;
     }
 
 }

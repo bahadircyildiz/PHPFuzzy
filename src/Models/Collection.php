@@ -7,7 +7,7 @@ class Collection implements \Countable, \IteratorAggregate{
     private $items = [];
 
     function getIterator(){
-        return new ArrayIterator($this->items);
+        return new \ArrayIterator($this->items);
     }
 
     function count(){
