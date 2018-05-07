@@ -15,7 +15,8 @@
         "markrogoyski/math-php": "^0.39.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "*"
+        "phpunit/phpunit": "*",
+        "kint-php/kint": "*"
     },
 	"autoload": {
         "psr-4": {

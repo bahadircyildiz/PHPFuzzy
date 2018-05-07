@@ -39,11 +39,11 @@ class Utils{
         return $return;
     }
 
-    public static function objectCheckSameAttrRecursive($objArr, $attrName, $recursiveArrayName = null, &$valArray = []){
+    public static function objectCheckSameAttrRecursive($objArr, $attrName, $recursiveArrayAttr = null, &$valArray = []){
         $return = false;
         $method = __METHOD__;
-        foreach ($array as $a_index => $a_) {
-            if(in_array($valArray, $a_->{$attrName}))
+        foreach ($objArr as $a_index => $a_) {
+            if(in_array($a_->{$attrName}, $valArray))
                 return true;
             else
                 $valArray[] = $a_->{$attrName};

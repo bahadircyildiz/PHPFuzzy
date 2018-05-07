@@ -17,7 +17,7 @@ class Criterion {
     public $weight;
     public $subcriteria;
 
-    function __construct(string $name, float $weight, CriterionList $subcriteria = null){
+    function __construct(string $name, CriterionList $subcriteria = null, float $weight = null){
         $this->name = $name;
         $this->weight = $weight;
         $this->subcriteria = $subcriteria ?? new CriterionList();

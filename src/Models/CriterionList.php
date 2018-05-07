@@ -4,13 +4,11 @@ namespace Bahadircyildiz\PHPFuzzy\Models;
 use Bahadircyildiz\PHPFuzzy\Utils;
 
 class CriterionList extends Collection{
-    
-    private $items = [];
 
-    function __construct(array $items = []){
-        Utils::validateArrayAsCollection($items, Criterion);
-        $this->checkCriteriaWeightSum($items);
-        $this->items = $items;
+    function __construct(array $items = [], bool $checkWeight = false){
+        Utils::validateArrayAsCollection($items, Criterion::class);
+        $checkWeight ?? $this->checkCriteriaWeightSum($items);
+        parent::__construct($items);
     }
 
     function checkCriteriaWeightSum($items){
