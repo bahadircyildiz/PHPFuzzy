@@ -8,7 +8,6 @@ class FuzzyMatrix{
     protected $etl;
 
     public function __construct(array $A, EvaluationTagList $etl = null){
-        // Utils::validateArrayAsCollection($A, FuzzyNumberList::class);
         $this->etl = $etl ?? new EvaluationTagList();
         $A = $this->setParametersAsFuzzyClasses($A);
         $this->validateFuzzyMatrixDimensions($A);

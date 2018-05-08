@@ -5,10 +5,17 @@ use PHPFuzzy\Utils;
 
 class CriterionList extends Collection{
 
+<<<<<<< HEAD
     function __construct(array $items = [], bool $checkWeight = false){
         Utils::validateArrayAsCollection($items, Criterion::class);
         $checkWeight ?? $this->checkCriteriaWeightSum($items);
         parent::__construct($items);
+=======
+    function __construct(array $items = []){
+        Utils::validateArrayAsCollection($items, Criterion::class);
+        $this->checkCriteriaWeightSum($items);
+        $this->items = $items;
+>>>>>>> feature/PairwiseComparisonMatrix
     }
 
     function checkCriteriaWeightSum($items){
