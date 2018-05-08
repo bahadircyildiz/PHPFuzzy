@@ -9,7 +9,7 @@
      *  new Criterion("Durability", 0.75)
      * ]
      */
-namespace Bahadircyildiz\PHPFuzzy\Models;
+namespace PHPFuzzy\Models;
 
 class Criterion {
 

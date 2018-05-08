@@ -1,7 +1,7 @@
 <?php
 
-namespace Bahadircyildiz\PHPFuzzy\Models;
-use Bahadircyildiz\PHPFuzzy\{ Utils };
+namespace PHPFuzzy\Models;
+use PHPFuzzy\{ Utils };
 
 class FuzzyMatrix{
     protected $A;

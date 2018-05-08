@@ -20,13 +20,15 @@
     },
 	"autoload": {
         "psr-4": {
-            "Bahadircyildiz\\PHPFuzzy\\": "src/",
-            "Bahadircyildiz\\PHPFuzzy\\MCDM\\": "src/MCDM",
-            "Bahadircyildiz\\PHPFuzzy\\Models\\": "src/Models"
+            "PHPFuzzy\\": "src/"
+        }
+    },
+    "autoload-dev":{
+        "psr-4": {
+            "PHPFuzzy\\Tests\\": "tests/"
         }
     },
     "conflict": {
         "phpunit/php-timer": ">=2"
     }
-
 }

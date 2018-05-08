@@ -1,13 +1,13 @@
 <?php
 
-namespace Bahadircyildiz\PHPFuzzy\Models;
-use Bahadircyildiz\PHPFuzzy\Utils;
+namespace PHPFuzzy\Models;
+use PHPFuzzy\Utils;
 
 class PairwiseComparisonMatrixList extends Collection{
 
     function __construct(array $items = []){
         Utils::validateArrayAsCollection($items, PairwiseComparisonMatrix::class);
-        parent::__construct($items);
+        $this->items = $items;
     }
 
     function add(PairwiseComparisonMatrix $pcm){

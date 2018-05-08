@@ -1,7 +1,7 @@
 <?php
-namespace Bahadircyildiz\PHPFuzzy\MCDM;
+namespace PHPFuzzy\MCDM;
 
-use Bahadircyildiz\PHPFuzzy\Models\{ DecisionMaker, AlternativeList };
+use PHPFuzzy\Models\{ DecisionMaker, AlternativeList };
 
 
 class FuzzyAHP{

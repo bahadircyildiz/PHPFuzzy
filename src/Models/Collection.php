@@ -1,10 +1,10 @@
 <?php
 
-namespace Bahadircyildiz\PHPFuzzy\Models;
+namespace PHPFuzzy\Models;
 
 class Collection implements \Countable, \IteratorAggregate{
 
-    private $items = [];
+    protected $items = [];
 
     function __construct($items){
         $this->items = $items;

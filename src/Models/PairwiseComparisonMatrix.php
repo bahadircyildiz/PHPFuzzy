@@ -1,21 +1,21 @@
 <?php
 
-namespace Bahadircyildiz\PHPFuzzy\Models;
+namespace PHPFuzzy\Models;
 
-class PairwiseComparisonMatrix {
+class PairwiseComparisonMatrix extends FuzzyMatrix {
 
-    public $rowLabels;
-    public $columnLabels;
-    public $value;
-    private $etc;
+    protected $mLabels;
+    protected $nLabels;
+    protected $criterion;
 
     
-    function __construct(array $rowLabels, array $columnLabels, FuzzyMatrix $matrix, EvalutionTagList $etc = null){
-        $this->rowLabels = $rowLabels;
-        $this->columnLabels = $columnLabels; 
-        $this->value = $matrix;
-        $this->etc =  $etc ?? new EvaluationTagList();
-        return $this;   
+    function __construct(array $mLabels, array $nLabels, Criterion $c = null, array $matrix, EvalutionTagList $etl = null){
+        parent::__construct($matrix, $etl);
+        $this->checkLabelCount($mLabels, $nLabels);
+        $this->criterion = $c ?? null;
+        $this->mLabels = $mLabels;
+        $this->nLabels = $nLabels;
+        return $this;
     }
 
 

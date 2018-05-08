@@ -1,6 +1,6 @@
 <?php
 
-namespace Bahadircyildiz\PHPFuzzy\Models;
+namespace PHPFuzzy\Models;
 
 class DecisionMaker {
 
@@ -28,13 +28,14 @@ class DecisionMaker {
 
         $CtoCmatches = function($cL, $a, &$r = []) use (&$CtoCmatches){
             $tempArray = array_map(function($e){ return (string) $e; }, iterator_to_array($cL));
-            $r[] = [ $tempArray, $tempArray ];
+            $r[] = (object) [ "m" => $tempArray, "n" => $tempArray ];
             foreach ($cL as $c) {
                 if(count($c->subcriteria) > 0)
                     $CtoCmatches($c->subcriteria, $a, $r);
                 else {
                     $tempArray = array_map(function($e){ return (string) $e; }, iterator_to_array($a));
-                    $r[] = [ $tempArray, $tempArray, (string) $c];
+                    # CtoAmatches
+                    $r[] = (object) [ "m" => $tempArray, "n" => $tempArray, "criterion" => (string) $c];
                 }
             };
             return $r;
