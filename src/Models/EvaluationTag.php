@@ -1,6 +1,6 @@
 <?php
 
-namespace Bahadircyildiz\PHPFuzzy\Models;
+namespace PHPFuzzy\Models;
 
 class EvaluationTag {
 

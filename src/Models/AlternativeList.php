@@ -1,17 +1,15 @@
 <?php
 
-namespace Bahadircyildiz\PHPFuzzy\Models;
-use Bahadircyildiz\PHPFuzzy\Utils;
+namespace PHPFuzzy\Models;
+use PHPFuzzy\Utils;
 
 
 class AlternativeList extends Collection{
-    
-    private $items = [];
 
     function __construct(array $items){
         Utils::validateArrayAsCollection($items, Alternative::class);
         $this->validateAlternativeArray($items);
-        $this->items = $items;
+        parent::__construct($items);
     }
 
     function  add(Alternative $alternative){
