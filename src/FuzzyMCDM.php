@@ -25,7 +25,6 @@ class FuzzyMCDM{
     * @return
     */
     public function AHP(DecisionMaker $dm, AlternativeList $alternatives, PCML $pcml = null){
-        var_dump(self::checkParameterConsistency($dm, $alternatives));
         return new FuzzyAHP($dm, $alternatives, $pcml);
     }
 

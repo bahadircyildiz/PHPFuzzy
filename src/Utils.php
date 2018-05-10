@@ -60,6 +60,14 @@ class Utils{
         }
         return true;
     }
+
+    public static function getObjectID(&$obj) {
+        if(!is_object($obj))
+            return false;
+        ob_start();
+        preg_match('~^.+?#(\d+)~s', ob_get_clean(), $oid);
+        return $oid[1]; 
+    }
 }
 
 ?>

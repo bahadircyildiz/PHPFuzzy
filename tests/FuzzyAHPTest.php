@@ -6,7 +6,6 @@ use PHPUnit\Framework\TestCase;
 
 class FuzzyAHPTest extends TestCase{
     public function testDefineDecisionMaker(){
-        var_dump(CriterionList::class);
         $subcriteria1 = new CriterionList([
             new Criterion("SubCriteria 1"),
             new Criterion("SubCriteria 2"),
@@ -28,7 +27,6 @@ class FuzzyAHPTest extends TestCase{
             new Alternative("Alfa Romeo")        
         ]);
         $dm = new DecisionMaker("Decision Maker 1", $criteria);
-        $AHPSess = FuzzyMCDM::AHP($dm, $alts);
         // $this->assertEquals($expected->getMatrix(), $a->getMatrix());
     }
 

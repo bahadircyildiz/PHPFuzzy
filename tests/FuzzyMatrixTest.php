@@ -36,7 +36,7 @@ class FuzzyMatrixTest extends TestCase{
             new EvaluationTag("B", new §( [12,43,3] ) ),
             new EvaluationTag("G", new §( [3,5,6] ) )
         ]);
-        $labelOptions = ["mLabels" => $rowLabels, "nLabels" => $columnLabels];
+        $labelOptions = ["m" => $rowLabels, "n" => $columnLabels];
         $a = new PairwiseComparisonMatrix( $labelOptions, [ [ [1,2,4]   , [3,4,5] , [3,4,5] ] ,  
                                                             [ [1,2,4]   , "G"     , [3,4,5] ] ,
                                                             [ "B"       , [3,4,5] , "V"     ]   ] , $etl);
