@@ -8,8 +8,8 @@
 *
 *  @author yourname
 */
-use Bahadircyildiz\PHPFuzzy\Models\{FuzzyNumber as §, PairwiseComparisonMatrix, FuzzyMatrix, EvaluationTagList, EvaluationTag};
-use Bahadircyildiz\PHPFuzzy\{ FuzzyMCDM, Utils };
+use PHPFuzzy\Models\{FuzzyNumber as §, PairwiseComparisonMatrix, FuzzyMatrix, EvaluationTagList, EvaluationTag};
+use PHPFuzzy\{ FuzzyMCDM, Utils };
 use PHPUnit\Framework\TestCase;
 
 class FuzzyMatrixTest extends TestCase{
@@ -36,10 +36,10 @@ class FuzzyMatrixTest extends TestCase{
             new EvaluationTag("B", new §( [12,43,3] ) ),
             new EvaluationTag("G", new §( [3,5,6] ) )
         ]);
-        $a = new PairwiseComparisonMatrix( 
-            $rowLabels, $columnLabels,  [ [ [1,2,4] , [3,4,5]   , [3,4,5] ] ,  
-                                        [ [1,2,4]   , "G"       , [3,4,5] ] ,
-                                        [ "B"       , [3,4,5]   , "V"     ] ] , $etl);
+        $labelOptions = ["mLabels" => $rowLabels, "nLabels" => $columnLabels];
+        $a = new PairwiseComparisonMatrix( $labelOptions, [ [ [1,2,4]   , [3,4,5] , [3,4,5] ] ,  
+                                                            [ [1,2,4]   , "G"     , [3,4,5] ] ,
+                                                            [ "B"       , [3,4,5] , "V"     ]   ] , $etl);
         $expected = new FuzzyMatrix( [  [ [1,2,4]   , [3,4,5]   , [3,4,5]   ] ,  
                                         [ [1,2,4]   , [3,5,6]   , [3,4,5]   ] ,
                                         [ [12,43,3] , [3,4,5]   , [1,2,3]   ] ]);

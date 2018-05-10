@@ -1,0 +1,177 @@
+PHPUnit 6.5.8 by Sebastian Bergmann and contributors.
+
+Rstring(29) "PHPFuzzy\Models\CriterionList"
+array(8) {
+  [0]=>
+  string(16) "Decision Maker 1"
+  [1]=>
+  string(10) "Criteria 1"
+  [2]=>
+  string(13) "SubCriteria 2"
+  [3]=>
+  string(13) "SubCriteria 3"
+  [4]=>
+  string(10) "Criteria 2"
+  [5]=>
+  string(3) "Kia"
+  [6]=>
+  string(6) "Nissan"
+  [7]=>
+  string(10) "Alfa Romeo"
+}
+
+[36m┌─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐[0m
+[36m│ $AHPSess->listPCMCombinations()                                                                                                     │[0m
+[36m└─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘[0m
+[35;1marray[0m (10) [
+    0 => [35;1mstdClass[0m (2) (
+        public 'm' -> [35;1marray[0m (2) [
+            0 => [35;1mstring[0m (10) [32m"Criteria 1"[0m
+            1 => [35;1mstring[0m (10) [32m"Criteria 2"[0m
+        ]
+        public 'n' -> [35;1marray[0m (2) [
+            0 => [35;1mstring[0m (10) [32m"Criteria 1"[0m
+            1 => [35;1mstring[0m (10) [32m"Criteria 2"[0m
+        ]
+    )
+    1 => [35;1mstdClass[0m (2) (
+        public 'm' -> [35;1marray[0m (3) [
+            0 => [35;1mstring[0m (13) [32m"SubCriteria 1"[0m
+            1 => [35;1mstring[0m (13) [32m"SubCriteria 2"[0m
+            2 => [35;1mstring[0m (13) [32m"SubCriteria 3"[0m
+        ]
+        public 'n' -> [35;1marray[0m (3) [
+            0 => [35;1mstring[0m (13) [32m"SubCriteria 1"[0m
+            1 => [35;1mstring[0m (13) [32m"SubCriteria 2"[0m
+            2 => [35;1mstring[0m (13) [32m"SubCriteria 3"[0m
+        ]
+    )
+    2 => [35;1mstdClass[0m (3) (
+        public 'criterion' -> [35;1mstring[0m (13) [32m"SubCriteria 1"[0m
+        public 'm' -> [35;1marray[0m (3) [
+            0 => [35;1mstring[0m (3) [32m"Kia"[0m
+            1 => [35;1mstring[0m (6) [32m"Nissan"[0m
+            2 => [35;1mstring[0m (10) [32m"Alfa Romeo"[0m
+        ]
+        public 'n' -> [35;1marray[0m (3) [
+            0 => [35;1mstring[0m (3) [32m"Kia"[0m
+            1 => [35;1mstring[0m (6) [32m"Nissan"[0m
+            2 => [35;1mstring[0m (10) [32m"Alfa Romeo"[0m
+        ]
+    )
+    3 => [35;1mstdClass[0m (3) (
+        public 'criterion' -> [35;1mstring[0m (13) [32m"SubCriteria 2"[0m
+        public 'm' -> [35;1marray[0m (3) [
+            0 => [35;1mstring[0m (3) [32m"Kia"[0m
+            1 => [35;1mstring[0m (6) [32m"Nissan"[0m
+            2 => [35;1mstring[0m (10) [32m"Alfa Romeo"[0m
+        ]
+        public 'n' -> [35;1marray[0m (3) [
+            0 => [35;1mstring[0m (3) [32m"Kia"[0m
+            1 => [35;1mstring[0m (6) [32m"Nissan"[0m
+            2 => [35;1mstring[0m (10) [32m"Alfa Romeo"[0m
+        ]
+    )
+    4 => [35;1mstdClass[0m (3) (
+        public 'criterion' -> [35;1mstring[0m (13) [32m"SubCriteria 3"[0m
+        public 'm' -> [35;1marray[0m (3) [
+            0 => [35;1mstring[0m (3) [32m"Kia"[0m
+            1 => [35;1mstring[0m (6) [32m"Nissan"[0m
+            2 => [35;1mstring[0m (10) [32m"Alfa Romeo"[0m
+        ]
+        public 'n' -> [35;1marray[0m (3) [
+            0 => [35;1mstring[0m (3) [32m"Kia"[0m
+            1 => [35;1mstring[0m (6) [32m"Nissan"[0m
+            2 => [35;1mstring[0m (10) [32m"Alfa Romeo"[0m
+        ]
+    )
+    5 => [35;1mstdClass[0m (2) (
+        public 'm' -> [35;1marray[0m (4) [
+            0 => [35;1mstring[0m (13) [32m"SubCriteria 4"[0m
+            1 => [35;1mstring[0m (13) [32m"SubCriteria 5"[0m
+            2 => [35;1mstring[0m (13) [32m"SubCriteria 6"[0m
+            3 => [35;1mstring[0m (13) [32m"SubCriteria 7"[0m
+        ]
+        public 'n' -> [35;1marray[0m (4) [
+            0 => [35;1mstring[0m (13) [32m"SubCriteria 4"[0m
+            1 => [35;1mstring[0m (13) [32m"SubCriteria 5"[0m
+            2 => [35;1mstring[0m (13) [32m"SubCriteria 6"[0m
+            3 => [35;1mstring[0m (13) [32m"SubCriteria 7"[0m
+        ]
+    )
+    6 => [35;1mstdClass[0m (3) (
+        public 'criterion' -> [35;1mstring[0m (13) [32m"SubCriteria 4"[0m
+        public 'm' -> [35;1marray[0m (3) [
+            0 => [35;1mstring[0m (3) [32m"Kia"[0m
+            1 => [35;1mstring[0m (6) [32m"Nissan"[0m
+            2 => [35;1mstring[0m (10) [32m"Alfa Romeo"[0m
+        ]
+        public 'n' -> [35;1marray[0m (3) [
+            0 => [35;1mstring[0m (3) [32m"Kia"[0m
+            1 => [35;1mstring[0m (6) [32m"Nissan"[0m
+            2 => [35;1mstring[0m (10) [32m"Alfa Romeo"[0m
+        ]
+    )
+    7 => [35;1mstdClass[0m (3) (
+        public 'criterion' -> [35;1mstring[0m (13) [32m"SubCriteria 5"[0m
+        public 'm' -> [35;1marray[0m (3) [
+            0 => [35;1mstring[0m (3) [32m"Kia"[0m
+            1 => [35;1mstring[0m (6) [32m"Nissan"[0m
+            2 => [35;1mstring[0m (10) [32m"Alfa Romeo"[0m
+        ]
+        public 'n' -> [35;1marray[0m (3) [
+            0 => [35;1mstring[0m (3) [32m"Kia"[0m
+            1 => [35;1mstring[0m (6) [32m"Nissan"[0m
+            2 => [35;1mstring[0m (10) [32m"Alfa Romeo"[0m
+        ]
+    )
+    8 => [35;1mstdClass[0m (3) (
+        public 'criterion' -> [35;1mstring[0m (13) [32m"SubCriteria 6"[0m
+        public 'm' -> [35;1marray[0m (3) [
+            0 => [35;1mstring[0m (3) [32m"Kia"[0m
+            1 => [35;1mstring[0m (6) [32m"Nissan"[0m
+            2 => [35;1mstring[0m (10) [32m"Alfa Romeo"[0m
+        ]
+        public 'n' -> [35;1marray[0m (3) [
+            0 => [35;1mstring[0m (3) [32m"Kia"[0m
+            1 => [35;1mstring[0m (6) [32m"Nissan"[0m
+            2 => [35;1mstring[0m (10) [32m"Alfa Romeo"[0m
+        ]
+    )
+    9 => [35;1mstdClass[0m (3) (
+        public 'criterion' -> [35;1mstring[0m (13) [32m"SubCriteria 7"[0m
+        public 'm' -> [35;1marray[0m (3) [
+            0 => [35;1mstring[0m (3) [32m"Kia"[0m
+            1 => [35;1mstring[0m (6) [32m"Nissan"[0m
+            2 => [35;1mstring[0m (10) [32m"Alfa Romeo"[0m
+        ]
+        public 'n' -> [35;1marray[0m (3) [
+            0 => [35;1mstring[0m (3) [32m"Kia"[0m
+            1 => [35;1mstring[0m (6) [32m"Nissan"[0m
+            2 => [35;1mstring[0m (10) [32m"Alfa Romeo"[0m
+        ]
+    )
+]
+[36m═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════[0m
+[36mCalled from <ROOT>/tests/FuzzyAHPTest.php:33 [FuzzyAHPTest->testDefineDecisionMaker()][0m
+[36m[0m.E
+
+Time: 95 ms, Memory: 4.00MB
+
+There was 1 error:
+
+1) FuzzyMatrixTest::testCreatePairwiseComparisonMatrix
+TypeError: Argument 5 passed to PHPFuzzy\Models\PairwiseComparisonMatrix::__construct() must be an instance of PHPFuzzy\Models\EvalutionTagList, instance of PHPFuzzy\Models\EvaluationTagList given, called in /home/jaded/Documents/PHPFuzzy/tests/FuzzyMatrixTest.php on line 42
+
+/home/jaded/Documents/PHPFuzzy/src/Models/PairwiseComparisonMatrix.php:11
+/home/jaded/Documents/PHPFuzzy/tests/FuzzyMatrixTest.php:42
+
+--
+
+There was 1 risky test:
+
+1) FuzzyAHPTest::testDefineDecisionMaker
+This test did not perform any assertions
+
+ERRORS!
+Tests: 3, Assertions: 1, Errors: 1, Risky: 1.

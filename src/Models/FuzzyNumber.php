@@ -27,8 +27,10 @@ class FuzzyNumber implements \Countable, \IteratorAggregate{
     * @return string
     */
     public $value;
+    protected $raw;
 
     function __construct($arr){
+        $this->raw = $arr;
         $this->fixToStandart($arr);
         $this->value = $arr;   
     }

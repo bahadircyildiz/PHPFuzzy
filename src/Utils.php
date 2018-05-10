@@ -1,6 +1,6 @@
 <?php
 
-namespace Bahadircyildiz\PHPFuzzy;
+namespace PHPFuzzy;
 
 class Utils{
 

@@ -18,6 +18,9 @@
         "phpunit/phpunit": "*",
         "kint-php/kint": "*"
     },
+    "suggest":{
+        "ext-operator": "Enables FuzzyNumber class to use arithmetic operators."
+    },
 	"autoload": {
         "psr-4": {
             "PHPFuzzy\\": "src/"

@@ -4,10 +4,13 @@ namespace PHPFuzzy\Models;
 use PHPFuzzy\{ Utils };
 
 class FuzzyMatrix{
+
     protected $A;
     protected $etl;
+    protected $raw;
 
     public function __construct(array $A, EvaluationTagList $etl = null){
+        $this->raw = $A;
         $this->etl = $etl ?? new EvaluationTagList();
         $A = $this->setParametersAsFuzzyClasses($A);
         $this->validateFuzzyMatrixDimensions($A);
