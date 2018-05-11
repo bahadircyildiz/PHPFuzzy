@@ -19,7 +19,7 @@ class Collection implements \Countable, \IteratorAggregate{
     }
 
     function get($index = null){
-        return $index ? $this->items[$index] : $this->items;
+        return $index !== null ? $this->items[$index] : $this->items;
     }
 
     function getRandom(){

@@ -1,11 +1,13 @@
 <?php
 
 namespace PHPFuzzy\Models;
+use PHPFuzzy\{ FuzzyOperations as §§, Utils };
 
 class PairwiseComparisonMatrix extends FuzzyMatrix {
 
     protected $labelOptions;
     protected $criterion;
+    protected $weight;
 
 
     function __construct(array $labelOptions, $matrix, EvaluationTagList $etl = null){
@@ -37,6 +39,7 @@ class PairwiseComparisonMatrix extends FuzzyMatrix {
     public function getLabels(){
         return $labelOptions;
     }
+
 
 
 

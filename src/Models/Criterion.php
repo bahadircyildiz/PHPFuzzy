@@ -26,7 +26,7 @@ class Criterion {
     }
 
     function __toString(){
-        return "Criterion ".$this->name." #".Utils::getObjectID($this);
+        return "Criterion ".$this->name." #";
     }
 
     public function addSubcriterion(Criterion $sc){

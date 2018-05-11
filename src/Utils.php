@@ -68,6 +68,13 @@ class Utils{
         preg_match('~^.+?#(\d+)~s', ob_get_clean(), $oid);
         return $oid[1]; 
     }
+
+    public static function vectorize(array $arr){
+        $total = array_sum($arr);
+        return array_map(function($e){ 
+            return $e / $total;
+        }, $arr);
+    }
 }
 
 ?>

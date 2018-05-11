@@ -1,0 +1,454 @@
+PHPUnit 6.5.8 by Sebastian Bergmann and contributors.
+
+W.Eobject(PHPFuzzy\Models\PairwiseComparisonMatrix)#284 (6) {
+  ["labelOptions":protected]=>
+  array(2) {
+    ["m"]=>
+    array(2) {
+      [0]=>
+      string(22) "Criterion 0c3xf0md2l #"
+      [1]=>
+      string(30) "Criterion x4e5i35al674ammd00 #"
+    }
+    ["n"]=>
+    array(2) {
+      [0]=>
+      string(22) "Criterion 0c3xf0md2l #"
+      [1]=>
+      string(30) "Criterion x4e5i35al674ammd00 #"
+    }
+  }
+  ["criterion":protected]=>
+  NULL
+  ["weight":protected]=>
+  NULL
+  ["A":protected]=>
+  array(2) {
+    [0]=>
+    array(2) {
+      [0]=>
+      object(PHPFuzzy\Models\FuzzyNumber)#42 (2) {
+        ["value"]=>
+        array(3) {
+          [0]=>
+          object(stdClass)#43 (2) {
+            ["ux"]=>
+            int(0)
+            ["x"]=>
+            int(18)
+          }
+          [1]=>
+          object(stdClass)#44 (2) {
+            ["ux"]=>
+            int(1)
+            ["x"]=>
+            int(65)
+          }
+          [2]=>
+          object(stdClass)#45 (2) {
+            ["ux"]=>
+            int(0)
+            ["x"]=>
+            int(90)
+          }
+        }
+        ["raw":protected]=>
+        array(3) {
+          [0]=>
+          int(18)
+          [1]=>
+          int(65)
+          [2]=>
+          int(90)
+        }
+      }
+      [1]=>
+      object(PHPFuzzy\Models\FuzzyNumber)#37 (2) {
+        ["value"]=>
+        array(3) {
+          [0]=>
+          object(stdClass)#38 (2) {
+            ["ux"]=>
+            int(0)
+            ["x"]=>
+            int(31)
+          }
+          [1]=>
+          object(stdClass)#39 (2) {
+            ["ux"]=>
+            int(1)
+            ["x"]=>
+            int(42)
+          }
+          [2]=>
+          object(stdClass)#40 (2) {
+            ["ux"]=>
+            int(0)
+            ["x"]=>
+            int(72)
+          }
+        }
+        ["raw":protected]=>
+        array(3) {
+          [0]=>
+          int(31)
+          [1]=>
+          int(42)
+          [2]=>
+          int(72)
+        }
+      }
+    }
+    [1]=>
+    array(2) {
+      [0]=>
+      object(PHPFuzzy\Models\FuzzyNumber)#46 (2) {
+        ["value"]=>
+        array(3) {
+          [0]=>
+          object(stdClass)#47 (2) {
+            ["ux"]=>
+            int(0)
+            ["x"]=>
+            int(7)
+          }
+          [1]=>
+          object(stdClass)#48 (2) {
+            ["ux"]=>
+            int(1)
+            ["x"]=>
+            int(72)
+          }
+          [2]=>
+          object(stdClass)#49 (2) {
+            ["ux"]=>
+            int(0)
+            ["x"]=>
+            int(82)
+          }
+        }
+        ["raw":protected]=>
+        array(3) {
+          [0]=>
+          int(7)
+          [1]=>
+          int(72)
+          [2]=>
+          int(82)
+        }
+      }
+      [1]=>
+      object(PHPFuzzy\Models\FuzzyNumber)#50 (2) {
+        ["value"]=>
+        array(3) {
+          [0]=>
+          object(stdClass)#51 (2) {
+            ["ux"]=>
+            int(0)
+            ["x"]=>
+            int(33)
+          }
+          [1]=>
+          object(stdClass)#52 (2) {
+            ["ux"]=>
+            int(1)
+            ["x"]=>
+            int(62)
+          }
+          [2]=>
+          object(stdClass)#53 (2) {
+            ["ux"]=>
+            int(0)
+            ["x"]=>
+            int(79)
+          }
+        }
+        ["raw":protected]=>
+        array(3) {
+          [0]=>
+          int(33)
+          [1]=>
+          int(62)
+          [2]=>
+          int(79)
+        }
+      }
+    }
+  }
+  ["etl":protected]=>
+  object(PHPFuzzy\Models\EvaluationTagList)#324 (1) {
+    ["items":protected]=>
+    array(3) {
+      [0]=>
+      object(PHPFuzzy\Models\EvaluationTag)#288 (3) {
+        ["tag"]=>
+        string(3) "exr"
+        ["value"]=>
+        object(PHPFuzzy\Models\FuzzyNumber)#332 (2) {
+          ["value"]=>
+          array(3) {
+            [0]=>
+            object(stdClass)#333 (2) {
+              ["ux"]=>
+              int(0)
+              ["x"]=>
+              int(11)
+            }
+            [1]=>
+            object(stdClass)#335 (2) {
+              ["ux"]=>
+              int(1)
+              ["x"]=>
+              int(23)
+            }
+            [2]=>
+            object(stdClass)#334 (2) {
+              ["ux"]=>
+              int(0)
+              ["x"]=>
+              int(30)
+            }
+          }
+          ["raw":protected]=>
+          array(3) {
+            [0]=>
+            int(11)
+            [1]=>
+            int(23)
+            [2]=>
+            int(30)
+          }
+        }
+        ["definition"]=>
+        NULL
+      }
+      [1]=>
+      object(PHPFuzzy\Models\EvaluationTag)#330 (3) {
+        ["tag"]=>
+        string(3) "o2m"
+        ["value"]=>
+        object(PHPFuzzy\Models\FuzzyNumber)#302 (2) {
+          ["value"]=>
+          array(3) {
+            [0]=>
+            object(stdClass)#283 (2) {
+              ["ux"]=>
+              int(0)
+              ["x"]=>
+              int(5)
+            }
+            [1]=>
+            object(stdClass)#30 (2) {
+              ["ux"]=>
+              int(1)
+              ["x"]=>
+              int(69)
+            }
+            [2]=>
+            object(stdClass)#29 (2) {
+              ["ux"]=>
+              int(0)
+              ["x"]=>
+              int(73)
+            }
+          }
+          ["raw":protected]=>
+          array(3) {
+            [0]=>
+            int(5)
+            [1]=>
+            int(69)
+            [2]=>
+            int(73)
+          }
+        }
+        ["definition"]=>
+        NULL
+      }
+      [2]=>
+      object(PHPFuzzy\Models\EvaluationTag)#289 (3) {
+        ["tag"]=>
+        string(3) "8sf"
+        ["value"]=>
+        object(PHPFuzzy\Models\FuzzyNumber)#37 (2) {
+          ["value"]=>
+          array(3) {
+            [0]=>
+            object(stdClass)#38 (2) {
+              ["ux"]=>
+              int(0)
+              ["x"]=>
+              int(31)
+            }
+            [1]=>
+            object(stdClass)#39 (2) {
+              ["ux"]=>
+              int(1)
+              ["x"]=>
+              int(42)
+            }
+            [2]=>
+            object(stdClass)#40 (2) {
+              ["ux"]=>
+              int(0)
+              ["x"]=>
+              int(72)
+            }
+          }
+          ["raw":protected]=>
+          array(3) {
+            [0]=>
+            int(31)
+            [1]=>
+            int(42)
+            [2]=>
+            int(72)
+          }
+        }
+        ["definition"]=>
+        NULL
+      }
+    }
+  }
+  ["raw":protected]=>
+  array(2) {
+    [0]=>
+    array(2) {
+      [0]=>
+      object(PHPFuzzy\Models\FuzzyNumber)#42 (2) {
+        ["value"]=>
+        array(3) {
+          [0]=>
+          object(stdClass)#43 (2) {
+            ["ux"]=>
+            int(0)
+            ["x"]=>
+            int(18)
+          }
+          [1]=>
+          object(stdClass)#44 (2) {
+            ["ux"]=>
+            int(1)
+            ["x"]=>
+            int(65)
+          }
+          [2]=>
+          object(stdClass)#45 (2) {
+            ["ux"]=>
+            int(0)
+            ["x"]=>
+            int(90)
+          }
+        }
+        ["raw":protected]=>
+        array(3) {
+          [0]=>
+          int(18)
+          [1]=>
+          int(65)
+          [2]=>
+          int(90)
+        }
+      }
+      [1]=>
+      string(3) "8sf"
+    }
+    [1]=>
+    array(2) {
+      [0]=>
+      object(PHPFuzzy\Models\FuzzyNumber)#46 (2) {
+        ["value"]=>
+        array(3) {
+          [0]=>
+          object(stdClass)#47 (2) {
+            ["ux"]=>
+            int(0)
+            ["x"]=>
+            int(7)
+          }
+          [1]=>
+          object(stdClass)#48 (2) {
+            ["ux"]=>
+            int(1)
+            ["x"]=>
+            int(72)
+          }
+          [2]=>
+          object(stdClass)#49 (2) {
+            ["ux"]=>
+            int(0)
+            ["x"]=>
+            int(82)
+          }
+        }
+        ["raw":protected]=>
+        array(3) {
+          [0]=>
+          int(7)
+          [1]=>
+          int(72)
+          [2]=>
+          int(82)
+        }
+      }
+      [1]=>
+      object(PHPFuzzy\Models\FuzzyNumber)#50 (2) {
+        ["value"]=>
+        array(3) {
+          [0]=>
+          object(stdClass)#51 (2) {
+            ["ux"]=>
+            int(0)
+            ["x"]=>
+            int(33)
+          }
+          [1]=>
+          object(stdClass)#52 (2) {
+            ["ux"]=>
+            int(1)
+            ["x"]=>
+            int(62)
+          }
+          [2]=>
+          object(stdClass)#53 (2) {
+            ["ux"]=>
+            int(0)
+            ["x"]=>
+            int(79)
+          }
+        }
+        ["raw":protected]=>
+        array(3) {
+          [0]=>
+          int(33)
+          [1]=>
+          int(62)
+          [2]=>
+          int(79)
+        }
+      }
+    }
+  }
+}
+
+
+Time: 86 ms, Memory: 4.00MB
+
+There was 1 error:
+
+1) FuzzyAHPTest::testCalculateWeight
+Error: Class 'PHPFuzzy\MCDM\FuzzyNumber' not found
+
+/home/jaded/Documents/PHPFuzzy/src/MCDM/FuzzyAHP.php:75
+/home/jaded/Documents/PHPFuzzy/src/MCDM/FuzzyAHP.php:98
+/home/jaded/Documents/PHPFuzzy/tests/FuzzyAHPTest.php:40
+
+--
+
+There was 1 warning:
+
+1) Warning
+No tests found in class "FakeTest".
+
+ERRORS!
+Tests: 3, Assertions: 1, Errors: 1, Warnings: 1.

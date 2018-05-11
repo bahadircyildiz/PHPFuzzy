@@ -14,7 +14,7 @@ class Alternative {
     }
     
     function __toString(){
-        return "Alternative ".$this->name." #".Utils::getObjectID($this);
+        return "Alternative ".$this->name." #";
     }
 }
 
