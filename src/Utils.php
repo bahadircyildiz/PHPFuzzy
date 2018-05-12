@@ -71,7 +71,7 @@ class Utils{
 
     public static function vectorize(array $arr){
         $total = array_sum($arr);
-        return array_map(function($e){ 
+        return array_map(function($e) use ($total){ 
             return $e / $total;
         }, $arr);
     }

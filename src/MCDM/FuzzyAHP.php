@@ -2,7 +2,7 @@
 namespace PHPFuzzy\MCDM;
 
 use PHPFuzzy\Models\{   FuzzyNumber, DecisionMaker, AlternativeList, PairwiseComparisonMatrixList as PCML, 
-                        PairwiseComparisonMatrix as PCM};
+                        PairwiseComparisonMatrix as PCM, CriterionList, Criterion};
 use PHPFuzzy\{ Utils , FuzzyOperations as §§};
 
 
@@ -34,22 +34,37 @@ class FuzzyAHP{
     }
 
     public function listPCMCombinations(){
-        $CtoCmatches = function($cL, $a, &$r = []) use (&$CtoCmatches){
-            $tempArray = array_map(function($e){ return (string) $e; }, iterator_to_array($cL));
-            $r[] = [ "m" => $tempArray, "n" => $tempArray ];
-            foreach ($cL as $c) {
-                if(count($c->subcriteria) > 0)
-                    $CtoCmatches($c->subcriteria, $a, $r);
-                else {
-                    $tempArray = array_map(function($e){ return (string) $e; }, iterator_to_array($a));
-                    # CtoAmatches
-                    $r[] = [ "m" => $tempArray, "n" => $tempArray, "criterion" => (string) $c];
+        $CtoCmatches = function($cL, $alts, $target = null, &$r = []) use (&$CtoCmatches){
+            if($cL instanceof DecisionMaker){
+                echo "Inside DM cycle\n";
+                echo "CtoCmatches ".(string) $cL.", alts, ".(string) $target."\n";
+                $tempArray = iterator_to_array($cL->criteria);
+                $r[] = [ "m" => $tempArray, "n" => $tempArray, "target" =>  $cL];
+                $CtoCmatches($cL->criteria, $alts, $cL, $r);
+            }
+            else if ($cL instanceof CriterionList){
+                echo "Inside CL cycle\n";
+                foreach($cL as $criterion){
+                    if(count($criterion->subcriteria) == 0){
+                        echo "CtoCmatches alts, alts, ".(string) $criterion."\n";
+                        $CtoCmatches($alts, $alts, $criterion, $r);        
+                    } else {
+                        $tempArray = iterator_to_array($cL);
+                        $r[] = [ "m" => $tempArray, "n" => $tempArray, "target" => $target];
+                        echo "CtoCmatches subc, alts, ".(string) $criterion."\n";
+                        $CtoCmatches($criterion->subcriteria, $alts, $criterion, $r);
+                    }
                 }
-            };
+            }
+            else if($cL instanceof AlternativeList){
+                echo "Inside AL cycle\n";
+                $tempArray = iterator_to_array($alts);
+                $r[] = [ "m" => $tempArray, "n" => $tempArray, "target" =>  $target];
+            }
             return $r;
         };
 
-        return $CtoCmatches($this->dm->criteria, $this->alternatives);
+        return $CtoCmatches($this->dm, $this->alternatives);
     }
 
     public function getPCML(){

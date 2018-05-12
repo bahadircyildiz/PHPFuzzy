@@ -26,7 +26,7 @@ class FuzzyMatrix implements \Countable, \IteratorAggregate{
     }
 
     public function __toString(){
-        $stringifyRows = function($row) use ($stringifyCells){
+        $stringifyRows = function($row){
             $stringifiedCells = implode("\t", array_map(function($cell){
                 return (string) $cell;
             }, $row));
