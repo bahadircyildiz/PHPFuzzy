@@ -1,6 +1,6 @@
 <?php 
 
-namespace Bahadircyildiz\PHPFuzzy\Models;
+namespace PHPFuzzy\Models;
 use MathPHP\NumericalAnalysis\NumericalIntegration\SimpsonsRule;
 
     /**
@@ -11,7 +11,7 @@ use MathPHP\NumericalAnalysis\NumericalIntegration\SimpsonsRule;
     *
     *  @author Bahadir Can Yildiz
     */
-class FuzzyNumber {
+class FuzzyNumber implements \Countable, \IteratorAggregate{
 
     /**  @var string $m_SampleProperty define here what this variable is for, do this for every instance variable */
     // private $m_SampleProperty = '';
@@ -27,14 +27,29 @@ class FuzzyNumber {
     * @return string
     */
     public $value;
+    protected $raw;
 
     function __construct($arr){
+        $this->raw = $arr;
         $this->fixToStandart($arr);
         $this->value = $arr;   
     }
 
+    function count(){
+        return count($this->value);
+    }
+
+    function getIterator(){
+        return new \ArrayIterator($this->value);
+    }
+
     function __toString(){
-        return $this->value;
+        $seperator = function($e){
+            return "$e->ux;$e->x";
+        };
+        $fnStr = implode(',', array_map($seperator, $this->value));
+        $return = "({$fnStr})";
+        return $return;
     }
 
     private function fixToStandart(array &$arr){
@@ -128,4 +143,28 @@ class FuzzyNumber {
             / 
             SimpsonsRule::approximate(function($x){return $this->µ($x);}, $start, $end, $n+1);
     }
+
+    public function l(){
+        return $this->value[0]->x;
+    }
+
+    public function m(){
+        return $this->value[1]->x;
+    }
+
+    public function u(){
+        return $this->value[2]->x;
+    }
+
+    public function vectorize(){
+        $total = 0;
+        foreach($this->value as $i => $val){
+            $total += $val->x;
+        }
+        return new FuzzyNumber(array_map(function($e){ 
+            $newX = $e->x / $total;
+            return "{$e->ux};{$newX}"; 
+        }, $this->value));
+    }
+
 }

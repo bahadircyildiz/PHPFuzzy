@@ -8,8 +8,8 @@
 *
 *  @author yourname
 */
-use Bahadircyildiz\PHPFuzzy\Models\{FuzzyNumber as §, DecisionMaker, Criterion, Alternative, FuzzyMatrix};
-use Bahadircyildiz\PHPFuzzy\{ FuzzyMCDM, FuzzyOperations as §§ };
+use PHPFuzzy\Models\{FuzzyNumber as §, DecisionMaker, Criterion, Alternative, FuzzyMatrix};
+use PHPFuzzy\{ FuzzyMCDM, FuzzyOperations as §§ };
 use PHPUnit\Framework\TestCase;
 
 class FuzzyOperationsTest extends TestCase{
@@ -17,7 +17,7 @@ class FuzzyOperationsTest extends TestCase{
     public function testPrintFuzzyNumberInt(){
         $a = new §(array(30,40,50));
         $expected = new §(array("0;30","1;40","0;50"));
-        $this->assertEquals($expected, $a);
+        $this->assertEquals((string) $expected, (string) $a);
     }
 
     public function testPrintIfTriangular(){
@@ -71,15 +71,6 @@ class FuzzyOperationsTest extends TestCase{
         $a = new §([30,40,100]);
         $expected = 56.666666666655303;
         $this->assertEquals($expected, $a->defuzzificate('CoA'));
-    }
-
-    public function testCreateFuzzyMatrix(){
-        $a = new FuzzyMatrix([
-                                [ new §([1, 2, 3]), new §([1, 2, 3]), new §([1, 2, 3])],
-                                [ new §([1, 2, 3]), new §([1, 2, 3]), new §([1, 2, 3])],
-                                [ new §([1, 2, 3]), new §([1, 2, 3]), new §([1, 2, 3])]
-                            ]);
-        var_dump($a);
     }
   /**
   * Just check if the YourClass has no syntax error 

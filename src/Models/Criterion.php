@@ -9,7 +9,8 @@
      *  new Criterion("Durability", 0.75)
      * ]
      */
-namespace Bahadircyildiz\PHPFuzzy\Models;
+namespace PHPFuzzy\Models;
+use PHPFuzzy\{ Utils };
 
 class Criterion {
 
@@ -17,7 +18,7 @@ class Criterion {
     public $weight;
     public $subcriteria;
 
-    function __construct(string $name, float $weight, CriterionList $subcriteria = null){
+    function __construct(string $name, CriterionList $subcriteria = null, float $weight = null){
         $this->name = $name;
         $this->weight = $weight;
         $this->subcriteria = $subcriteria ?? new CriterionList();
@@ -25,7 +26,11 @@ class Criterion {
     }
 
     function __toString(){
-        return $this->name;
+        return "Criterion ".$this->name." #";
+    }
+
+    public function addSubcriterion(Criterion $sc){
+        $this->subcriteria->add($sc);
     }
 }
 

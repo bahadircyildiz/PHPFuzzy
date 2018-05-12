@@ -1,19 +1,25 @@
 <?php
 
-namespace Bahadircyildiz\PHPFuzzy\Models;
-use Bahadircyildiz\PHPFuzzy\Utils;
+namespace PHPFuzzy\Models;
+use PHPFuzzy\Utils;
 
 class EvaluationTagList extends Collection{
-    
-    private $items = [];
 
     function __construct(array $items = []){
-        Utils::validateArrayAsCollection($items, EvaluationTag);
-        $this->items = $items;
+        Utils::validateArrayAsCollection($items, EvaluationTag::class);
+        parent::__construct($items);
     }
 
     function add(EvaluationTag $tag){
         $this->items[] = $tag;
+    }
+
+    function getValueByTag(string $tag){
+        $returnTag = function($e) use ($tag){
+            return $e->tag == $tag; 
+        };
+        $result = array_values(array_filter($this->items, $returnTag));
+        return $result[0]->value ?? null;
     }
 
 }
