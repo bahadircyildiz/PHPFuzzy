@@ -3,6 +3,7 @@
 namespace PHPFuzzy;
 use PHPFuzzy\MCDM\{FuzzyAHP};
 use PHPFuzzy\Models\{ DecisionMaker,  AlternativeList, PairwiseComparisonMatrixList as PCML };
+use MathPHP\Exception\{ BadDataException };
 
     /**
     *   Fuzzy Multicriteria Decision Making Class
@@ -38,7 +39,7 @@ class FuzzyMCDM{
         $sortedNameArray = array_unique($nameArray);
         if(count($sortedNameArray) != count($nameArray)){
             $implodedNameArray = implode(',', $nameArray); 
-            die("Duplicate names found in given DecisionMaker and Alternatives {$implodedNameArray}.\n");
+            throw new BadDataException("Duplicate names found in given DecisionMaker and Alternatives {$implodedNameArray}.\n");
         }
         return $nameArray;
 

@@ -1,0 +1,9 @@
+language: PHP
+php:
+  - "7.0"
+  - "5.4"
+before_install:
+  - composer self-update
+before_script:
+  - composer install
+script: phpunit -- configurations phpunit.xml --coverage-text
