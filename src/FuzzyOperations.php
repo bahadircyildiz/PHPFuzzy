@@ -1,7 +1,7 @@
 <?php 
 
-namespace Bahadircyildiz\PHPFuzzy;
-use Bahadircyildiz\PHPFuzzy\Models\{ FuzzyNumber };
+namespace PHPFuzzy;
+use PHPFuzzy\Models\{ FuzzyNumber };
 
     /**
     *  A sample class

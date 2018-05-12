@@ -1,7 +1,8 @@
 <?php
 
-namespace Bahadircyildiz\PHPFuzzy;
-use Bahadircyildiz\PHPFuzzy\MCDM\{FuzzyAHP};
+namespace PHPFuzzy;
+use PHPFuzzy\MCDM\{FuzzyAHP};
+use PHPFuzzy\Models\{ DecisionMaker,  AlternativeList, PairwiseComparisonMatrixList as PCML };
 
     /**
     *   Fuzzy Multicriteria Decision Making Class
@@ -23,12 +24,11 @@ class FuzzyMCDM{
     *
     * @return
     */
-    public function AHP(DecisionMaker $dm, array $alternatives){
-        var_dump(self::checkParameterConsistency($dm, $alternatives));
-        return new FuzzyAHP($dm, $alternatives);
+    public function AHP(DecisionMaker $dm, AlternativeList $alternatives, PCML $pcml = null){
+        return new FuzzyAHP($dm, $alternatives, $pcml);
     }
 
-    private function checkParameterConsistency(DecisionMaker $dm, array $alternatives){
+    private function checkParameterConsistency(DecisionMaker $dm, AlternativeList $alternatives){
         $nameArray = array_merge( [ $dm->name ],
             Utils::objectCollectAttrRecursive($dm->criteria, "name", "subcriteria")
             );

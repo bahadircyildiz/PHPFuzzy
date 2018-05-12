@@ -17,5 +17,13 @@ class Collection implements \Countable, \IteratorAggregate{
     function count(){
         return count($this->items);
     }
+
+    function get($index = null){
+        return $index !== null ? $this->items[$index] : $this->items;
+    }
+
+    function getRandom(){
+        return $this->get(count($this->items) - 1);
+    }
 }
 ?>

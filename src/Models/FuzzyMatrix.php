@@ -3,15 +3,38 @@
 namespace PHPFuzzy\Models;
 use PHPFuzzy\{ Utils };
 
-class FuzzyMatrix{
+class FuzzyMatrix implements \Countable, \IteratorAggregate{
+
     protected $A;
     protected $etl;
+    protected $raw;
+
+    public function count(){
+        return $this->getM() * $this->getN();
+    }
+
+    public function getIterator(){
+        return new \ArrayIterator($this->getMatrix());
+    }
 
     public function __construct(array $A, EvaluationTagList $etl = null){
+        $this->raw = $A;
         $this->etl = $etl ?? new EvaluationTagList();
         $A = $this->setParametersAsFuzzyClasses($A);
         $this->validateFuzzyMatrixDimensions($A);
         $this->A = $A;
+    }
+
+    public function __toString(){
+        $stringifyRows = function($row){
+            $stringifiedCells = implode("\t", array_map(function($cell){
+                return (string) $cell;
+            }, $row));
+            $str = "[\t{$stringifiedCells}\t]";
+            return $str;
+        };
+        $str = implode("\n", array_map( $stringifyRows, $this->getMatrix())); 
+        return "\n{$str}\n";
     }
 
     private function validateFuzzyMatrixDimensions(array $A, $sameFuzzyMemberLength = false){

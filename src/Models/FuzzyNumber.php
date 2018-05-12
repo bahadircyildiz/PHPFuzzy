@@ -27,8 +27,10 @@ class FuzzyNumber implements \Countable, \IteratorAggregate{
     * @return string
     */
     public $value;
+    protected $raw;
 
     function __construct($arr){
+        $this->raw = $arr;
         $this->fixToStandart($arr);
         $this->value = $arr;   
     }
@@ -141,4 +143,28 @@ class FuzzyNumber implements \Countable, \IteratorAggregate{
             / 
             SimpsonsRule::approximate(function($x){return $this->µ($x);}, $start, $end, $n+1);
     }
+
+    public function l(){
+        return $this->value[0]->x;
+    }
+
+    public function m(){
+        return $this->value[1]->x;
+    }
+
+    public function u(){
+        return $this->value[2]->x;
+    }
+
+    public function vectorize(){
+        $total = 0;
+        foreach($this->value as $i => $val){
+            $total += $val->x;
+        }
+        return new FuzzyNumber(array_map(function($e){ 
+            $newX = $e->x / $total;
+            return "{$e->ux};{$newX}"; 
+        }, $this->value));
+    }
+
 }

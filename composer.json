@@ -12,11 +12,15 @@
     "type": "project",
     "require": {
         "php": ">=7.0",
-        "markrogoyski/math-php": "^0.39.0"
+        "markrogoyski/math-php": "^0.39.0",
+        "Fakerino/Fakerino": "^0.8.3"
     },
     "require-dev": {
         "phpunit/phpunit": "*",
         "kint-php/kint": "*"
+    },
+    "suggest":{
+        "ext-operator": "Enables FuzzyNumber class to use arithmetic operators."
     },
 	"autoload": {
         "psr-4": {

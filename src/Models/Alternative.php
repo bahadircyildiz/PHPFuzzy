@@ -1,6 +1,8 @@
 <?php
 
 namespace PHPFuzzy\Models;
+use PHPFuzzy\{ Utils };
+
 class Alternative {
 
     public $name;
@@ -12,7 +14,7 @@ class Alternative {
     }
     
     function __toString(){
-        return $this->name;
+        return "Alternative ".$this->name." #";
     }
 }
 

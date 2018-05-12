@@ -10,6 +10,7 @@
      * ]
      */
 namespace PHPFuzzy\Models;
+use PHPFuzzy\{ Utils };
 
 class Criterion {
 
@@ -25,7 +26,11 @@ class Criterion {
     }
 
     function __toString(){
-        return $this->name;
+        return "Criterion ".$this->name." #";
+    }
+
+    public function addSubcriterion(Criterion $sc){
+        $this->subcriteria->add($sc);
     }
 }
 

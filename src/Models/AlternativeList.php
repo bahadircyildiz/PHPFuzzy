@@ -9,7 +9,7 @@ class AlternativeList extends Collection{
     function __construct(array $items){
         Utils::validateArrayAsCollection($items, Alternative::class);
         $this->validateAlternativeArray($items);
-        parent::__construct($items);
+        $this->items = $items;
     }
 
     function  add(Alternative $alternative){

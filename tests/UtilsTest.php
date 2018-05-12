@@ -8,8 +8,8 @@
 *
 *  @author yourname
 */
-use Bahadircyildiz\PHPFuzzy\Models\{FuzzyNumber, DecisionMaker, Criterion, Alternative, FuzzyMatrix};
-use Bahadircyildiz\PHPFuzzy\{ FuzzyMCDM, Utils };
+use PHPFuzzy\Models\{FuzzyNumber, DecisionMaker, Criterion, Alternative, FuzzyMatrix};
+use PHPFuzzy\{ FuzzyMCDM, Utils };
 use PHPUnit\Framework\TestCase;
 
 class UtilsTest extends TestCase{

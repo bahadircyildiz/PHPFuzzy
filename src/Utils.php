@@ -1,6 +1,6 @@
 <?php
 
-namespace Bahadircyildiz\PHPFuzzy;
+namespace PHPFuzzy;
 
 class Utils{
 
@@ -59,6 +59,21 @@ class Utils{
                 die("Error: in validating member of {$class}");
         }
         return true;
+    }
+
+    public static function getObjectID(&$obj) {
+        if(!is_object($obj))
+            return false;
+        ob_start();
+        preg_match('~^.+?#(\d+)~s', ob_get_clean(), $oid);
+        return $oid[1]; 
+    }
+
+    public static function vectorize(array $arr){
+        $total = array_sum($arr);
+        return array_map(function($e) use ($total){ 
+            return $e / $total;
+        }, $arr);
     }
 }
 
