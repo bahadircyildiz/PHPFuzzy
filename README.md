@@ -1,9 +1,11 @@
 PHPFuzzy: Fuzzy Logic Library For PHP 
 =======================
 
-[![Build Status](https://travis-ci.org/buonzz/laravel-4-freegeoip.svg?branch=master)](https://travis-ci.org/buonzz/laravel-4-freegeoip)
-[![Latest Stable Version](https://poser.pugx.org/buonzz/laravel-4-freegeoip/v/stable.svg)](https://packagist.org/packages/buonzz/laravel-4-freegeoip) [![Total Downloads](https://poser.pugx.org/buonzz/laravel-4-freegeoip/downloads.svg)](https://packagist.org/packages/buonzz/laravel-4-freegeoip)
-[![Latest Unstable Version](https://poser.pugx.org/buonzz/laravel-4-freegeoip/v/unstable.svg)](https://packagist.org/packages/buonzz/laravel-4-freegeoip) [![License](https://poser.pugx.org/buonzz/laravel-4-freegeoip/license.svg)](https://packagist.org/packages/buonzz/laravel-4-freegeoip)
+[![Build Status](https://travis-ci.org/bahadircyildiz/PHPFuzzy.svg?branch=master)](https://travis-ci.org/bahadircyildiz/PHPFuzzy)
+[![Latest Stable Version](https://poser.pugx.org/bahadircyildiz/phpfuzzy/v/stable)](https://packagist.org/packages/bahadircyildiz/phpfuzzy)
+[![Total Downloads](https://poser.pugx.org/bahadircyildiz/phpfuzzy/downloads)](https://packagist.org/packages/bahadircyildiz/phpfuzzy)
+[![Latest Unstable Version](https://poser.pugx.org/bahadircyildiz/phpfuzzy/v/unstable)](https://packagist.org/packages/bahadircyildiz/phpfuzzy)
+[![License](https://poser.pugx.org/bahadircyildiz/phpfuzzy/license)](https://packagist.org/packages/bahadircyildiz/phpfuzzy)
 
 
 Just install the package, add the config and it is ready to use!
