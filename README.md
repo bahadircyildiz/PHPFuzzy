@@ -8,7 +8,7 @@ PHPFuzzy: Fuzzy Logic Library For PHP
 [![License](https://poser.pugx.org/bahadircyildiz/phpfuzzy/license)](https://packagist.org/packages/bahadircyildiz/phpfuzzy)
 
 
-Just install the package, add the config and it is ready to use!
+This package is still under development. Documentation and contribution details are on the way. 
 
 
 Requirements
@@ -16,15 +16,15 @@ Requirements
 
 * PHP >= 7.0
 
+Suggests
+============
+
+* ext-operator: Enables FuzzyNumber class to use arithmetic operators. 
+
 Installation
 ============
 
-    composer require bahadircyildiz\FuzzyPHP
-
-
-Usage
-=====
-
+    composer require bahadircyildiz\PHPFuzzy
 
 
 Credits
