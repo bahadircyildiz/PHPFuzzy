@@ -31,4 +31,4 @@ Credits
 =======
 
 * Bahadir Can Yildiz
-* Assistant Professor Ayse Ovgu Vural
+* Assistant Professor Ayse Ovgu Kinay
