@@ -2,7 +2,7 @@
 
 namespace PHPFuzzy\Models;
 use PHPFuzzy\{ FuzzyOperations as §§, Utils };
-use MathPHP\Exception\BadDataException;
+use MathPHP\Exception\MatrixException;
 
 class PairwiseComparisonMatrix extends FuzzyMatrix {
 
@@ -11,8 +11,8 @@ class PairwiseComparisonMatrix extends FuzzyMatrix {
     protected $weight;
 
 
-    function __construct(mixed $pair, mixed $comparedWith, mixed $matrix, EvaluationTagList $etl = null){
-        if(is_array($matrix))   parent::__construct($matrix, $etl);
+    function __construct(mixed $pair, mixed $comparedWith, mixed $matrix, ScaleList $sL = null){
+        if(is_array($matrix))   parent::__construct($matrix, $sL);
         else if ($matrix instanceof FuzzyMatrix){
             parent::__construct($matrix->raw, $matrix->getTags());
         }
@@ -23,7 +23,7 @@ class PairwiseComparisonMatrix extends FuzzyMatrix {
     private function checkDimensionConsistency($pairs){
         $A = $this->A;
         if(count($pair) != $A->getM())
-            throw new BadDataException("Alternative count does not match with matrix x 
+            throw new MatrixException("Alternative count does not match with matrix x 
                                             dimensions=".count($pairs)." , expected ".$A->getM().".");
     }
 

@@ -3,14 +3,14 @@
 namespace PHPFuzzy\Models;
 use PHPFuzzy\Utils;
 
-class EvaluationTagList extends Collection{
+class ScaleList extends Collection{
 
     function __construct(array $items = []){
-        Utils::validateArrayAsCollection($items, EvaluationTag::class);
+        Utils::validateArrayAsCollection($items, Scale::class);
         parent::__construct($items);
     }
 
-    function add(EvaluationTag $tag){
+    function add(Scale $tag){
         $this->items[] = $tag;
     }
 

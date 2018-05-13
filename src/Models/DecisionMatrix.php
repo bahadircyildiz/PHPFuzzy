@@ -2,7 +2,7 @@
 
 namespace PHPFuzzy\Models;
 use PHPFuzzy\{ FuzzyOperations as §§, Utils };
-use MathPHP\Exception\BadDataException;
+use MathPHP\Exception\MatrixException;
 
 class DecisionMatrix extends FuzzyMatrix {
 
@@ -10,8 +10,8 @@ class DecisionMatrix extends FuzzyMatrix {
     protected $aL;
 
 
-    function __construct(AlternativeList $aL, CriterionList $cL, mixed $matrix, EvaluationTagList $etl = null){
-        if(is_array($matrix))   parent::__construct($matrix, $etl);
+    function __construct(AlternativeList $aL, CriterionList $cL, mixed $matrix, ScaleList $sL = null){
+        if(is_array($matrix))   parent::__construct($matrix, $sL);
         else if ($matrix instanceof FuzzyMatrix){
             parent::__construct($matrix->raw, $matrix->getTags());
         }
@@ -24,10 +24,10 @@ class DecisionMatrix extends FuzzyMatrix {
     private function checkDimensionConsistency($aL, $cL){
         $A = $this->A;
         if(count($aL) != $A->getM())
-            throw new BadDataException("Alternative count does not match with matrix x dimension 
+            throw new MatrixException("Alternative count does not match with matrix x dimension 
                                             m=".count($aL)." , expected ".$A->getM().".");
         if(count($cL) != $A->getN())
-            throw new BadDataException("Criteria count does not match with matrix x dimension 
+            throw new MatrixException("Criteria count does not match with matrix x dimension 
                                             n=".count($cL)." , expected ".$A->getN().".");
 
     }
