@@ -56,7 +56,7 @@ class Utils{
     public static function validateArrayAsCollection(array $arr, $class){
         foreach ($arr as $a_) {
             if(!($a_ instanceof $class))
-                die("Error: in validating member of {$class}");
+                throw new \Exception("Error: in validating member of {$class}");
         }
         return true;
     }

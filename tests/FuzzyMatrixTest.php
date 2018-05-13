@@ -9,7 +9,7 @@
 *  @author yourname
 */
 use PHPFuzzy\Models\{FuzzyNumber as §, PairwiseComparisonMatrix, FuzzyMatrix, EvaluationTagList, EvaluationTag};
-use PHPFuzzy\{ FuzzyMCDM, Utils };
+use PHPFuzzy\{ FuzzyMCDM, Utils , Fake};
 use PHPUnit\Framework\TestCase;
 
 class FuzzyMatrixTest extends TestCase{
@@ -29,27 +29,20 @@ class FuzzyMatrixTest extends TestCase{
     }
 
     public function testCreatePairwiseComparisonMatrix(){
-        $rowLabels = ["Hihi", "Haha", "Hohoho"];
-        $columnLabels = ["Hoho", "Haha", "Hihihi"];
+        $pairs = new AlternativeList(Fake::Alternative(3));
+        $comparedWith = Fake::Criterion()[0];
         $etl = new EvaluationTagList([
             new EvaluationTag("V", new §( [1,2,3] ) ),
             new EvaluationTag("B", new §( [12,43,3] ) ),
             new EvaluationTag("G", new §( [3,5,6] ) )
         ]);
-        $labelOptions = ["m" => $rowLabels, "n" => $columnLabels];
-        $a = new PairwiseComparisonMatrix( $labelOptions, [ [ [1,2,4]   , [3,4,5] , [3,4,5] ] ,  
-                                                            [ [1,2,4]   , "G"     , [3,4,5] ] ,
-                                                            [ "B"       , [3,4,5] , "V"     ]   ] , $etl);
+        $a = new PairwiseComparisonMatrix($pairs, $comparedWith ,   [ [ [1,2,4]   , [3,4,5] , [3,4,5] ] ,  
+                                                                    [   [1,2,4]   , "G"     , [3,4,5] ] ,
+                                                                    [   "B"       , [3,4,5] , "V"     ]   ] , $etl);
         $expected = new FuzzyMatrix( [  [ [1,2,4]   , [3,4,5]   , [3,4,5]   ] ,  
                                         [ [1,2,4]   , [3,5,6]   , [3,4,5]   ] ,
                                         [ [12,43,3] , [3,4,5]   , [1,2,3]   ] ]);
         $this->assertEquals($expected->getMatrix(), $a->getMatrix()); 
-    }
-
-    public function testStringifyFuzzyMatrix(){
-        $expected = new FuzzyMatrix(    [   [ [1,2,4]   , [3,4,5]   , [3,4,5]   ] ,  
-                                        [   [1,2,4]     , [3,5,6]   , [3,4,5]   ] ,
-                                        [   [12,43,3]   , [3,4,5]   , [1,2,3]   ] ]);
     }
 
     

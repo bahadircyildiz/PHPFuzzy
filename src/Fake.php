@@ -82,16 +82,16 @@ class Fake{
         },$range);
     }
 
-    public static function PairwiseComparisonMatrix(DecisionMaker $dm, AlternativeList $alts){
-        $AHPSess = FuzzyMCDM::AHP($dm, $alts);
-        $combinations = $AHPSess->listPCMCombinations();
-        $etl = new EvaluationTagList(Fake::EvaluationTag(3));
-        return array_map(function($labelOptions)use ($etl){
-            $fuzzyMatrix = Fake::FuzzyMatrix(   count($labelOptions["m"]), 
-                                                count($labelOptions["n"]), 1, $etl);
-            return new PCM( $labelOptions, $fuzzyMatrix[0]);
-        },$combinations);
-    }
+    // public static function PairwiseComparisonMatrix(DecisionMaker $dm, AlternativeList $alts){
+    //     $AHPSess = FuzzyMCDM::AHP($dm, $alts);
+    //     $combinations = $AHPSess->listPCMCombinations();
+    //     $etl = new EvaluationTagList(Fake::EvaluationTag(3));
+    //     return array_map(function($labelOptions)use ($etl){
+    //         $fuzzyMatrix = Fake::FuzzyMatrix(   count($labelOptions["m"]), 
+    //                                             count($labelOptions["n"]), 1, $etl);
+    //         return new PCM( $labelOptions, $fuzzyMatrix[0]);
+    //     },$combinations);
+    // }
 }
 
 ?>
