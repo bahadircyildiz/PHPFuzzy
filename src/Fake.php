@@ -1,7 +1,7 @@
 <?php
 
 namespace PHPFuzzy;
-use PHPFuzzy\Models\{FuzzyNumber, FuzzyMatrix, PairwiseComparisonMatrix as PCM, EvaluationTag, EvaluationTagList,
+use PHPFuzzy\Models\{FuzzyNumber, FuzzyMatrix, PairwiseComparisonMatrix as PCM, Scale, ScaleList,
                     Alternative, AlternativeList, Criterion, CriterionList, DecisionMaker};
 use Fakerino\Fakerino;
 
@@ -20,23 +20,23 @@ class Fake{
         $range = range(1, $count);
         return array_map(function($e) use($etCount, $row, $column){
             if(is_int($etCount))
-                $etl = $etCount != 0 ? new EvaluationTagList(self::EvaluationTag($etCount)) : null;
-            else if($etCount instanceof EvaluationTagList)
-                $etl = $etCount;
-            $matrix = self::Matrix($row, $column, $etl)[0];
-            return new FuzzyMatrix($matrix, $etl);
+                $sL = $etCount != 0 ? new ScaleList(self::Scale($etCount)) : null;
+            else if($etCount instanceof ScaleList)
+                $sL = $etCount;
+            $matrix = self::Matrix($row, $column, $sL)[0];
+            return new FuzzyMatrix($matrix, $sL);
         }, $range);
     }
 
-    public static function Matrix($row, $column, $etl = null, $count = 1){
+    public static function Matrix($row, $column, $sL = null, $count = 1){
         $range = range(1, $count);
         $rowRange = range(1, $row);
         $columnRange = range(1, $column);
-        return array_map(function($e) use ($etl, $rowRange, $columnRange){
-            return array_map(function($e)use ($etl, $rowRange){
-                return array_map(function($e)use ($etl){
-                    if($etl) if(rand(0,10) >= 6){
-                        return $etl->getRandom()->tag;
+        return array_map(function($e) use ($sL, $rowRange, $columnRange){
+            return array_map(function($e)use ($sL, $rowRange){
+                return array_map(function($e)use ($sL){
+                    if($sL) if(rand(0,10) >= 6){
+                        return $sL->getRandom()->tag;
                     }
                     return self::FuzzyNumber()[0];
                 }, $rowRange);
@@ -44,11 +44,11 @@ class Fake{
         }, $range);
     }
 
-    public static function EvaluationTag($count = 1){
+    public static function Scale($count = 1){
         $fakerino = Fakerino::create();
         $range = range(1,$count);
         return array_map(function($e) use ($fakerino){
-            return new EvaluationTag(substr($fakerino->fake("lorem"),0,3), 
+            return new Scale(substr($fakerino->fake("lorem"),0,3), 
                                         self::FuzzyNumber()[0]);
         },$range);
 
@@ -82,16 +82,16 @@ class Fake{
         },$range);
     }
 
-    public static function PairwiseComparisonMatrix(DecisionMaker $dm, AlternativeList $alts){
-        $AHPSess = FuzzyMCDM::AHP($dm, $alts);
-        $combinations = $AHPSess->listPCMCombinations();
-        $etl = new EvaluationTagList(Fake::EvaluationTag(3));
-        return array_map(function($labelOptions)use ($etl){
-            $fuzzyMatrix = Fake::FuzzyMatrix(   count($labelOptions["m"]), 
-                                                count($labelOptions["n"]), 1, $etl);
-            return new PCM( $labelOptions, $fuzzyMatrix[0]);
-        },$combinations);
-    }
+    // public static function PairwiseComparisonMatrix(DecisionMaker $dm, AlternativeList $alts){
+    //     $AHPSess = FuzzyMCDM::AHP($dm, $alts);
+    //     $combinations = $AHPSess->listPCMCombinations();
+    //     $sL = new ScaleList(Fake::Scale(3));
+    //     return array_map(function($labelOptions)use ($sL){
+    //         $fuzzyMatrix = Fake::FuzzyMatrix(   count($labelOptions["m"]), 
+    //                                             count($labelOptions["n"]), 1, $sL);
+    //         return new PCM( $labelOptions, $fuzzyMatrix[0]);
+    //     },$combinations);
+    // }
 }
 
 ?>

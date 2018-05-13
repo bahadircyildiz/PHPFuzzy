@@ -8,16 +8,15 @@ use MathPHP\Exception\BadDataException;
 
 class FuzzyAHP{
     protected $dm;
-    protected $alternatives;
+    protected $aL;
     /**
      * Pairwise Comparison Matrix List
      */
     protected $pcml;
-    protected $S;
 
-    function __construct(DecisionMaker $dm, AlternativeList $alternatives, PCML $pcml = null){
+    function __construct(DecisionMaker $dm, AlternativeList $aL, PCML $pcml = null){
         $this->dm = $dm;
-        $this->alternatives = $alternatives;
+        $this->aL = $aL;
         $this->pcml = $pcml ?? new PCML();
     }
 
@@ -37,11 +36,9 @@ class FuzzyAHP{
         return $this->pcml;
     }
 
-    // public function getRemainingCombinations(){
-    //     $existing = $this->pcml->getCombinationsInList();
-    //     $required = $this->listPCMCombinations();
-    //     return array_diff($required, $existing);
-    // }
+    public function getDM(){
+        return $this->dm;
+    }
 
     public static function RS(int $rowIndex, PCM $pcm){
         $A = $pcm->getMatrix();

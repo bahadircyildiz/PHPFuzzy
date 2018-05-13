@@ -2,11 +2,12 @@
 
 namespace PHPFuzzy\Models;
 use PHPFuzzy\{ Utils };
+use MathPHP\Exceptions\MatrixException;
 
 class FuzzyMatrix implements \Countable, \IteratorAggregate{
 
     protected $A;
-    protected $etl;
+    protected $sL;
     protected $raw;
 
     public function count(){
@@ -14,14 +15,14 @@ class FuzzyMatrix implements \Countable, \IteratorAggregate{
     }
 
     public function getIterator(){
-        return new \ArrayIterator($this->getMatrix());
+        return new \ArrayIterator($this->A);
     }
 
-    public function __construct(array $A, EvaluationTagList $etl = null){
+    public function __construct(array $A, ScaleList $sL = null){
         $this->raw = $A;
-        $this->etl = $etl ?? new EvaluationTagList();
-        $A = $this->setParametersAsFuzzyClasses($A);
-        $this->validateFuzzyMatrixDimensions($A);
+        $this->sL = $sL ?? new ScaleList();
+        $A = self::setParametersAsFuzzyClasses($A, $sL);
+        self::validateFuzzyMatrixDimensions($A);
         $this->A = $A;
     }
 
@@ -37,27 +38,27 @@ class FuzzyMatrix implements \Countable, \IteratorAggregate{
         return "\n{$str}\n";
     }
 
-    private function validateFuzzyMatrixDimensions(array $A, $sameFuzzyMemberLength = false){
+    private static function validateFuzzyMatrixDimensions(array $A, $sameFuzzyMemberLength = false){
         $n = count($A[0]);
         foreach ($A as $i => $row) {
             if (count($row) !== $n) {
-                die("Row {$i} has a different column count: {${count($row)}} was expecting {$n}.");
+                throw new MatrixException("Row {$i} has a different column count: {${count($row)}} was expecting {$n}.");
             }
             $firstCellLength = count($row[0]);
             if($sameFuzzyMemberLength) foreach ($row as $ii => $cell){
                 if(count($cell) !== $firstCellLength){
-                    die("Cell {$i}x{$ii} has a different member count: {${count($cell)}} was expecting {$firstCellLength}.");
+                    throw new MatrixException("Cell {$i}x{$ii} has a different member count: {${count($cell)}} was expecting {$firstCellLength}.");
                 }
             }
         };
     }
 
-    private function setParametersAsFuzzyClasses(array $A){
+    private static function setParametersAsFuzzyClasses(array $A, $sL){
         $transformCellToFuzzyNumber = function($cell) {
             if (is_array($cell)){
                 return new FuzzyNumber($cell);
             } else if (is_string($cell)){
-                return $this->etl->getValueByTag($cell) ?? null;
+                return $sL->getValueByTag($cell) ?? null;
             } else if ($cell instanceof FuzzyNumber){
                 return $cell;
             }
@@ -81,13 +82,13 @@ class FuzzyMatrix implements \Countable, \IteratorAggregate{
     }
 
     public function getTags(){
-        return $this->etl;
+        return $this->sL;
     }
 
-    public function addTag(EvaluationTag $et){
-        $this->etl->add($et);
-        $newA = $this->setParametersAsFuzzyClasses($this->A); 
-        $this->validateFuzzyMatrixDimensions($newA);
+    public function addTag(Scale $et){
+        $this->sL->add($et);
+        $newA = self::setParametersAsFuzzyClasses($this->A, $this->sL); 
+        self::validateFuzzyMatrixDimensions($newA);
         $this->A = $newA;
     }
 

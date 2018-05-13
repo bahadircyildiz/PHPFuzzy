@@ -28,9 +28,6 @@ class FuzzyAHPTest extends TestCase{
             new Alternative("Alfa Romeo")        
         ]);
         $dm = new DecisionMaker("Decision Maker 1", $criteria);
-        $pcml = new PCML(Fake::PairwiseComparisonMatrix($dm, $alts));
-        $AHPSess = FuzzyMCDM::AHP($dm, $alts, $pcml);
-        d($AHPSess->listPCMCombinations());
     }
     
 }
