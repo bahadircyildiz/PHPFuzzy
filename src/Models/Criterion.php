@@ -15,7 +15,7 @@ use PHPFuzzy\{ Utils };
 class Criterion {
 
     public $name;
-    public $weight;
+    protected $weight;
     public $subcriteria;
 
     function __construct(string $name, CriterionList $subcriteria = null, float $weight = null){
@@ -27,6 +27,10 @@ class Criterion {
 
     function __toString(){
         return "Criterion ".$this->name." #";
+    }
+
+    public function setWeight($weight){
+        $this->weight = $weight;    
     }
 
     public function addSubcriterion(Criterion $sc){

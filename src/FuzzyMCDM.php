@@ -25,11 +25,11 @@ class FuzzyMCDM{
     *
     * @return
     */
-    public function AHP(DecisionMaker $dm, AlternativeList $alternatives, PCML $pcml = null){
+    public static function AHP(DecisionMaker $dm, AlternativeList $alternatives, PCML $pcml = null){
         return new FuzzyAHP($dm, $alternatives, $pcml);
     }
 
-    private function checkParameterConsistency(DecisionMaker $dm, AlternativeList $alternatives){
+    private static function checkParameterConsistency(DecisionMaker $dm, AlternativeList $alternatives){
         $nameArray = array_merge( [ $dm->name ],
             Utils::objectCollectAttrRecursive($dm->criteria, "name", "subcriteria")
             );

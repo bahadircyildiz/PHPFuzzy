@@ -15,9 +15,9 @@ class PairwiseComparisonMatrixList extends Collection{
         $this->items[] = $pcm;
     }
 
-    public function getCombinationsInList(){
+    public function getAllCombinationsInList(){
         return array_map(function($e){
-            return $e->getLabels();
+            return $e->getComparisonInfo();
         },$this->items);
     }
 

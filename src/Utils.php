@@ -61,12 +61,35 @@ class Utils{
         return true;
     }
 
-    public static function getObjectID(&$obj) {
-        if(!is_object($obj))
-            return false;
-        ob_start();
-        preg_match('~^.+?#(\d+)~s', ob_get_clean(), $oid);
-        return $oid[1]; 
+    public static function iteratorToArray(&$iterator){
+        $r = [];
+        foreach ($iterator as &$i) {
+            $r[] = $i;
+        }
+        return $r;
+    }
+
+    public static function listPCMCombinations(&$dm, &$aL){
+        $pcml = [ [ "pairs" => $dm->criteria, "comparedWith" => $dm ] ];
+        self::objectWalkRecursive(function(&$e) use (&$pcml, &$dm, &$aL){
+            if(count($e->subcriteria) == 0){
+                $pcml[] = ["pairs" => $aL, "comparedWith" => $e];
+            }
+            else{
+                $pcml[] = ["pairs" => $e->subcriteria, "comparedWith" => $e ];
+            }
+        }, $dm->criteria, "subcriteria");
+
+        return $pcml;
+    }
+
+    public static function objectWalkRecursive($callback, $objList, $recursiveAttr){
+        foreach($objList as &$o){
+            $callback($o);
+            if(isset($o->{$recursiveAttr})){
+                self::objectWalkRecursive($callback, $o->{$recursiveAttr}, $recursiveAttr);
+            }
+        }
     }
 
     public static function vectorize(array $arr){
