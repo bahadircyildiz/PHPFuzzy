@@ -15,22 +15,44 @@ use PHPFuzzy\{ Utils };
 class Criterion {
 
     public $name;
-    public $weight;
-    public $subcriteria;
+    protected $weight;
+    public $children;
 
-    function __construct(string $name, CriterionList $subcriteria = null, float $weight = null){
+    function __construct(string $name, $children = null, float $weight = null){
         $this->name = $name;
         $this->weight = $weight;
-        $this->subcriteria = $subcriteria ?? new CriterionList();
+        $this->children = $children;
         return $this;
     }
 
     function __toString(){
-        return "Criterion ".$this->name." #";
+        return __CLASS__.": ".$this->name." #";
     }
 
-    public function addSubcriterion(Criterion $sc){
-        $this->subcriteria->add($sc);
+    public function getWeight(){
+        return $this->weight;
+    }
+
+    public function setWeight($weight){
+        $this->weight = $weight;    
+    }
+
+    public function setChildren($children){
+        $this->children = $children;
+    }
+
+    function getNodeByRoadMap($arr){
+        // var_export($arr);
+        if(count($arr) == 1){
+            return $this;
+        } else {
+            array_shift($arr);
+            $ret = $this;
+            foreach ($arr as $index) {
+                $ret = $ret->children->get($index);
+            }
+            return $ret;
+        }
     }
 }
 

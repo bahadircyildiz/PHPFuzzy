@@ -2,7 +2,7 @@
 
 namespace PHPFuzzy\Models;
 use PHPFuzzy\Utils;
-
+use MathPHP\Exception\BadDataException;
 
 class AlternativeList extends Collection{
 
@@ -20,7 +20,7 @@ class AlternativeList extends Collection{
     function validateAlternativeName(Alternative $alternative){
         foreach ($this->items as $i_) {
             if($i_->name == $alternative->name)
-                die("Error: Same name spotted while adding {$alternative->name} to the Alternatve List");
+                throw new BadDataException("Error: Same name spotted while adding {$alternative->name} to the Alternatve List");
         }
         $this->items[] = $alternative;   
     }
@@ -28,7 +28,7 @@ class AlternativeList extends Collection{
     function validateAlternativeArray(array $array){
         $result = Utils::objectCheckSameAttrRecursive($array, "name");
         if($result)
-            die("Error: Same name spotted while checking Alternatve List");
+            throw new BadDataException("Error: Same name spotted while checking Alternatve List");
     }
 
 

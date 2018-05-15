@@ -54,7 +54,7 @@ class FuzzyMatrix implements \Countable, \IteratorAggregate{
     }
 
     private static function setParametersAsFuzzyClasses(array $A, $sL){
-        $transformCellToFuzzyNumber = function($cell) {
+        $transformCellToFuzzyNumber = function($cell) use ($sL) {
             if (is_array($cell)){
                 return new FuzzyNumber($cell);
             } else if (is_string($cell)){

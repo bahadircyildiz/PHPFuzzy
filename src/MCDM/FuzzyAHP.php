@@ -1,28 +1,68 @@
 <?php
 namespace PHPFuzzy\MCDM;
 
-use PHPFuzzy\Models\{   FuzzyNumber, DecisionMaker, AlternativeList, PairwiseComparisonMatrixList as PCML, 
+use PHPFuzzy\Models\{   FuzzyNumber, DecisionMaker, Alternative, AlternativeList, PairwiseComparisonMatrixList as PCML, 
                         PairwiseComparisonMatrix as PCM, CriterionList, Criterion};
 use PHPFuzzy\{ Utils , FuzzyOperations as §§};
 use MathPHP\Exception\BadDataException;
+use DeepCopy\DeepCopy;
 
 class FuzzyAHP{
-    protected $dm;
-    protected $alternatives;
+    public $dm;
+    protected $aL;
     /**
      * Pairwise Comparison Matrix List
      */
     protected $pcml;
     protected $S;
 
-    function __construct(DecisionMaker $dm, AlternativeList $alternatives, PCML $pcml = null){
+    function __construct(DecisionMaker $dm, AlternativeList $aL, PCML $pcml = null){
         $this->dm = $dm;
-        $this->alternatives = $alternatives;
+        $this->aL = $aL;
         $this->pcml = $pcml ?? new PCML();
+        $this->fillAltsAsChildren();
     }
 
     public function start(){
+        // var_export(count($this->pcml));
+        foreach ($this->pcml as &$pcm) {
+            $w_normalized = Utils::normalize(self::w($pcm));
+            // var_export($pcm);
+            foreach ($w_normalized as $w_i => $w) {
+                $targetNode = $this->dm->getNodeByRoadMap($pcm->getRoadMap())->children->get($w_i);
+                $targetNode->setWeight($w);
+                // var_export($targetNode);
+            }   
+        }
+        var_export($this->alternativeWeight(0));
+        var_export($this->alternativeWeight(1));
+        var_export($this->alternativeWeight(2));
+    }
 
+    public function alternativeWeight($altIndex){
+        $recursiveFunc = function($node, $currentIndex) use($altIndex, &$recursiveFunc){
+            if($node instanceof Alternative) {
+                if($currentIndex == $altIndex)
+                    return $node->getWeight();
+            }
+            else{
+                $total = 0;
+                foreach ($node->children as $c_i => $childNode) {
+                        $total += $node->getWeight() * $recursiveFunc($childNode, $c_i);
+                }
+                return $total;
+            }
+        };
+        return $recursiveFunc($this->dm, 0);
+    }
+
+    public function fillAltsAsChildren(){
+        Utils::objectArrayWalkRecursive(function(&$e, $indexArr){
+            if(!($e instanceof Alternative)){
+                $copier = new DeepCopy();
+                if($e->children == null) $e->children = $copier->copy($this->aL);
+            }  
+        }, $this->dm->children, "children");
     }
 
     private function validateInputs(){
@@ -37,11 +77,11 @@ class FuzzyAHP{
         return $this->pcml;
     }
 
-    // public function getRemainingCombinations(){
-    //     $existing = $this->pcml->getCombinationsInList();
-    //     $required = $this->listPCMCombinations();
-    //     return array_diff($required, $existing);
-    // }
+    public function getRemainingCombinations(){
+        $existing = $this->pcml->getAllCombinationsInList();
+        $required = Utils::listPCMCombinations($this->dm, $this->aL);
+        return array_diff($required, $existing);
+    }
 
     public static function RS(int $rowIndex, PCM $pcm){
         $A = $pcm->getMatrix();
@@ -85,7 +125,7 @@ class FuzzyAHP{
             }
         }
         $w = array_map(function($e){ return min($e); }, $V);
-        return Utils::vectorize($w);
+        return $w;
     }
 
 

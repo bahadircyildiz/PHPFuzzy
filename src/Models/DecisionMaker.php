@@ -2,23 +2,12 @@
 
 namespace PHPFuzzy\Models;
 
-class DecisionMaker {
-
-    public $name;
-    public $criteria;
-
-    function __construct(string $name, CriterionList $criteria){
-        $this->criteria = $criteria;
-        $this->name = $name;
+class DecisionMaker extends Criterion {
+    function __construct(string $name, $children = null, float $weight = null){
+        parent::__construct($name, $children, $weight);
+        $this->weight = 1;
+        return $this;
     }
-
-    function __toString(){
-        return "DecisionMaker ".$this->name;
-    }
-
-
-
-    
 }
 
 ?>

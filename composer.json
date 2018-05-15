@@ -13,7 +13,8 @@
     "require": {
         "php": ">=7.0",
         "markrogoyski/math-php": "^0.39.0",
-        "Fakerino/Fakerino": "^0.8.3"
+        "Fakerino/Fakerino": "^0.8.3",
+        "myclabs/deep-copy": "^1.7"
     },
     "require-dev": {
         "phpunit/phpunit": "*",

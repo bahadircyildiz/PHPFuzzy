@@ -8,7 +8,8 @@
 *
 *  @author yourname
 */
-use PHPFuzzy\Models\{FuzzyNumber as §, PairwiseComparisonMatrix, FuzzyMatrix, ScaleList, Scale};
+use PHPFuzzy\Models\{FuzzyNumber as §, PairwiseComparisonMatrix, FuzzyMatrix, ScaleList, Scale,
+                     AlternativeList, Alternative};
 use PHPFuzzy\{ FuzzyMCDM, Utils , Fake};
 use PHPUnit\Framework\TestCase;
 
@@ -36,12 +37,12 @@ class FuzzyMatrixTest extends TestCase{
             new Scale("B", new §( [12,43,3] ) ),
             new Scale("G", new §( [3,5,6] ) )
         ]);
-        $a = new PairwiseComparisonMatrix($pairs, $comparedWith ,   [ [ [1,2,4]   , [3,4,5] , [3,4,5] ] ,  
+        $a = new PairwiseComparisonMatrix([0,1],                 [ [ [1,2,4]   , [3,4,5] , [3,4,5] ] ,  
                                                                     [   [1,2,4]   , "G"     , [3,4,5] ] ,
                                                                     [   "B"       , [3,4,5] , "V"     ]   ] , $sL);
-        $expected = new FuzzyMatrix( [  [ [1,2,4]   , [3,4,5]   , [3,4,5]   ] ,  
-                                        [ [1,2,4]   , [3,5,6]   , [3,4,5]   ] ,
-                                        [ [12,43,3] , [3,4,5]   , [1,2,3]   ] ]);
+        $expected = new FuzzyMatrix( [  [ [1,1,1]   , [3,4,5]   , [3,4,5]   ] ,  
+                                        [ [1,2,4]   , [1,1,1]   , [3,4,5]   ] ,
+                                        [ [12,43,3] , [3,4,5]   , [1,1,1]   ] ]);
         $this->assertEquals($expected->getMatrix(), $a->getMatrix()); 
     }
 

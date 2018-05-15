@@ -1,6 +1,7 @@
 <?php
 
 namespace PHPFuzzy;
+use PHPFuzzy\Models\Alternative;
 
 class Utils{
 
@@ -61,15 +62,45 @@ class Utils{
         return true;
     }
 
-    public static function getObjectID(&$obj) {
-        if(!is_object($obj))
-            return false;
-        ob_start();
-        preg_match('~^.+?#(\d+)~s', ob_get_clean(), $oid);
-        return $oid[1]; 
+    public static function iteratorToArray(&$iterator){
+        $r = [];
+        foreach ($iterator as &$i) {
+            $r[] = $i;
+        }
+        return $r;
     }
 
-    public static function vectorize(array $arr){
+    public static function listPCMCombinations(&$dm){
+        $pcml = [];
+        self::objectArrayWalkRecursive(function(&$e, $indexArr) use (&$pcml){
+            if(!($e instanceof Alternative)) if(count($e->children) != 0){
+                $pcml[] = $indexArr;
+            }
+        }, [$dm], "children");
+        return $pcml;
+    }
+    
+    public static function getRoadMapsToAlternative($altIndex, $dm){
+        $roadMaps = [];
+        self::objectArrayWalkRecursive(function(&$e, $indexArr) use (&$roadMaps, $altIndex){
+            if($e instanceof Alternative) if($indexArr[count($indexArr)-1] == $altIndex){
+                $roadMaps[] = $indexArr;
+            }
+        }, $dm->children, "children");
+        return $roadMaps;
+    }
+
+    public static function objectArrayWalkRecursive($callback, $objList, $recursiveAttr, $indexArr = []){
+        foreach($objList as $o_i => &$o){
+            $index = array_merge($indexArr, [$o_i]);
+            $callback($o, $index);
+            if(isset($o->{$recursiveAttr})){
+                self::objectArrayWalkRecursive($callback, $o->{$recursiveAttr}, $recursiveAttr, $index);
+            }
+        }
+    }
+
+    public static function normalize(array $arr){
         $total = array_sum($arr);
         return array_map(function($e) use ($total){ 
             return $e / $total;
