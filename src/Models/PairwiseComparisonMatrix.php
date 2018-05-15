@@ -15,8 +15,11 @@ class PairwiseComparisonMatrix extends FuzzyMatrix {
 
     function __construct($roadmap, $matrix, ScaleList $sL = null){
         if(is_array($matrix)){
-            foreach ($matrix as $i => $value) {
-                $matrix[$i][$i] = new FuzzyNumber([1,1,1]);
+            foreach ($matrix as $i => $row) {
+                foreach ($row as $j => $cell){
+                    if($i == $j) $matrix[$i][$j] = new FuzzyNumber([1,1,1]);
+                    else $matrix[$i][$j] = 1 / $matrix[$i][$j]; 
+                }
             }   
             parent::__construct($matrix, $sL);
         }
@@ -43,13 +46,6 @@ class PairwiseComparisonMatrix extends FuzzyMatrix {
     public function getRoadMap(){
         return $this->roadMap;
     }
-
-
-
-
-
-
-
 
 }
 ?>
