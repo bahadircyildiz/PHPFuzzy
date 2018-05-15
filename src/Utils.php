@@ -1,6 +1,7 @@
 <?php
 
 namespace PHPFuzzy;
+use PHPFuzzy\Models\Alternative;
 
 class Utils{
 
@@ -69,30 +70,37 @@ class Utils{
         return $r;
     }
 
-    public static function listPCMCombinations(&$dm, &$aL){
-        $pcml = [ [ "pairs" => $dm->criteria, "comparedWith" => $dm ] ];
-        self::objectWalkRecursive(function(&$e) use (&$pcml, &$dm, &$aL){
-            if(count($e->subcriteria) == 0){
-                $pcml[] = ["pairs" => $aL, "comparedWith" => $e];
+    public static function listPCMCombinations(&$dm){
+        $pcml = [];
+        self::objectArrayWalkRecursive(function(&$e, $indexArr) use (&$pcml){
+            if(!($e instanceof Alternative)) if(count($e->children) != 0){
+                $pcml[] = $indexArr;
             }
-            else{
-                $pcml[] = ["pairs" => $e->subcriteria, "comparedWith" => $e ];
-            }
-        }, $dm->criteria, "subcriteria");
-
+        }, [$dm], "children");
         return $pcml;
     }
+    
+    public static function getRoadMapsToAlternative($altIndex, $dm){
+        $roadMaps = [];
+        self::objectArrayWalkRecursive(function(&$e, $indexArr) use (&$roadMaps, $altIndex){
+            if($e instanceof Alternative) if($indexArr[count($indexArr)-1] == $altIndex){
+                $roadMaps[] = $indexArr;
+            }
+        }, $dm->children, "children");
+        return $roadMaps;
+    }
 
-    public static function objectWalkRecursive($callback, $objList, $recursiveAttr){
-        foreach($objList as &$o){
-            $callback($o);
+    public static function objectArrayWalkRecursive($callback, $objList, $recursiveAttr, $indexArr = []){
+        foreach($objList as $o_i => &$o){
+            $index = array_merge($indexArr, [$o_i]);
+            $callback($o, $index);
             if(isset($o->{$recursiveAttr})){
-                self::objectWalkRecursive($callback, $o->{$recursiveAttr}, $recursiveAttr);
+                self::objectArrayWalkRecursive($callback, $o->{$recursiveAttr}, $recursiveAttr, $index);
             }
         }
     }
 
-    public static function vectorize(array $arr){
+    public static function normalize(array $arr){
         $total = array_sum($arr);
         return array_map(function($e) use ($total){ 
             return $e / $total;

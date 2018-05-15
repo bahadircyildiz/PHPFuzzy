@@ -6,12 +6,14 @@ use MathPHP\Exception\MatrixException;
 
 class PairwiseComparisonMatrix extends FuzzyMatrix {
 
-    protected $pairs;
-    protected $comparedWith;
+    // protected $pairs;
+    // protected $comparedWith;
+    protected $roadMap;
+    protected $dm;
     protected $weights;
 
 
-    function __construct($pairs, $comparedWith, $matrix, ScaleList $sL = null){
+    function __construct($roadmap, $matrix, ScaleList $sL = null){
         if(is_array($matrix)){
             foreach ($matrix as $i => $value) {
                 $matrix[$i][$i] = new FuzzyNumber([1,1,1]);
@@ -24,9 +26,7 @@ class PairwiseComparisonMatrix extends FuzzyMatrix {
             }
             parent::__construct($matrix->raw, $matrix->getTags());
         }
-        $this->checkDimensionConsistency($pairs);
-        $this->pairs = $pairs;
-        $this->comparedWith = $comparedWith;
+        $this->roadMap = $roadmap;
         return $this;
     }
 
@@ -36,15 +36,12 @@ class PairwiseComparisonMatrix extends FuzzyMatrix {
                                             dimensions=".count($pairs)." , expected ".$this->getM().".");
     }
 
-    public function getComparisonInfo(){
-        return ["pairs" => $this->pairs, "comparedWith" => $this->comparedWith];
-    }
-
-    // public function setWeightOfPairByIndex($index, $weight){
-    //     $this->pairs->get($index)->setWeight($weight);
-    // }
     public function setWeight($weight){
         $this->weights = $weight;
+    }
+
+    public function getRoadMap(){
+        return $this->roadMap;
     }
 
 

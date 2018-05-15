@@ -15,10 +15,18 @@ class PairwiseComparisonMatrixList extends Collection{
         $this->items[] = $pcm;
     }
 
-    public function getAllCombinationsInList(){
+    public function getAllRoadMap(){
         return array_map(function($e){
-            return $e->getComparisonInfo();
+            return $e->getRoadMap();
         },$this->items);
+    }
+
+    public function findPCMByComparedWith($comparedWith){
+        $toArr = Utils::iteratorToArray($this);
+        $result = array_filter(function($e){
+            return $e->getComparisonInfo["comparedWith"] == $comparedWith;
+        }, $toArr)[0];
+        return $result;
     }
 
 }

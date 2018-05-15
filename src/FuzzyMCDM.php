@@ -31,7 +31,7 @@ class FuzzyMCDM{
 
     private static function checkParameterConsistency(DecisionMaker $dm, AlternativeList $alternatives){
         $nameArray = array_merge( [ $dm->name ],
-            Utils::objectCollectAttrRecursive($dm->criteria, "name", "subcriteria")
+            Utils::objectCollectAttrRecursive($dm->criteria, "name", "children")
             );
         $nameArray = array_merge($nameArray,
             Utils::objectCollectAttrRecursive($alternatives, "name")

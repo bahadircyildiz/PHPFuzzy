@@ -82,14 +82,17 @@ class Fake{
         },$range);
     }
 
-    public static function PairwiseComparisonMatrix(DecisionMaker &$dm, AlternativeList &$alts){
-        $combinations = Utils::listPCMCombinations($dm, $alts);
+    public static function PairwiseComparisonMatrix(DecisionMaker $dm, AlternativeList $alts){
+        $AHPSess = FuzzyMCDM::AHP($dm, $alts);
+        $roadMaps = Utils::listPCMCombinations($AHPSess->dm);
+        var_export($roadMaps);
         $sL = new ScaleList(Fake::Scale(3));
-        return array_map(function($labelOptions)use ($sL){
-            $fuzzyMatrix = Fake::FuzzyMatrix(   count($labelOptions["pairs"]), 
-                                                count($labelOptions["pairs"]), 1, $sL);
-            return new PCM( $labelOptions["pairs"], $labelOptions["comparedWith"], $fuzzyMatrix[0]);
-        },$combinations);
+        return array_map(function($rM)use ($sL, $dm){
+            $node = $dm->getNodeByRoadMap($rM);
+            $fuzzyMatrix = Fake::FuzzyMatrix(   count($node->children), 
+                                                count($node->children), 1, $sL);
+            return new PCM( $rM, $fuzzyMatrix[0]);
+        },$roadMaps);
     }
 }
 
