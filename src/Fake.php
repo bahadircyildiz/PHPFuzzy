@@ -85,7 +85,6 @@ class Fake{
     public static function PairwiseComparisonMatrix(DecisionMaker $dm, AlternativeList $alts){
         $AHPSess = FuzzyMCDM::AHP($dm, $alts);
         $roadMaps = Utils::listPCMCombinations($AHPSess->dm);
-        var_export($roadMaps);
         $sL = new ScaleList(Fake::Scale(3));
         return array_map(function($rM)use ($sL, $dm){
             $node = $dm->getNodeByRoadMap($rM);
