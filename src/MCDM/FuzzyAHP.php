@@ -14,7 +14,6 @@ class FuzzyAHP{
      * Pairwise Comparison Matrix List
      */
     protected $pcml;
-    protected $S;
 
     function __construct(DecisionMaker $dm, AlternativeList $aL, PCML $pcml = null){
         $this->dm = $dm;
@@ -24,31 +23,43 @@ class FuzzyAHP{
     }
 
     public function start(){
-        // var_export(count($this->pcml));
+        $this->setAllWeightsByAHP();
+        $ret = [];
+        foreach($this->aL as $a_i =>$alt){
+            $ret[] = ["W" => $this->alternativeWeight($a_i), "alternative" => $alt];
+        }
+        return $ret;
+    }
+
+    public function setAllWeightsByAHP(){
         foreach ($this->pcml as &$pcm) {
             $w_normalized = Utils::normalize(self::w($pcm));
-            // var_export($pcm);
             foreach ($w_normalized as $w_i => $w) {
                 $targetNode = $this->dm->getNodeByRoadMap($pcm->getRoadMap())->children->get($w_i);
-                $targetNode->setWeight($w);
-                // var_export($targetNode);
+                $targetNode->setWeight("local", $w);
             }   
         }
-        var_export($this->alternativeWeight(0));
-        var_export($this->alternativeWeight(1));
-        var_export($this->alternativeWeight(2));
+        Utils::objectArrayWalkRecursive(function($e, $indexArr){
+            $global = 1; $roadMap = $indexArr;
+            for ($i=0; $i < count($roadMap); $i++) { 
+                $sliced = array_slice($roadMap, 0, $i+1);
+                $global *= $this->dm->getNodeByRoadMap($sliced)->getWeight("local");
+            }
+            $this->dm->getNodeByRoadMap($roadMap)->setWeight("global", $global);       
+
+        }, [$this->dm], "children");
     }
 
     public function alternativeWeight($altIndex){
         $recursiveFunc = function($node, $currentIndex) use($altIndex, &$recursiveFunc){
             if($node instanceof Alternative) {
                 if($currentIndex == $altIndex)
-                    return $node->getWeight();
+                    return $node->getWeight("local");
             }
             else{
                 $total = 0;
                 foreach ($node->children as $c_i => $childNode) {
-                        $total += $node->getWeight() * $recursiveFunc($childNode, $c_i);
+                        $total += $node->getWeight("local") * $recursiveFunc($childNode, $c_i);
                 }
                 return $total;
             }

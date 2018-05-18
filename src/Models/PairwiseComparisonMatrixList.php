@@ -15,7 +15,7 @@ class PairwiseComparisonMatrixList extends Collection{
         $this->items[] = $pcm;
     }
 
-    public function getAllRoadMap(){
+    public function getAllRoadMaps(){
         return array_map(function($e){
             return $e->getRoadMap();
         },$this->items);

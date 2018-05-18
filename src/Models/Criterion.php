@@ -15,8 +15,9 @@ use PHPFuzzy\{ Utils };
 class Criterion {
 
     public $name;
-    protected $weight;
+    protected $weight = [];
     public $children;
+    protected $rank = [];
 
     function __construct(string $name, $children = null, float $weight = null){
         $this->name = $name;
@@ -29,12 +30,21 @@ class Criterion {
         return __CLASS__.": ".$this->name." #";
     }
 
-    public function getWeight(){
-        return $this->weight;
+    public function getWeight($type){
+        return $this->weight[$type];
     }
 
-    public function setWeight($weight){
-        $this->weight = $weight;    
+    public function setWeight($type, $weight){
+        // var_export($weight);
+        $this->weight[$type] = $weight;    
+    }
+
+    public function getRank($type){
+        return $this->rank[$type];
+    }
+
+    public function setRank($type, $rank){
+        $this->rank[$type] = $rank;
     }
 
     public function setChildren($children){

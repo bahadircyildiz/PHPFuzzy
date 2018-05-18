@@ -7,7 +7,8 @@ class Alternative {
 
     public $name;
     public $stats = [];
-    protected $weight;
+    protected $weight = [];
+    protected $rank = [];
 
     function __construct(string $name, array $stats = null){
         $this->name = $name;
@@ -18,12 +19,20 @@ class Alternative {
         return "Alternative ".$this->name." #";
     }
 
-    public function setWeight($weight){
-        $this->weight = $weight;
+    public function setWeight($type, $weight){
+        $this->weight[$type] = $weight;
     }
 
-    public function getWeight(){
-        return $this->weight;
+    public function setRank($type, $rank){
+        $this->rank[$type] = $rank;
+    }
+
+    public function getWeight($type){
+        return $this->weight[$type];
+    }
+
+    public function getRank($type){
+        return $this->rank[$type];
     }
 }
 
