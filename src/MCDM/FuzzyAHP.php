@@ -48,7 +48,6 @@ class FuzzyAHP{
             $this->dm->getNodeByRoadMap($roadMap)->setWeight("global", $global);       
 
         }, [$this->dm], "children");
-        var_export($this->dm);
     }
 
     public function alternativeWeight($altIndex){

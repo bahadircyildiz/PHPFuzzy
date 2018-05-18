@@ -17,6 +17,7 @@ class Criterion {
     public $name;
     protected $weight = [];
     public $children;
+    protected $rank = [];
 
     function __construct(string $name, $children = null, float $weight = null){
         $this->name = $name;
@@ -36,6 +37,14 @@ class Criterion {
     public function setWeight($type, $weight){
         // var_export($weight);
         $this->weight[$type] = $weight;    
+    }
+
+    public function getRank($type){
+        return $this->rank[$type];
+    }
+
+    public function setRank($type, $rank){
+        $this->rank[$type] = $rank;
     }
 
     public function setChildren($children){
