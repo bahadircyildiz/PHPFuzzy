@@ -1,7 +1,7 @@
 <?php
 
 namespace PHPFuzzy;
-use PHPFuzzy\MCDM\{FuzzyAHP, FuzzyMAUT};
+use PHPFuzzy\MCDM\{FuzzyAHP, FuzzyMAUT, FuzzyANP};
 use PHPFuzzy\Models\{ DecisionMaker,  AlternativeList, PairwiseComparisonMatrixList as PCML };
 use MathPHP\Exception\{ BadDataException };
 
@@ -29,6 +29,10 @@ class FuzzyMCDM{
         return new FuzzyAHP($dm, $alternatives, $pcml);
     }
     
+    public static function ANP(DecisionMaker $dm, AlternativeList $alternatives){
+        return new FuzzyANP($dm, $alternatives);
+    }
+
     public static function MAUT(DecisionMaker $dm, AlternativeList $alternatives, PCML $pcml = null){
         return new FuzzyMAUT($dm, $alternatives, $pcml);
     }

@@ -35,9 +35,9 @@ class FuzzyAHPTest extends TestCase{
             new Alternative("A")        
         ]);
         $dm = new DecisionMaker("G", $criteria);
-        $pcml = new PCML(Fake::PairwiseComparisonMatrix($dm, $alts));
-        $AHPSess = FuzzyMCDM::AHP($dm, $alts, $pcml);
-        $AHPSess->start();
+        $ANPSess = FuzzyMCDM::ANP($dm, $alts);
+        var_export($ANPSess->schemeNetworkComparisons());
+        $this->assertEquals(true, true);
         
         
     }

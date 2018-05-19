@@ -35,9 +35,9 @@ class FuzzyMAUTTest extends TestCase{
             new Alternative("A")        
         ]);
         $dm = new DecisionMaker("G", $criteria);
-        $pcml = new PCML(Fake::PairwiseComparisonMatrix($dm, $alts));
-        $MAUTSess = FuzzyMCDM::MAUT($dm, $alts, $pcml);
-        $MAUTSess->start();
+        // $pcml = new PCML(Fake::PairwiseComparisonMatrix($dm, $alts));
+        // $MAUTSess = FuzzyMCDM::MAUT($dm, $alts, $pcml);
+        // $MAUTSess->start();
         
         
     }
