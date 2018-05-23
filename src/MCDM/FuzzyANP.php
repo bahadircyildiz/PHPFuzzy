@@ -12,10 +12,12 @@ class FuzzyANP{
     public $dm;
     protected $aL;
     protected $pcml;
+    protected $clusters;
     protected $superMatrix;
 
-    function __construct($dm, $aL, $pcml){
+    function __construct($dm, $clusters, $aL, $pcml){
         $this->dm = $dm;
+        $this->clusters = $clusters;
         $this->aL = $aL;        
         $this->pcml = $pcml;
     }
@@ -30,11 +32,18 @@ class FuzzyANP{
         $this->superMatrix = $this->createSuperMatrix();
         foreach ($this->pcml as $pcm) {
             $w_normalized = Utils::normalize(self::w($pcm));
-            $targetNode = $this->dm->getNodeByName($pcm->getComparedWith());
-            if($targetNode == null){
-                $targetNode = array_filter(array_to_iterator($this->aL), function($e) use ($pcm){
-                    return $e->name == $pcm->getComparedWith();
-                })[0];
+            // $targetNode = $this->dm->getNodeByName($pcm->getComparedWith());
+            $targetNode = null;
+            // if($targetNode == null){
+            //     $targetNode = array_filter(array_to_iterator($this->aL), function($e) use ($pcm){
+            //         return $e->name == $pcm->getComparedWith();
+            //     })[0];
+            // }
+            
+            foreach ([ [$this->dm], $this->clusters, $this->aL ] as $key => $value) {    
+                Utils::objectArrayWalkRecursive(function($e) use($pcm, &$targetNode){
+                    $targetNode = $e->name == $pcm->getComparedWith() ? $e : $targetNode;
+                },$value, "children");
             }
             foreach ($w_normalized as $w_i => $w) {
                 $targetNode->setWeight("local", $pcm->getPairs()[$w_i], $w);
@@ -43,26 +52,19 @@ class FuzzyANP{
         /**
          * Filling Weighted Matrix
          */
-        Utils::objectArrayWalkRecursive(function($e, $indexArr){
-            $weights = $e->getWeight("local");
-            foreach ($weights as $nodeName => $w) {
-                $this->superMatrix->setCellByLabelName($e->name, $nodeName, $w);
-            }
-        }, [$this->dm], "children");
+        foreach ([ [$this->dm], $this->clusters, $this->aL ] as $key => $value) {
+            Utils::objectArrayWalkRecursive(function($e, $indexArr){
+                $weights = $e->getWeight("local");
+                foreach ($weights as $nodeName => $w) {
+                    $this->superMatrix->setCellByLabelName($e->name, $nodeName, $w);
+                }
+            },  $value , "children");
+        } 
 
-        Utils::objectArrayWalkRecursive(function($e){
-            $weights = $e->getWeight("local");
-            foreach ($weights as $nodeName => $w) {
-                $this->superMatrix->setCellByLabelName($e->name, $nodeName, $w);
-            }
-        }, $this->aL, "children");
-
-        var_export($this->superMatrix);
         /**Normalizing Columns */
         $this->superMatrix = $this->superMatrix->normalize();
         /** Limit */
         $limitedSuperMatrix = $this->superMatrix->limit();
-        echo (string) $limitedSuperMatrix;
         $aLw = array_map(function($e) use ($limitedSuperMatrix){
             return ["name" => $e->name, 
                     "weight" => $limitedSuperMatrix->getCellByLabelName($this->dm->name, $e->name)
@@ -74,14 +76,7 @@ class FuzzyANP{
     }
 
     private function createSuperMatrix(){
-        $flattenedClusters = [];
-
-        foreach ([[$this->dm], $this->aL] as $value) {
-            Utils::objectArrayWalkRecursive(function($e) use (&$flattenedClusters){
-                $flattenedClusters[] = $e->name;
-            },$value, "children");
-        }
-
+        $flattenedClusters = Utils::getANPSuperMatrixLabels($this->dm, $this->clusters, $this->aL);
         return new LabeledMatrix($flattenedClusters, $flattenedClusters);    
     }
 

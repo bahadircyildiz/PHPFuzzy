@@ -83,7 +83,7 @@ class Utils{
         return $totalClusters;
     }
 
-    public static function listPCMCombinations($dm, $aL, $type, $count = 1){
+    public static function listPCMCombinations($dm, $aL, $type, $clusters, $count = 1){
         $pcml = [];
         if($type = "H"){
             self::objectArrayWalkRecursive(function(&$e, $indexArr) use (&$pcml, $aL){
@@ -99,25 +99,27 @@ class Utils{
             }, [$dm], "children");
             return $pcml;
         } else if ($type = "N"){
-            $clusters = self::collectClusters($dm, $aL);
-            $flattenedClusters = [];
-            $arrWalkRec = function($e) use($flattenedClusters, &$arrWalkRec){
-                if(is_iterable($e)){
-                    foreach ($e as $value) {
-                        $arrWalkRec($e);
-                    }
-                } else {
-                    $flattenedClusters[] = $e->name;
-                }
-            };
+            $clusters = array_merge($dm, $aL, $clusters);
+            $flattenedClusters = Utils::getANPSuperMatrixLabels($dm, $clusters, $aL);
             return array_map(function($e){
-                    return ["pairs" => array_rand($clusters, 1)[0], 
-                            "comparedWith" => array_rand(array_rand($clusters, 1)[0], 0) ];
+                    return ["pairs" => $clusters[array_rand($clusters, 1)[0]], 
+                            "comparedWith" => $flattenedClusters[array_rand($flattenedClusters, 0) ]];
             }, range(0, $count));
 
         }
     }
     
+    public static function getANPSuperMatrixLabels($dm, $clusters, $aL){
+        $flattenedClusters = [];
+        foreach ([[$dm], $clusters, $aL] as $value) {
+            Utils::objectArrayWalkRecursive(function($e) use (&$flattenedClusters){
+                if(!isset($e->children) || count($e->children) == 0)
+                    $flattenedClusters[] = $e->name;
+            },$value, "children");
+        }
+        return $flattenedClusters;
+    }
+
     public static function getRoadMapsToAlternative($altIndex, $dm){
         $roadMaps = [];
         self::objectArrayWalkRecursive(function(&$e, $indexArr) use (&$roadMaps, $altIndex){

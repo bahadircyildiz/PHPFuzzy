@@ -14,7 +14,7 @@ class WolframAlphaHelper{
         try {
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, self::$home.$endpoint.self::convertParams($params)); 
-            var_export(self::convertParams($params));
+            var_export($params);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             $response = curl_exec($ch);
             if($response == false){

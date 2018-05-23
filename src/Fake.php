@@ -81,9 +81,9 @@ class Fake{
         },$range);
     }
 
-    public static function PairwiseComparisonMatrix(DecisionMaker $dm, AlternativeList $aL, $type){
+    public static function PairwiseComparisonMatrix(DecisionMaker $dm, AlternativeList $aL, $type, $clusters){
         // $AHPSess = FuzzyMCDM::AHP($dm, $alts);
-        $combinations = Utils::listPCMCombinations($dm, $aL, $type);
+        $combinations = Utils::listPCMCombinations($dm, $aL, $type, $clusters);
         $sL = new ScaleList(Fake::Scale(3));
         return array_map(function($c) use ($sL, $dm){
             $fuzzyMatrix = Fake::FuzzyMatrix(count($c["pairs"]), count($c["pairs"]), 1, $sL);
