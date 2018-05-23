@@ -1,6 +1,7 @@
 <?php
 
 namespace PHPFuzzy;
+use PHPFuzzy\Models\Alternative;
 
 class Utils{
 
@@ -56,23 +57,93 @@ class Utils{
     public static function validateArrayAsCollection(array $arr, $class){
         foreach ($arr as $a_) {
             if(!($a_ instanceof $class))
-                die("Error: in validating member of {$class}");
+                throw new \Exception("Error: in validating member of {$class}");
         }
         return true;
     }
 
-    public static function getObjectID(&$obj) {
-        if(!is_object($obj))
-            return false;
-        ob_start();
-        preg_match('~^.+?#(\d+)~s', ob_get_clean(), $oid);
-        return $oid[1]; 
+    public static function iteratorToArray(&$iterator){
+        $r = [];
+        foreach ($iterator as &$i) {
+            $r[] = $i;
+        }
+        return $r;
     }
 
-    public static function vectorize(array $arr){
+    public static function collectClusters($dm, $aL){
+        $totalClusters = [];
+        $collectClustersRecursive = function($cluster) use(&$totalClusters, &$collectClustersRecursive){
+            $totalClusters[] = $cluster;
+            foreach ($cluster as $c_i => $c) {
+                if(count($c->children) > 0) $collectClustersRecursive($c->children);
+            }
+        };
+        $collectClustersRecursive([$dm]);
+        $totalClusters[] = $aL;
+        return $totalClusters;
+    }
+
+    public static function listPCMCombinations($dm, $aL, $type, $clusters, $count = 1){
+        $pcml = [];
+        if($type = "H"){
+            self::objectArrayWalkRecursive(function(&$e, $indexArr) use (&$pcml, $aL){
+                if(!($e instanceof Alternative)){
+                    if(count($e->children) != 0){
+                        $children = self::objectCollectAttrRecursive($e->children, "name");
+                        $pcml[] = ["pairs" => $children, "comparedWith" => $e->name];
+                    } else{
+                        $aL = self::objectCollectAttrRecursive($aL, "name");
+                        $pcml[] = ["pairs" => $aL, "comparedWith" => $e->name];
+                    }
+                }  
+            }, [$dm], "children");
+            return $pcml;
+        } else if ($type = "N"){
+            $clusters = array_merge($dm, $aL, $clusters);
+            $flattenedClusters = Utils::getANPSuperMatrixLabels($dm, $clusters, $aL);
+            return array_map(function($e){
+                    return ["pairs" => $clusters[array_rand($clusters, 1)[0]], 
+                            "comparedWith" => $flattenedClusters[array_rand($flattenedClusters, 0) ]];
+            }, range(0, $count));
+
+        }
+    }
+    
+    public static function getANPSuperMatrixLabels($dm, $clusters, $aL){
+        $flattenedClusters = [];
+        foreach ([[$dm], $clusters, $aL] as $value) {
+            Utils::objectArrayWalkRecursive(function($e) use (&$flattenedClusters){
+                if(!isset($e->children) || count($e->children) == 0)
+                    $flattenedClusters[] = $e->name;
+            },$value, "children");
+        }
+        return $flattenedClusters;
+    }
+
+    public static function getRoadMapsToAlternative($altIndex, $dm){
+        $roadMaps = [];
+        self::objectArrayWalkRecursive(function(&$e, $indexArr) use (&$roadMaps, $altIndex){
+            if($e instanceof Alternative) if($indexArr[count($indexArr)-1] == $altIndex){
+                $roadMaps[] = $indexArr;
+            }
+        }, $dm->children, "children");
+        return $roadMaps;
+    }
+
+    public static function objectArrayWalkRecursive($callback, $objList, $recursiveAttr = null, $indexArr = []){
+        foreach($objList as $o_i => &$o){
+            $index = array_merge($indexArr, [$o_i]);
+            $callback($o, $index);
+            if($recursiveAttr != null) if(isset($o->{$recursiveAttr})){
+                self::objectArrayWalkRecursive($callback, $o->{$recursiveAttr}, $recursiveAttr, $index);
+            }
+        }
+    }
+
+    public static function normalize(array $arr){
         $total = array_sum($arr);
         return array_map(function($e) use ($total){ 
-            return $e / $total;
+            return $total == 0 ? 0 : round($e / $total, 4);
         }, $arr);
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
 namespace PHPFuzzy;
-use PHPFuzzy\MCDM\{FuzzyAHP};
+use PHPFuzzy\MCDM\{FuzzyAHP, FuzzyMAUT, FuzzyANP};
 use PHPFuzzy\Models\{ DecisionMaker,  AlternativeList, PairwiseComparisonMatrixList as PCML };
 use MathPHP\Exception\{ BadDataException };
 
@@ -25,13 +25,21 @@ class FuzzyMCDM{
     *
     * @return
     */
-    public function AHP(DecisionMaker $dm, AlternativeList $alternatives, PCML $pcml = null){
+    public static function AHP(DecisionMaker $dm, AlternativeList $alternatives, PCML $pcml = null){
         return new FuzzyAHP($dm, $alternatives, $pcml);
     }
+    
+    public static function ANP(DecisionMaker $dm, $clusters, AlternativeList $alternatives, PCML $pcml = null){
+        return new FuzzyANP($dm, $clusters, $alternatives, $pcml);
+    }
 
-    private function checkParameterConsistency(DecisionMaker $dm, AlternativeList $alternatives){
+    public static function MAUT(DecisionMaker $dm, AlternativeList $alternatives, PCML $pcml = null){
+        return new FuzzyMAUT($dm, $alternatives, $pcml);
+    }
+
+    private static function checkParameterConsistency(DecisionMaker $dm, AlternativeList $alternatives){
         $nameArray = array_merge( [ $dm->name ],
-            Utils::objectCollectAttrRecursive($dm->criteria, "name", "subcriteria")
+            Utils::objectCollectAttrRecursive($dm->criteria, "name", "children")
             );
         $nameArray = array_merge($nameArray,
             Utils::objectCollectAttrRecursive($alternatives, "name")

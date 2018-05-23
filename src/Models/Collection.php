@@ -23,7 +23,8 @@ class Collection implements \Countable, \IteratorAggregate{
     }
 
     function getRandom(){
-        return $this->get(count($this->items) - 1);
+        $index = array_rand($this->items, 1);
+        return $this->items[$index];
     }
 }
 ?>

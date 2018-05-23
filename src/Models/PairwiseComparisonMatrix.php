@@ -2,50 +2,50 @@
 
 namespace PHPFuzzy\Models;
 use PHPFuzzy\{ FuzzyOperations as §§, Utils };
+use MathPHP\Exception\MatrixException;
 
 class PairwiseComparisonMatrix extends FuzzyMatrix {
 
-    protected $labelOptions;
-    protected $criterion;
-    protected $weight;
+    protected $pairs;
+    protected $comparedWith;
+    protected $dm;
+    protected $weights;
 
 
-    function __construct(array $labelOptions, $matrix, EvaluationTagList $etl = null){
-        if(is_array($matrix))   parent::__construct($matrix, $etl);
+    function __construct($pairs, $comparedWith, $matrix, ScaleList $sL = null){
+        if(is_array($matrix)){
+            parent::__construct($matrix, $sL);
+        }
         else if ($matrix instanceof FuzzyMatrix){
             parent::__construct($matrix->raw, $matrix->getTags());
         }
-        $this->validateLabels($labelOptions);
-        $this->labelOptions = $labelOptions; 
+        foreach ($this->A as $i => $row) {
+            foreach ($row as $j => $cell){
+                if($i == $j) $this->A[$i][$j] = new FuzzyNumber([1,1,1]);
+            }
+        }
+        $this->pairs = $pairs;
+        $this->comparedWith = $comparedWith;
         return $this;
     }
 
-    private function validateLabels(array $labelOptions){
-        $this->validateLabelOptionMembers($labelOptions);
-        $this->checkLabelCount($labelOptions["m"], $labelOptions["n"]);
-    }
-    
-    private function checkLabelCount(array $mLabels, array $nLabels){
-        list($checkM, $checkN) = [ $this->getM() == count($mLabels), $this->getN() == count($nLabels)];
-        $checkM or die("Error in label dimensions m, expected ".$this->getM().", returned ".count($mLabels).".");   
-        $checkN or die("Error in label dimensions n, expected ".$this->getN().", returned ".count($nLabels).".");
+    private function checkDimensionConsistency($pairs){
+        if(count($pairs) != $this->getM())
+            throw new MatrixException("Pair count does not match with matrix x 
+                                            dimensions=".count($pairs)." , expected ".$this->getM().".");
     }
 
-    private function validateLabelOptionMembers($labelOptions){
-        $labelOptions["m"] or die("Parameter m in Label options are missing.");
-        $labelOptions["n"] or die("Parameter n in Label options are missing.");
+    public function setWeight($weight){
+        $this->weights = $weight;
     }
 
-    public function getLabels(){
-        return $labelOptions;
+    public function getPairs(){
+        return $this->pairs;
     }
 
-
-
-
-
-
-
+    public function getComparedWith(){
+        return $this->comparedWith;
+    }
 
 }
 ?>

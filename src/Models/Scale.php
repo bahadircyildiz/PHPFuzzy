@@ -2,7 +2,7 @@
 
 namespace PHPFuzzy\Models;
 
-class EvaluationTag {
+class Scale {
 
     public $tag;
     public $value;

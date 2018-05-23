@@ -5,8 +5,8 @@ use PHPFuzzy\Models\{FuzzyNumber as §, DecisionMaker, Criterion, CriterionList,
 use PHPFuzzy\{ FuzzyMCDM, Utils, Fake };
 use PHPUnit\Framework\TestCase;
 
-class FuzzyAHPTest extends TestCase{
-    public function testDefineDecisionMaker(){
+class FuzzyMAUTTest extends TestCase{
+    public function testGetCriteriaRoadmaps(){
         $subH = new CriterionList([
             new Criterion("HM"),
             new Criterion("HSP"),
@@ -32,15 +32,12 @@ class FuzzyAHPTest extends TestCase{
         $alts = new AlternativeList([
             new Alternative("D"),
             new Alternative("M"),
-            new Alternative("A")
+            new Alternative("A")        
         ]);
-        $dm = new DecisionMaker("G");
-        $clusters = $criteria;
-        $pcml = new PCML(Fake::PairwiseComparisonMatrix($dm, $alts, "N", $clusters));
-        $ANPSess = FuzzyMCDM::ANP($dm, $clusters, $alts, $pcml);
-        $ANPSess->start();
-        // var_export($ANPSess->schemeNetworkComparisons());
-        // $this->assertEquals(true, true);
+        $dm = new DecisionMaker("G", $criteria);
+        // $pcml = new PCML(Fake::PairwiseComparisonMatrix($dm, $alts));
+        // $MAUTSess = FuzzyMCDM::MAUT($dm, $alts, $pcml);
+        // $MAUTSess->start();
         
         
     }

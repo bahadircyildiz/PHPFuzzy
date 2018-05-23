@@ -1,36 +1,50 @@
 <?php
 
-    /**Example Criteria Scheme
-     * $DecisionMaker = [ 
-     *  new Criterion("Cost", 0.25, [
-     *      new Criterion("Taxes", 0.30),
-     *      new Criterion("Expenses", 0.70)
-     *  ]),
-     *  new Criterion("Durability", 0.75)
-     * ]
-     */
 namespace PHPFuzzy\Models;
 use PHPFuzzy\{ Utils };
 
-class Criterion {
+class Criterion extends Node{
 
-    public $name;
-    public $weight;
-    public $subcriteria;
+    public $children;
 
-    function __construct(string $name, CriterionList $subcriteria = null, float $weight = null){
-        $this->name = $name;
-        $this->weight = $weight;
-        $this->subcriteria = $subcriteria ?? new CriterionList();
+    function __construct(string $name, $children = null, float $weight = null){
+        parent::__construct($name, $weight = null);
+        $this->children = $children;
         return $this;
     }
 
-    function __toString(){
-        return "Criterion ".$this->name." #";
+    public function setChildren($children){
+        $this->children = $children;
     }
 
-    public function addSubcriterion(Criterion $sc){
-        $this->subcriteria->add($sc);
+    function getNodeByName(string $name){
+        if($this->name == $name) return $this;
+        else {
+            $return = null;
+            if(isset($this->children)) foreach ($this->children as $child) {
+                // $return[] = $child->getNodeByName($name);
+                $result = $child->getNodeByName($name);
+                if($result != null ){
+                    $return = $result;
+                    break;
+                }
+            }
+            return $return;
+        }
+        return null;
+    }
+
+    function getNodeByRoadMap($arr){
+        if(count($arr) == 1){
+            return $this;
+        } else {
+            array_shift($arr);
+            $ret = $this;
+            foreach ($arr as $index) {
+                $ret = $ret->children->get($index);
+            }
+            return $ret;
+        }
     }
 }
 

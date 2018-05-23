@@ -8,20 +8,21 @@
 *
 *  @author yourname
 */
-use PHPFuzzy\Models\{FuzzyNumber as §, PairwiseComparisonMatrix, FuzzyMatrix, EvaluationTagList, EvaluationTag};
-use PHPFuzzy\{ FuzzyMCDM, Utils };
+use PHPFuzzy\Models\{FuzzyNumber as §, PairwiseComparisonMatrix, FuzzyMatrix, ScaleList, Scale,
+                     AlternativeList, Alternative};
+use PHPFuzzy\{ FuzzyMCDM, Utils , Fake};
 use PHPUnit\Framework\TestCase;
 
 class FuzzyMatrixTest extends TestCase{
-    public function testDefineFuzzyMatrixWithEvaluationTag(){
-        $etl = new EvaluationTagList([
-            new EvaluationTag("V", new §( [1,2,3] ) ),
-            new EvaluationTag("B", new §( [12,43,3] ) ),
-            new EvaluationTag("G", new §( [3,5,6] ) )
+    public function testDefineFuzzyMatrixWithScale(){
+        $sL = new ScaleList([
+            new Scale("V", new §( [1,2,3] ) ),
+            new Scale("B", new §( [12,43,3] ) ),
+            new Scale("G", new §( [3,5,6] ) )
         ]);
         $a = new FuzzyMatrix( [ [ [1,2,4]   , [3,4,5]   , [3,4,5] ] ,  
                                 [ [1,2,4]   , "G"       , [3,4,5] ] ,
-                                [ "B"       , [3,4,5]   , "V"     ] ] , $etl);
+                                [ "B"       , [3,4,5]   , "V"     ] ] , $sL);
         $expected = new FuzzyMatrix( [  [ [1,2,4]   , [3,4,5]   , [3,4,5]   ] ,  
                                         [ [1,2,4]   , [3,5,6]   , [3,4,5]   ] ,
                                         [ [12,43,3] , [3,4,5]   , [1,2,3]   ] ]);
@@ -29,27 +30,20 @@ class FuzzyMatrixTest extends TestCase{
     }
 
     public function testCreatePairwiseComparisonMatrix(){
-        $rowLabels = ["Hihi", "Haha", "Hohoho"];
-        $columnLabels = ["Hoho", "Haha", "Hihihi"];
-        $etl = new EvaluationTagList([
-            new EvaluationTag("V", new §( [1,2,3] ) ),
-            new EvaluationTag("B", new §( [12,43,3] ) ),
-            new EvaluationTag("G", new §( [3,5,6] ) )
+        $pairs = new AlternativeList(Fake::Alternative(3));
+        $comparedWith = Fake::Criterion()[0];
+        $sL = new ScaleList([
+            new Scale("V", new §( [1,2,3] ) ),
+            new Scale("B", new §( [12,43,3] ) ),
+            new Scale("G", new §( [3,5,6] ) )
         ]);
-        $labelOptions = ["m" => $rowLabels, "n" => $columnLabels];
-        $a = new PairwiseComparisonMatrix( $labelOptions, [ [ [1,2,4]   , [3,4,5] , [3,4,5] ] ,  
-                                                            [ [1,2,4]   , "G"     , [3,4,5] ] ,
-                                                            [ "B"       , [3,4,5] , "V"     ]   ] , $etl);
-        $expected = new FuzzyMatrix( [  [ [1,2,4]   , [3,4,5]   , [3,4,5]   ] ,  
-                                        [ [1,2,4]   , [3,5,6]   , [3,4,5]   ] ,
-                                        [ [12,43,3] , [3,4,5]   , [1,2,3]   ] ]);
+        $a = new PairwiseComparisonMatrix([],"Voss",    [ [ [1,2,4]   , [3,4,5] , [3,4,5] ] ,  
+                                                        [   [1,2,4]   , "G"     , [3,4,5] ] ,
+                                                        [   "B"       , [3,4,5] , "V"     ]   ] , $sL);
+        $expected = new FuzzyMatrix( [  [ [1,1,1]   , [3,4,5]   , [3,4,5]   ] ,  
+                                        [ [1,2,4]   , [1,1,1]   , [3,4,5]   ] ,
+                                        [ [12,43,3] , [3,4,5]   , [1,1,1]   ] ]);
         $this->assertEquals($expected->getMatrix(), $a->getMatrix()); 
-    }
-
-    public function testStringifyFuzzyMatrix(){
-        $expected = new FuzzyMatrix(    [   [ [1,2,4]   , [3,4,5]   , [3,4,5]   ] ,  
-                                        [   [1,2,4]     , [3,5,6]   , [3,4,5]   ] ,
-                                        [   [12,43,3]   , [3,4,5]   , [1,2,3]   ] ]);
     }
 
     
