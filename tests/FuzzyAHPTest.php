@@ -26,18 +26,20 @@ class FuzzyAHPTest extends TestCase{
         ]);
         $criteria = new CriterionList([
             new Criterion("H", $subH),
-            new Criterion("QM", $subQM),
-            new Criterion("QS", $subQS)
+            new Criterion("QM"),
+            new Criterion("QS")
         ]);
         $alts = new AlternativeList([
             new Alternative("D"),
             new Alternative("M"),
-            new Alternative("A")        
+            new Alternative("A")
         ]);
         $dm = new DecisionMaker("G", $criteria);
-        $ANPSess = FuzzyMCDM::ANP($dm, $alts);
-        var_export($ANPSess->schemeNetworkComparisons());
-        $this->assertEquals(true, true);
+        $pcml = new PCML(Fake::PairwiseComparisonMatrix($dm, $alts, "N"));
+        $ANPSess = FuzzyMCDM::ANP($dm, $alts, $pcml);
+        $ANPSess->start();
+        // var_export($ANPSess->schemeNetworkComparisons());
+        // $this->assertEquals(true, true);
         
         
     }

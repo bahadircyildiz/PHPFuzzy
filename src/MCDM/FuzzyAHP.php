@@ -76,23 +76,23 @@ class FuzzyAHP{
         }, $this->dm->children, "children");
     }
 
-    private function validateInputs(){
-        $remaining = $this->getRemainingCombinations();
-        if(count($remaining) > 0){
-            $arrStr = implode(",", array_map(function($e){ return serialize($e);}));
-            throw new BadDataException("Remaining Pairwise Comparison Matrix combinations: {$arrStr}");
-        }
-    }
+    // private function validateInputs(){
+    //     $remaining = $this->getRemainingCombinations();
+    //     if(count($remaining) > 0){
+    //         $arrStr = implode(",", array_map(function($e){ return serialize($e);}));
+    //         throw new BadDataException("Remaining Pairwise Comparison Matrix combinations: {$arrStr}");
+    //     }
+    // }
 
     public function getPCML(){
         return $this->pcml;
     }
 
-    public function getRemainingCombinations(){
-        $existing = $this->pcml->getAllCombinationsInList();
-        $required = Utils::listPCMCombinations($this->dm, $this->aL);
-        return array_diff($required, $existing);
-    }
+    // public function getRemainingCombinations(){
+    //     $existing = $this->pcml->getAllCombinationsInList();
+    //     $required = Utils::listPCMCombinations($this->dm, $this->aL);
+    //     return array_diff($required, $existing);
+    // }
 
     public static function RS(int $rowIndex, PCM $pcm){
         $A = $pcm->getMatrix();
@@ -118,9 +118,9 @@ class FuzzyAHP{
         if($s1->m() >= $s2->m())
             return 1;
         else if($s2->l() <= $s1->u())
-            return  ($s1->u() - $s2->l()) 
-                    / 
-                    ( ($s1->u() - $s1->m() ) + ($s2->m() - $s2->l() ) );  
+            return  ($s1->u() - $s2->l())
+                    /
+                    ( ($s1->u() - $s1->m() ) + ($s2array_fill->m() - $s2->l() ) );  
         else return 0;
     }
 

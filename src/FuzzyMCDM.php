@@ -29,8 +29,8 @@ class FuzzyMCDM{
         return new FuzzyAHP($dm, $alternatives, $pcml);
     }
     
-    public static function ANP(DecisionMaker $dm, AlternativeList $alternatives){
-        return new FuzzyANP($dm, $alternatives);
+    public static function ANP(DecisionMaker $dm, AlternativeList $alternatives, PCML $pcml = null){
+        return new FuzzyANP($dm, $alternatives, $pcml);
     }
 
     public static function MAUT(DecisionMaker $dm, AlternativeList $alternatives, PCML $pcml = null){

@@ -4,6 +4,7 @@ namespace PHPFuzzy;
 use PHPFuzzy\Models\{FuzzyNumber, FuzzyMatrix, PairwiseComparisonMatrix as PCM, Scale, ScaleList,
                     Alternative, AlternativeList, Criterion, CriterionList, DecisionMaker};
 use Fakerino\Fakerino;
+use MathPHP\LinearAlgebra\{ MatrixFactory };
 
 class Fake{
 
@@ -16,32 +17,30 @@ class Fake{
         }, $range);
     }
 
-    public static function FuzzyMatrix($row, $column, $count = 1, $etCount = 0){
+    public static function FuzzyMatrix($row, $column, $count = 1, $sLCount = 0){
         $range = range(1, $count);
-        return array_map(function($e) use($etCount, $row, $column){
-            if(is_int($etCount))
-                $sL = $etCount != 0 ? new ScaleList(self::Scale($etCount)) : null;
-            else if($etCount instanceof ScaleList)
-                $sL = $etCount;
+        return array_map(function($e) use($sLCount, $row, $column){
+            if(is_int($sLCount))
+                $sL = $sLCount != 0 ? new ScaleList(self::Scale($sLCount)) : null;
+            else if($sLCount instanceof ScaleList)
+                $sL = $sLCount;
             $matrix = self::Matrix($row, $column, $sL)[0];
             return new FuzzyMatrix($matrix, $sL);
         }, $range);
     }
 
     public static function Matrix($row, $column, $sL = null, $count = 1){
-        $range = range(1, $count);
-        $rowRange = range(1, $row);
-        $columnRange = range(1, $column);
-        return array_map(function($e) use ($sL, $rowRange, $columnRange){
-            return array_map(function($e)use ($sL, $rowRange){
-                return array_map(function($e)use ($sL){
-                    if($sL) if(rand(0,10) >= 6){
-                        return $sL->getRandom()->tag;
-                    }
-                    return self::FuzzyNumber()[0];
-                }, $rowRange);
-            }, $columnRange);
-        }, $range);
+        return array_map(function($e) use ($sL, $row, $column){
+            $matrix = array_fill(0, $row, array_fill(0, $column, 0));
+            array_walk_recursive($matrix, function(&$cell) use ($sL){
+                if($sL) if(rand(0,10) >= 6){
+                    $cell = $sL->getRandom()->tag;
+                }
+                else $cell = self::FuzzyNumber()[0];
+            });
+            return $matrix;
+        }, range(0, $count-1));
+
     }
 
     public static function Scale($count = 1){
@@ -82,16 +81,14 @@ class Fake{
         },$range);
     }
 
-    public static function PairwiseComparisonMatrix(DecisionMaker $dm, AlternativeList $alts){
-        $AHPSess = FuzzyMCDM::AHP($dm, $alts);
-        $roadMaps = Utils::listPCMCombinations($AHPSess->dm);
+    public static function PairwiseComparisonMatrix(DecisionMaker $dm, AlternativeList $aL, $type){
+        // $AHPSess = FuzzyMCDM::AHP($dm, $alts);
+        $combinations = Utils::listPCMCombinations($dm, $aL, $type);
         $sL = new ScaleList(Fake::Scale(3));
-        return array_map(function($rM)use ($sL, $dm){
-            $node = $dm->getNodeByRoadMap($rM);
-            $fuzzyMatrix = Fake::FuzzyMatrix(   count($node->children), 
-                                                count($node->children), 1, $sL);
-            return new PCM( $rM, $fuzzyMatrix[0]);
-        },$roadMaps);
+        return array_map(function($c) use ($sL, $dm){
+            $fuzzyMatrix = Fake::FuzzyMatrix(count($c["pairs"]), count($c["pairs"]), 1, $sL);
+            return new PCM( $c["pairs"], $c["comparedWith"], $fuzzyMatrix[0]);
+        },$combinations);
     }
 }
 

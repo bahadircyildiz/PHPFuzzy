@@ -70,14 +70,52 @@ class Utils{
         return $r;
     }
 
-    public static function listPCMCombinations(&$dm){
-        $pcml = [];
-        self::objectArrayWalkRecursive(function(&$e, $indexArr) use (&$pcml){
-            if(!($e instanceof Alternative)) if(count($e->children) != 0){
-                $pcml[] = $indexArr;
+    public static function collectClusters($dm, $aL){
+        $totalClusters = [];
+        $collectClustersRecursive = function($cluster) use(&$totalClusters, &$collectClustersRecursive){
+            $totalClusters[] = $cluster;
+            foreach ($cluster as $c_i => $c) {
+                if(count($c->children) > 0) $collectClustersRecursive($c->children);
             }
-        }, [$dm], "children");
-        return $pcml;
+        };
+        $collectClustersRecursive([$dm]);
+        $totalClusters[] = $aL;
+        return $totalClusters;
+    }
+
+    public static function listPCMCombinations($dm, $aL, $type, $count = 1){
+        $pcml = [];
+        if($type = "H"){
+            self::objectArrayWalkRecursive(function(&$e, $indexArr) use (&$pcml, $aL){
+                if(!($e instanceof Alternative)){
+                    if(count($e->children) != 0){
+                        $children = self::objectCollectAttrRecursive($e->children, "name");
+                        $pcml[] = ["pairs" => $children, "comparedWith" => $e->name];
+                    } else{
+                        $aL = self::objectCollectAttrRecursive($aL, "name");
+                        $pcml[] = ["pairs" => $aL, "comparedWith" => $e->name];
+                    }
+                }  
+            }, [$dm], "children");
+            return $pcml;
+        } else if ($type = "N"){
+            $clusters = self::collectClusters($dm, $aL);
+            $flattenedClusters = [];
+            $arrWalkRec = function($e) use($flattenedClusters, &$arrWalkRec){
+                if(is_iterable($e)){
+                    foreach ($e as $value) {
+                        $arrWalkRec($e);
+                    }
+                } else {
+                    $flattenedClusters[] = $e->name;
+                }
+            };
+            return array_map(function($e){
+                    return ["pairs" => array_rand($clusters, 1)[0], 
+                            "comparedWith" => array_rand(array_rand($clusters, 1)[0], 0) ];
+            }, range(0, $count));
+
+        }
     }
     
     public static function getRoadMapsToAlternative($altIndex, $dm){
@@ -90,11 +128,11 @@ class Utils{
         return $roadMaps;
     }
 
-    public static function objectArrayWalkRecursive($callback, $objList, $recursiveAttr, $indexArr = []){
+    public static function objectArrayWalkRecursive($callback, $objList, $recursiveAttr = null, $indexArr = []){
         foreach($objList as $o_i => &$o){
             $index = array_merge($indexArr, [$o_i]);
             $callback($o, $index);
-            if(isset($o->{$recursiveAttr})){
+            if($recursiveAttr != null) if(isset($o->{$recursiveAttr})){
                 self::objectArrayWalkRecursive($callback, $o->{$recursiveAttr}, $recursiveAttr, $index);
             }
         }
@@ -103,7 +141,7 @@ class Utils{
     public static function normalize(array $arr){
         $total = array_sum($arr);
         return array_map(function($e) use ($total){ 
-            return $e / $total;
+            return $total == 0 ? 0 : round($e / $total, 4);
         }, $arr);
     }
 }

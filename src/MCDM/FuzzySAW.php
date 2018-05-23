@@ -24,13 +24,13 @@ class FuzzyAHP{
 
     }
 
-    private function validateInputs(){
-        $remaining = $this->getRemainingCombinations();
-        if(count($remaining) > 0){
-            $arrStr = implode(",", array_map(function($e){ return serialize($e);}));
-            throw new BadDataException("Remaining Pairwise Comparison Matrix combinations: {$arrStr}");
-        }
-    }
+    // private function validateInputs(){
+    //     $remaining = $this->getRemainingCombinations();
+    //     if(count($remaining) > 0){
+    //         $arrStr = implode(",", array_map(function($e){ return serialize($e);}));
+    //         throw new BadDataException("Remaining Pairwise Comparison Matrix combinations: {$arrStr}");
+    //     }
+    // }
 
     public function getPCML(){
         return $this->pcml;
