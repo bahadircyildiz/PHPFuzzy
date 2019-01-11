@@ -5,3 +5,4 @@ composer.lock
 .idea
 testresults.html
 testresults.txt
+.env

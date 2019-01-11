@@ -1,39 +1,45 @@
 {
-    "name": "bahadircyildiz/phpfuzzy",
-    "description": "Fuzzy Logic library.",
-    "keywords": ["fuzzy", "logic", "library"],
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Bahadir Can Yildiz",
-            "email": "mail@bahadircyildiz.com"
-        }
-    ],
-    "type": "project",
-    "require": {
-        "php": ">=7.0",
-        "markrogoyski/math-php": "^0.39.0",
-        "Fakerino/Fakerino": "^0.8.3",
-        "myclabs/deep-copy": "^1.7"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "*",
-        "kint-php/kint": "*"
-    },
-    "suggest":{
-        "ext-operator": "Enables FuzzyNumber class to use arithmetic operators."
-    },
-	"autoload": {
-        "psr-4": {
-            "PHPFuzzy\\": "src/"
-        }
-    },
-    "autoload-dev":{
-        "psr-4": {
-            "PHPFuzzy\\Tests\\": "tests/"
-        }
-    },
-    "conflict": {
-        "phpunit/php-timer": ">=2"
+  "name": "bahadircyildiz/phpfuzzy",
+  "description": "Fuzzy Logic library.",
+  "keywords": [
+    "fuzzy",
+    "logic",
+    "library"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Bahadir Can Yildiz",
+      "email": "mail@bahadircyildiz.com"
     }
+  ],
+  "type": "project",
+  "require": {
+    "php": ">=7.0",
+    "markrogoyski/math-php": "^0.39.0",
+    "Fakerino/Fakerino": "^0.8.3",
+    "myclabs/deep-copy": "^1.7",
+    "ext-curl": "*",
+    "vlucas/phpdotenv": "^3.1"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "*",
+    "kint-php/kint": "*"
+  },
+  "suggest": {
+    "ext-operator": "Enables FuzzyNumber class to use arithmetic operators."
+  },
+  "autoload": {
+    "psr-4": {
+      "PHPFuzzy\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "PHPFuzzy\\Tests\\": "tests/"
+    }
+  },
+  "conflict": {
+    "phpunit/php-timer": ">=2"
+  }
 }
