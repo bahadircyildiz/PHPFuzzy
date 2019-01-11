@@ -2,5 +2,6 @@ vendor/
 composer.lock
 .DS_Store
 .vscode/
+.idea
 testresults.html
 testresults.txt
