@@ -15,9 +15,17 @@ use PHPFuzzy\Models\{FuzzyNumber,
 use Fakerino\Fakerino;
 use MathPHP\LinearAlgebra\{MatrixFactory};
 
+/**
+ * Class Fake
+ * @package PHPFuzzy
+ */
 class Fake
 {
 
+    /**
+     * @param int $count
+     * @return array
+     */
     public static function FuzzyNumber(int $count = 1)
     {
         $range = range(1, $count);
@@ -30,6 +38,13 @@ class Fake
         }, $range);
     }
 
+    /**
+     * @param $row
+     * @param $column
+     * @param int $count
+     * @param int $sLCount
+     * @return array
+     */
     public static function FuzzyMatrix($row, $column, $count = 1, $sLCount = 0)
     {
         $range = range(1, $count);
@@ -46,6 +61,13 @@ class Fake
         }, $range);
     }
 
+    /**
+     * @param $row
+     * @param $column
+     * @param null $sL
+     * @param int $count
+     * @return array
+     */
     public static function Matrix($row, $column, $sL = null, $count = 1)
     {
         return array_map(function ($e) use ($sL, $row, $column) {
@@ -64,6 +86,10 @@ class Fake
 
     }
 
+    /**
+     * @param int $count
+     * @return array
+     */
     public static function Scale($count = 1)
     {
         $fakerino = Fakerino::create();
@@ -75,6 +101,10 @@ class Fake
 
     }
 
+    /**
+     * @param int $count
+     * @return array
+     */
     public static function Alternative($count = 1)
     {
         $fakerino = Fakerino::create();
@@ -84,6 +114,11 @@ class Fake
         }, $range);
     }
 
+    /**
+     * @param int $count
+     * @param null $scCount
+     * @return array
+     */
     public static function Criterion($count = 1, $scCount = null)
     {
         $fakerino = Fakerino::create();
@@ -95,6 +130,12 @@ class Fake
 
     }
 
+    /**
+     * @param int $count
+     * @param int $cCount
+     * @param int $scCount
+     * @return array
+     */
     public static function DecisionMaker($count = 1, $cCount = 2, $scCount = 0)
     {
         $fakerino = Fakerino::create();
@@ -106,6 +147,13 @@ class Fake
         }, $range);
     }
 
+    /**
+     * @param DecisionMaker $dm
+     * @param AlternativeList $aL
+     * @param $type
+     * @param $clusters
+     * @return array
+     */
     public static function PairwiseComparisonMatrix(DecisionMaker $dm, AlternativeList $aL, $type, $clusters)
     {
         // $AHPSess = FuzzyMCDM::AHP($dm, $alts);

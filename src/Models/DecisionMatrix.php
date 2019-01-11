@@ -4,12 +4,24 @@ namespace PHPFuzzy\Models;
 use PHPFuzzy\{ FuzzyOperations as §§, Utils };
 use MathPHP\Exception\MatrixException;
 
+/**
+ * Class DecisionMatrix
+ * @package PHPFuzzy\Models
+ */
 class DecisionMatrix extends FuzzyMatrix {
 
     protected $cL;
     protected $aL;
 
 
+    /**
+     * DecisionMatrix constructor.
+     * @param AlternativeList $aL
+     * @param CriterionList $cL
+     * @param mixed $matrix
+     * @param ScaleList|null $sL
+     * @throws MatrixException
+     */
     function __construct(AlternativeList $aL, CriterionList $cL, mixed $matrix, ScaleList $sL = null){
         if(is_array($matrix))   parent::__construct($matrix, $sL);
         else if ($matrix instanceof FuzzyMatrix){
@@ -21,6 +33,11 @@ class DecisionMatrix extends FuzzyMatrix {
         return $this;
     }
 
+    /**
+     * @param $aL
+     * @param $cL
+     * @throws MatrixException
+     */
     private function checkDimensionConsistency($aL, $cL){
         $A = $this->A;
         if(count($aL) != $A->getM())

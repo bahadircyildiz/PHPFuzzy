@@ -1,33 +1,59 @@
 <?php
 
 namespace PHPFuzzy\Models;
+
 use PHPFuzzy\Utils;
 
-class PairwiseComparisonMatrixList extends Collection{
+/**
+ * Class PairwiseComparisonMatrixList
+ * @package PHPFuzzy\Models
+ */
+class PairwiseComparisonMatrixList extends Collection
+{
 
-    function __construct(array $items = []){
+    /**
+     * PairwiseComparisonMatrixList constructor.
+     * @param array $items
+     * @throws \Exception
+     */
+    function __construct(array $items = [])
+    {
         Utils::validateArrayAsCollection($items, PairwiseComparisonMatrix::class);
         $this->items = $items;
         return $this;
     }
 
-    public function add(PairwiseComparisonMatrix $pcm){
+    /**
+     * @param PairwiseComparisonMatrix $pcm
+     */
+    public function add(PairwiseComparisonMatrix $pcm)
+    {
         $this->items[] = $pcm;
     }
 
-    public function getAllRoadMaps(){
-        return array_map(function($e){
+    /**
+     * @return array
+     */
+    public function getAllRoadMaps()
+    {
+        return array_map(function ($e) {
             return $e->getRoadMap();
-        },$this->items);
+        }, $this->items);
     }
 
-    public function findPCMByComparedWith($comparedWith){
+    /**
+     * @param $comparedWith
+     * @return array
+     */
+    public function findPCMByComparedWith($comparedWith)
+    {
         $toArr = Utils::iteratorToArray($this);
-        $result = array_filter(function($e){
+        $result = array_filter($toArr, function ($e) use ($comparedWith) {
             return $e->getComparisonInfo["comparedWith"] == $comparedWith;
-        }, $toArr)[0];
+        })[0];
         return $result;
     }
 
 }
+
 ?>

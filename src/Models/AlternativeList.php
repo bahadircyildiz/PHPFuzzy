@@ -4,19 +4,36 @@ namespace PHPFuzzy\Models;
 use PHPFuzzy\Utils;
 use MathPHP\Exception\BadDataException;
 
+/**
+ * Class AlternativeList
+ * @package PHPFuzzy\Models
+ */
 class AlternativeList extends Collection{
 
+    /**
+     * AlternativeList constructor.
+     * @param array $items
+     * @throws BadDataException
+     */
     function __construct(array $items){
         Utils::validateArrayAsCollection($items, Alternative::class);
         $this->validateAlternativeArray($items);
         $this->items = $items;
     }
 
+    /**
+     * @param Alternative $alternative
+     * @throws BadDataException
+     */
     function  add(Alternative $alternative){
         $this->validateAlternativeName($alternative);
         $this->items[] = $alternative;
     }
 
+    /**
+     * @param Alternative $alternative
+     * @throws BadDataException
+     */
     function validateAlternativeName(Alternative $alternative){
         foreach ($this->items as $i_) {
             if($i_->name == $alternative->name)
@@ -25,6 +42,10 @@ class AlternativeList extends Collection{
         $this->items[] = $alternative;   
     }
 
+    /**
+     * @param array $array
+     * @throws BadDataException
+     */
     function validateAlternativeArray(array $array){
         $result = Utils::objectCheckSameAttrRecursive($array, "name");
         if($result)
