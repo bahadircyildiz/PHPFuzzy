@@ -42,5 +42,10 @@
   },
   "conflict": {
     "phpunit/php-timer": ">=2"
+  },
+  "scripts": {
+    "phpunit":[
+      "phpunit"
+    ]
   }
 }
